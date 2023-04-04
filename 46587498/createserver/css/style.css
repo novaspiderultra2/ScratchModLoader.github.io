@@ -1,0 +1,150 @@
+
+@font-face {
+    font-family: Scratch;
+    src: url('https://cdn.assets.scratch.mit.edu/internalapi/asset/78c17b2d3ef16383295e77f3755356a3.ttf/get/');
+}
+
+* {
+    font-family: Scratch;
+    text-shadow: 2px 2px #000000;
+    color: #ffffff;
+    text-align: center;
+}
+
+body {
+    background-image: url('https://cdn.assets.scratch.mit.edu/internalapi/asset/3b98990fc6b4850bbde16659c7729479.svg/get/');
+    background-repeat: repeat-x;
+    background-size: auto 100%;
+    background-position: center bottom;
+    margin: 0px;
+    overflow: hidden;
+}
+
+#Container {
+    width: fit-content;
+    height: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#Background {
+    width: 75%;
+    min-width: fit-content;
+    height: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#Title {
+    height: 15%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#SubTitle {
+    height: 10%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#Scroll {
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+}
+
+#Create {
+    width: auto;
+}
+
+button {
+    height: 26px;
+    width: 176px;
+    font-size: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+input[type='text'], input[type='number'] {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: rgba(0, 0, 0, 0.5);
+}
+
+select {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: rgba(0, 0, 0, 0.5);
+}
+
+.options {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+a {
+    text-shadow: none;
+    color: #1aa0d8;
+}
+
+textarea {
+    resize: both;
+    text-align: start;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: rgba(0, 0, 0, 0.5);
+}
+
+table {
+    width: 100%;
+}
+
+img {
+    image-rendering: pixelated;
+}
+
+list {
+    width: 176px;
+    max-height: 110px;
+    overflow: auto;
+    display: block;
+}
+
+listshell {
+    width: 176px;
+    display: block;
+    margin: auto;
+}
+
+listitem {
+    width: 100%;
+    height: 22px;
+    display: flex;
+}
+
+    listitem input {
+        width: calc(100% - 22px) !important;
+        height: 22px !important;
+    }
+
+    listitem img {
+        cursor: pointer;
+    }
+
+.Toggle {
+    cursor: pointer;
+}
+
+.buttonAnimation {
+    background: none;
+    border: none;
+    text-shadow: none;
+}
+
+#warning {
+    color: #ff0000;
+}

@@ -1,0 +1,8 @@
+@font-face {
+    font-family: Scratch;
+    src: url('https://cdn.assets.scratch.mit.edu/internalapi/asset/78c17b2d3ef16383295e77f3755356a3.ttf/get/');
+}
+
+* {
+    font-family: Scratch;
+}

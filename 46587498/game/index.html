@@ -1,0 +1,73 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: blob:">
+    <title>Scratcharia v0.8</title>
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="https://assets.scratch.mit.edu/fb6d52a94a431b0d3111fa871001e6f1.png">
+    <link rel="stylesheet" href="css/Font.css">
+    <link rel="stylesheet" href="css/Style.css">
+    <script>if (!window.location.pathname.endsWith("/")) window.location.pathname += "/";</script>
+</head>
+<body>
+    <noscript>Enable JavaScript</noscript>
+
+    <div id="app"></div>
+
+    <div id="launch" class="screen" hidden title="Click to start">
+        <div class="green-flag">
+            <img src="https://assets.scratch.mit.edu/2e0c4790f8f9cf28e3c346b9cef0fcb6.svg">
+        </div>
+    </div>
+
+    <div id="loading" class="screen">
+        <img src="https://assets.scratch.mit.edu/363eeccdfd69f22bc28dd208a2632063.png" style="width: 60%;">
+        <br>
+        <h id="loading-status">Loading Game Assets</h>
+        <br>
+        <div class="progress-bar-outer"><div class="progress-bar-inner" id="loading-inner"></div></div>
+    </div>
+
+    <div id="error" class="screen" hidden>
+        <h1>Error</h1>
+        <details>
+            <summary id="error-message"></summary>
+            <p id="error-stack"></p>
+        </details>
+    </div>
+
+    <div id="CursorEditorDiv" class="CursorEditor" style=" background-color: rgb(0, 0, 0, 0.5); width: 100%; height: 100%; vertical-align: middle; display: flex; justify-content: center; align-items: center; position: absolute;" hidden>
+        <div class="CursorEditor" style="width: 300px; height: 300px; background-color: rgb(0, 0, 0, 0.5); border-width: 10px; border-radius: 5px; display: flex; justify-content: center; align-items: center; ">
+            <div class="CursorEditor" style="position: absolute;">
+                <div class="CursorEditor" style="display: flex; justify-content: center; align-items: center;">
+                    <canvas class="CursorEditor" id="CursorDisplay" style="image-rendering: pixelated; width: 129px;" width="18" height="18"></canvas>
+                </div>
+                <div class="CursorEditor">
+                    <input class="CursorEditor" type="range" min="0" max="360" value="0" id="ColorHue"><br>
+                    <input class="CursorEditor" type="range" min="0" max="100" value="100" id="ColorSaturation"><br>
+                    <input class="CursorEditor" type="range" min="-100" max="100" value="0" id="ColorLight"><br>
+                </div>
+                <div class="CursorEditor" style="display: flex; justify-content: center; align-items: center;"><input id="CursorEditorSaveButton" type="button" value="Save"></div>
+            </div>
+        </div>
+    </div>
+    <div id="LoadOverlay" hidden>
+        <div id="LoadContainer">
+            <h1>Load Mod</h1>
+            <img>
+            <button class="load">Load</button><button class="cancel">Cancel</button>
+            <input type="text" placeholder="Project ID">
+        </div>
+    </div>
+    <script src="js/anticheat.js"></script>
+    <script src="js/scaffolding-min.js"></script>
+    <script src="js/StartVirtualMachine.js"></script>
+    <script src="js/ProjectData.js"></script>
+    <script src="js/Run.js"></script>
+    <script src="js/RecordPopup.js"></script>
+    <script src="js/CustomBlocks.js"></script>
+    <script src="js/CursorEditor.js"></script>
+    <script src="js/Ranks.js"></script>
+</body>
+</html>

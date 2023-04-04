@@ -1,0 +1,76 @@
+<html>
+
+<head>
+    <title>Server Creator</title>
+    <link rel="icon" href="https://assets.scratch.mit.edu/fb6d52a94a431b0d3111fa871001e6f1.png">
+    <link rel="stylesheet" href="css/style.css">
+    <script>if (!window.location.pathname.endsWith("/")) window.location.pathname += "/";</script>
+    <script src="js/md5.js"></script>
+    <script src="js/jszip.js"></script>
+</head>
+
+<body>
+    <div id="Background">
+        <div id="Scroll">
+            <div id="Container">
+                <br> <img id="Title" src="https://cdn.assets.scratch.mit.edu/internalapi/asset/363eeccdfd69f22bc28dd208a2632063.png/get/"> <br> <img id="SubTitle" src="https://cdn.assets.scratch.mit.edu/internalapi/asset/354ebedef8e10c65d5c7ca542443aa81.png/get/">
+                <div id="LoadingDiv" hidden> <pre id="LoadingTitle" style="font-size: 40px;">Loading</pre> <pre id="LoadingStatus"></pre> <pre id="LoadingPercent"></pre> </div>
+                <div id="Download" hidden> A file should automatically download. <br> If it doesn't download, you can download it <a id="FinishedDownload">HERE</a>.<br> <pre style="font-size: 20px;">How To Upload The Server</pre><br> <br>Step 1<br> Login to <a href="https://scratch.mit.edu/login/" target="_blank">Scratch</a><br> <br>Step 2<br> <a href="https://scratch.mit.edu/projects/editor/" target="_blank">Create a New Project</a><br> <br>Step 3<br> In the editor go to "File" > "Load from your computer"<br> <br>Step 4<br> Select the new .sb3 file<br> <br>Step 5<br> Save the Server ID (The number found at the end of the link)<br> <br> </div>
+                <div id="Menu"> <button id="CreateServer" class="buttonAnimation">Create Server</button><br> <button id="EditServer" class="buttonAnimation">Edit Server</button> </div>
+                <div id="ServerCreator" hidden>
+                    <pre style="font-size: 40px;" id="Create/Edit">Create Server</pre>
+                    <div class="options">
+                        <p>Name</p> <input type="text" id="name">
+                        <p>Description</p> <textarea id="description"></textarea>
+                        <p>Admin</p>
+                        <listshell>
+                            <list id="AdminList"></list>
+                        </listshell> <button id="AddAdmin">Add</button>
+                        <p>Banned Users</p>
+                        <listshell>
+                            <list id="BanList"></list>
+                        </listshell> <button id="AddBan">Add</button>
+                        <p>Texture Packs</p>
+                        <listshell>
+                            <list id="TexturePackList"></list>
+                        </listshell> <button id="AddTexturePack">Add</button>
+                        <p>Mods</p>
+                        <listshell>
+                            <list id="ModList"></list>
+                        </listshell> <button id="AddMod">Add</button>
+                        <p>Chat Filter Whitelist</p>
+                        <listshell>
+                            <list id="FilterList"></list>
+                        </listshell> <button id="AddFilter">Add</button>
+                        <div id="AllowedUsers" hidden>
+                            <p>Allowed Users</p>
+                            <listshell>
+                                <list id="AllowedUsersList"></list>
+                            </listshell> <button id="AddAllowedUser">Add</button>
+                        </div>
+                        <p id="Private" class="Toggle">☐ Private Server</p>
+                        <p id="Security" class="Toggle">☐ Require Login</p>
+                        <p id="ChatFilter" class="Toggle">☑ Chat Filter</p>
+                        <p id="AllowTexture" class="Toggle">☑ Allow Texture Pack Loading</p>
+                        <p id="AllowMod" class="Toggle">☐ Allow Mod Loading</p>
+                        <p>Advanced</p>
+                        <p>Cloud Server</p>
+                        <input type="text" id="server" value="wss://clouddata.turbowarp.org">
+                        <p>Max Players</p>
+                        <input type="number" id="players" value="8">
+                        <p>World Size</p>
+                        <input type="number" id="width" value="350">
+                        x
+                        <input type="number" id="height" value="160">
+                        <p id="size">Blocks: 56000</p>
+                        <p id="warning" hidden>⚠️ Turbowarp Servers May Break With Large Worlds ⚠️</p>
+                    </div> <br> <button id="Create" class="buttonAnimation">Create Server</button> <br> <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/animation.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

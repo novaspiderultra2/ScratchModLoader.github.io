@@ -1,0 +1,186 @@
+@font-face {
+    font-family: Scratch;
+    src: url('https://cdn.assets.scratch.mit.edu/internalapi/asset/78c17b2d3ef16383295e77f3755356a3.ttf/get/');
+}
+
+* {
+    color: #fff;
+    font-family: Scratch;
+    text-align: center;
+}
+
+body {
+    background-image: url('https://cdn.assets.scratch.mit.edu/internalapi/asset/3b98990fc6b4850bbde16659c7729479.svg/get/');
+    background-repeat: repeat-x;
+    background-size: auto 100%;
+    background-position: center bottom;
+    margin: 0px;
+    overflow: hidden;
+}
+
+#Container {
+    width: fit-content;
+    height: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#Background {
+    width: 75%;
+    min-width: fit-content;
+    height: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#Title {
+    height: 15%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#SubTitle {
+    height: 10%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#Scroll {
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+}
+
+#Create {
+    width: auto;
+}
+
+button {
+    height: 26px;
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="text"], select, input[type="number"] {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: rgba(0, 0, 0, 0.5);
+}
+
+.options {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+a {
+    text-shadow: none;
+    color: #1aa0d8;
+}
+
+textarea {
+    color: #fff;
+    resize: both;
+    text-align: start;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: rgba(0, 0, 0, 0.5);
+}
+
+table {
+    width: 100%;
+}
+
+img, canvas {
+    image-rendering: pixelated;
+}
+
+.Toggle {
+    cursor: pointer;
+}
+
+stringinput, numberinput, textboxinput, recipeingredientslist {
+    display: block;
+    margin: 13px;
+}
+
+recipeingredient {
+    display: flex;
+    margin: 0px;
+}
+
+ModSelect {
+    display: inline-block;
+    margin: 1px;
+}
+
+    ModSelect[disabled] button {
+        cursor: not-allowed;
+    }
+
+        ModSelect[disabled] button img {
+            opacity: 0.5;
+        }
+
+text {
+    display: inline;
+}
+
+ColorPicker {
+    display: inline-block;
+    margin-left: 25px;
+    height: 100%;
+}
+
+ImageEditor {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    display: block;
+    margin: 0px auto;
+}
+
+.ImageEditorDisplay {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.ImageEditorOverlay {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    width: 160px;
+    height: 160px;
+    position: absolute;
+    transition: .5s ease;
+}
+
+    .ImageEditorOverlay:hover {
+        opacity: 1;
+        background-color: #00000080;
+    }
+
+ModItem {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+}
+
+.trash {
+    opacity: 0.5;
+    transition: .25s ease;
+    position: absolute;
+    right: 0px;
+}
+
+    .trash:hover {
+        opacity: 1;
+    }
