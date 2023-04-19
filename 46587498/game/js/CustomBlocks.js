@@ -374,15 +374,16 @@ async function LoadMod(args) {
                 alert(`Loading Mod ${name} by ${author}\n${manifest.description}`);
                 const Data = new ModDataConstructor;
                 const modItems = {
-                    Other: [],
-                    Block: [],
+                    "Other": [],
+                    "Block": [],
                     "Object 1x1": [],
                     "Object 2x2": [],
-                    Pickaxe: [],
-                    Axe: [],
-                    Sword: [],
-                    Recipe: [],
-                    JavaScript: []
+                    "Pickaxe": [],
+                    "Axe": [],
+                    "Sword": [],
+                    "Recipe": [],
+                    "NPC Drop": [],
+                    "JavaScript": []
                 };
                 for (targetID in targets) {
                     if (targetID != "fix") {
@@ -487,19 +488,6 @@ async function LoadMod(args) {
                         Data.items[Name] = ID;
                     }
                 }
-                for (targetID in modItems.JavaScript) {
-                    if (targetID != "fix") {
-                        let target = modItems.JavaScript[targetID];
-                        if (!("script" in target.variables)) {
-                            alert("Error Loading Mod\nDetails: Variable \"Script\" is not in ${target.name}");
-                            vm.start();
-                            return;
-                        }
-                        const script = document.createElement("script");
-                        script.innerHTML = target.variables.script[1].replaceAll("\\n", "\n");
-                        ModWindow.document.body.appendChild(script);
-                    }
-                }
                 for (targetID in modItems.Recipe) {
                     if (targetID != "fix") {
                         let target = modItems.Recipe[targetID];
@@ -523,6 +511,32 @@ async function LoadMod(args) {
 
                         ];
                         vm.runtime.getSpriteTargetByName("Cursor").lookupVariableByNameAndType("_Recipes", "list").value.push(...Recipe);
+                    }
+                }
+                for (targetID in modItems["NPC Drop"]) {
+                    if (targetID != "fix") {
+                        let target = modItems["NPC Drop"][targetID];
+                        let data = [
+                            getIDOfItem(target.variables.item[1]),
+                            target.variables.npc ? target.variables.npc[1] : "undefined",
+                            target.variables.min ? target.variables.min[1] : 1,
+                            target.variables.max ? target.variables.max[1] : 1,
+                            target.variables.chance ? target.variables.chance[1] : 1
+                        ];
+                        vm.runtime.getTargetForStage().lookupVariableByNameAndType("Custom NPC Drops", "list").value.push(...data);
+                    }
+                }
+                for (targetID in modItems.JavaScript) {
+                    if (targetID != "fix") {
+                        let target = modItems.JavaScript[targetID];
+                        if (!("script" in target.variables)) {
+                            alert("Error Loading Mod\nDetails: Variable \"Script\" is not in ${target.name}");
+                            vm.start();
+                            return;
+                        }
+                        const script = document.createElement("script");
+                        script.innerHTML = target.variables.script[1].replaceAll("\\n", "\n");
+                        ModWindow.document.body.appendChild(script);
                     }
                 }
             } catch (err) {

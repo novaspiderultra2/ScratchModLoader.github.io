@@ -7,10 +7,43 @@ var UnsavedChanges = false;
 var ModItemsElement;
 const tempCanvas = new Canvas();
 const tempCTX = tempCanvas.getContext("2d");
-const enabledMods = ["Block", "Pickaxe", "Axe", "Sword", "Recipe", "Other", "Object 1x1", "Object 2x2", "JavaScript"];
+const enabledMods = ["Block", "Pickaxe", "Axe", "Sword", "Recipe", "Other", "Object 1x1", "Object 2x2", "NPC Drop"];
 const ModItems = [];
 for (var i = 0; i < 300; i++) ModItems[i] = ["Grass", "Dirt", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Stone", "Stone", "Iron Pickaxe", "Iron Axe", "Wood", "Wood", "Sand", "Sand", "Iron Ore", "Iron Ore", "Bed", "Acorn", "Sapling", "Door Top", "Door Bottom", "Wooden Door", "Platform", "Work Bench", "Furnace", "Iron Bar", "Iron Bar", "Stone Brick", "Stone Brick", "Bed", "Bed", "Chair", "Chair", "Torch", "Torch (left)", "Torch (right)", "Sand Brick", "Sand Brick", "Chandelier", "Bench", "Dresser", "Table", "Barrel", "Chest", "Sign", "Anvil", "Sawmill", "Chain", "Grandfather Clock", "Grandfather Clock", "Grandfather Clock", "Cloud", "Cloud", "Glass", "Glass", "Ice Block", "Ice Block", "Clay", "Clay", "Brick", "Brick", "Gold Ore", "Gold Ore", "Gold Bar", "Gold Brick", "Gold Brick", "Silver Ore", "Silver Ore", "Silver Bar", "Silver Brick", "Silver Brick", "Seed", "Plant", "Plant", "Plant", "Plant", "Plant", "Plant", "Plant", "Plant", "Mushroom", "Plant", "Fence", "Iron Fence", "Gold Chandelier", "Candelabra", "Gold Chest", "Bath Tub", "Trash Can", "Toilet", "Cooking Pot", "Bath Tub", "Bath Tub", "Builder Potion", "Mining Potion", "Swiftness Potion", "Diamond Ore", "Diamond", "Diamond Slab", "Diamond Slab", "Stone Slab", "Sand Slab", "Pot Plant", "Bookcase", "Bookcase", "Bookcase", "Bookcase", "Bookcase", "Sky Chest", "Heavy Work Bench", "Bug Net", "Bunny", "Beam", "Beam", "Sofa", "Sofa", "Sofa", "Piano", "Piano", "Piano", "Chain", "Frog", "Slime", "Wooden Sword", "Iron Sword", "Gel", "Platinum Ore", "Platinum Ore", "Platinum Bar", "Gold Pickaxe", "Gold Axe", "Gold Sword", "Platinum Pickaxe", "Platinum Axe", "Platinum Sword", "Demon Eye", "Lens", "Zombie", "Easter Egg", "Chocolate", "Chocolate", "Land Claim Sign", "Crab", "Molten Pickaxe", "Blue Phaseblade", "Diamond Staff", "Water", "Water 15/16", "Water 14/16", "Water 13/16", "Water 12/16", "Water 11/16", "Water 10/16", "Water 9/16", "Water 8/16", "Water 7/16", "Water 6/16", "Water 5/16", "Water 4/16", "Water 3/16", "Water 2/16", "Water 1/16", "Goldfish", "Jellyfish", "Lava", "Lava 15/16", "Lava 14/16", "Lava 13/16", "Lava 12/16", "Lava 11/16", "Lava 10/16", "Lava 9/16", "Lava 8/16", "Lava 7/16", "Lava 6/16", "Lava 5/16", "Lava 4/16", "Lava 3/16", "Lava 2/16", "Lava 1/16", "Obsidian", "Lesser Healing Potion", "Healing Potion", "Greater Healing Potion", "Featherfall Potion", "Spelunker Potion", "Obsidian Skin Potion", "Gills Potion", "Purple Slime", "Bunny Slime", "Dungeon Slime", "Lava Slime", "Pyranha", "Shark", "Shark Fin", "Hook", "Zombie Arm", "Copper Pickaxe", "Copper Sword", "Copper Axe", "Bucket", "Water Bucket", "Lava Bucket", "Hellstone", "Hellstone", "Hellstone Bar", "Vine", "Hellforge", "Bat", "Lava Bat", "Water Chest", "Obsidian Chest", "Copper Coin", "Silver Coin", "Gold Coin", "Topaz Stone", "Topaz", "Ruby Stone", "Ruby", "Emerald Stone", "Emerald", "Sapphire Stone", "Sapphire", "Amethyst Stone", "Amethyst", "Iron Door", "Glass Door", "Obsidian Door", "Iron Door Top", "Iron Door Bottom", "Glass Door Top", "Glass Door Bottom", "Obsidian Door Top", "Obsidian Door Bottom", "Glass Kiln", "Butterfly", "Glass Table", "Glass Lantern", "Glass Chandelier", "Pot", "Wooden Sink", "Glass Platform", "Squirrel", "Mouse", "Firefly", "Fiery Greatsword", "Glass Bed", "Glass Bed L", "Glass Bed R", "Obsidian Bed", "Obsidian Bed L", "Obsidian Bed R", "Gold Bed", "Gold Bed L", "Gold Bed R", "Mushroom Bed", "Mushroom Bed L", "Mushroom Bed R", "Wooden Crate", "Iron Crate", "Mushroom Block", "Mushroom Block", "Table L", "Table R", "Iron Table", "Iron Table L", "Iron Table R", "Obsidian Table", "Obsidian Table L", "Obsidian Table R", "Mushroom Table", "Mushroom Table L", "Mushroom Table R", "Glass Table L", "Glass Table R", "Blue Dungeon Vase", "Green Dungeon Vase", "Pink Dungeon Vase", "Obsidian Vase", "Suspicious Looking Eye", "Demon Altar", "Demonite Ore", "Demonite Ore", "Demonite Bar", "Light's Bane", "Eye of Cthulhu Mask", "Santa Mask"][i];
-
+// const TileData = vm.runtime.targets[0].lookupVariableByNameAndType("_TileData", "list").value;
+// const NPCs = [];
+// for (var i = 0; i < TileData.length; i+=8) {
+//     if (parseInt(TileData[i+3]) == 100 || parseInt(TileData[i+3]) == 2) {
+//         NPCs[parseInt(TileData[i+5])-1] = TileData[i+1];
+//     }
+// }
+// console.log(NPCs);
+const NPCs = [
+    "Bunny",
+    "Frog",
+    "Slime",
+    "Slime (Angry)",
+    "Demon Eye",
+    "Zombie",
+    "Crab",
+    "Goldfish",
+    "Jellyfish",
+    "Purple Slime",
+    "Purple Slime (Angry)",
+    "Bunny Slime",
+    "Bunny Slime (Angry)",
+    "Dungeon Slime",
+    "Lava Slime",
+    "Pyranha",
+    "Shark",
+    "Bat",
+    "Lava Bat",
+    "Butterfly",
+    "Squirrel",
+    "Mouse",
+    "Firefly",
+    "Eye of Cthulhu"
+];
 //--------------------
 //Images
 //--------------------
@@ -41,7 +74,8 @@ const assets = {
     sword: "https://cdn.assets.scratch.mit.edu/internalapi/asset/e571bffc4d611cd13ddccd713cf81ff7.png/get/",
     staff: "https://cdn.assets.scratch.mit.edu/internalapi/asset/68ca074dbb53f6a8bf7621ebc1c91bee.svg/get/",
     beam: "https://cdn.assets.scratch.mit.edu/internalapi/asset/c01129a7283a29e7631d5654c8f0d653.png/get/",
-    trashBtn: "https://cdn.assets.scratch.mit.edu/internalapi/asset/710a6ef1048f968401b16a6b9eb07773.png/get/"
+    trashBtn: "https://cdn.assets.scratch.mit.edu/internalapi/asset/710a6ef1048f968401b16a6b9eb07773.png/get/",
+    zombieArm: "https://cdn.assets.scratch.mit.edu/internalapi/asset/b6b22cb0ab0f8c52bdd625a7c85c0520.png/get/",
 };
 Object.keys(assets).forEach(async (key) => assets[key] = await ReadAsDataURL(await (await fetch(assets[key])).blob()));
 
@@ -133,7 +167,7 @@ Object.defineProperty(ProjectData, "Sprite", {
 //--------------------
 //Unsaved Changes
 //--------------------
-if (false) window.onbeforeunload = function(e) {
+if (false) window.onbeforeunload = function (e) {
     if (UnsavedChanges) {
         (e || window.event).returnValue = true;
         return true;
@@ -143,7 +177,7 @@ if (false) window.onbeforeunload = function(e) {
 //--------------------
 //Create New Mod
 //--------------------
-document.getElementById("CreateNewMod").onclick = function() {
+document.getElementById("CreateNewMod").onclick = function () {
     Editor.innerHTML = "";
     Editor.appendChild(new Text({ "innerText": "Create New Mod" }, { "color": "#fff", "font-size": "3em" }));
     Editor.appendChild(new Br);
@@ -175,7 +209,7 @@ document.getElementById("CreateNewMod").onclick = function() {
 //--------------------
 //Load Mod
 //--------------------
-document.getElementById("EditMod").onclick = function() {
+document.getElementById("EditMod").onclick = function () {
     let input = new Input({ type: "file", accept: ".zip, .sb3" });
     input.click();
     input.onchange = async () => {
@@ -331,6 +365,7 @@ function AddItem() {
     Editor.appendChild(new Br);
     Editor.appendChild(new ModSelect("Mask", assets.mask));
     Editor.appendChild(new ModSelect("Recipe", assets.craftingRecipe));
+    Editor.appendChild(new ModSelect("NPC Drop", assets.zombieArm));
     Editor.appendChild(new ModSelect("Other", assets.other));
     Editor.appendChild(new Br);
     Editor.appendChild(new Text({ "innerText": "Intermediate" }, { "color": "#fff", "font-size": "1.5em" }));
@@ -413,6 +448,13 @@ function AddItemElements() {
                 "Object 2x2",
                 i
             ));
+        } else if (target.variables.type[1] == "NPC Drop") {
+            ModItemsElement.appendChild(new ModItem(
+                assets.zombieArm,
+                target.name,
+                "NPC Drop",
+                i
+            ));
         }
     }
 }
@@ -421,7 +463,7 @@ function AddItemElements() {
 //Select Mod
 //--------------------
 function SelectMod(type, ...args) {
-    if (type == "JavaScript") {//Disabled
+    if (type == "JavaScript" && false) {//Disabled
         SelectJavaScriptMod(...args);
     } else if (type == "Block") {
         SelectBlockMod(...args);
@@ -439,7 +481,9 @@ function SelectMod(type, ...args) {
         SelectObject1x1Mod(...args);
     } else if (type == "Object 2x2") {
         SelectObject2x2Mod(...args);
-    }
+    } else if (type == "NPC Drop") {
+        SelectNPCDropMod(...args);
+    } 
 }
 
 function SelectJavaScriptMod(ID, Name, Contents) {
@@ -477,16 +521,19 @@ function SelectJavaScriptMod(ID, Name, Contents) {
     Editor.appendChild(new Br);
     Editor.appendChild(new Text({ "innerText": "Mod API" }, { "color": "#fff", "font-size": "2em" }));
     Editor.appendChild(new Br);
-    Editor.appendChild(new Text({ "innerText": "window.vm.runtime.targets" }, { "color": "#fff", "font-size": "1em", "font-family": "sans-serif" }));
+    Editor.appendChild(new Text({ "innerText": "window.API.Username" }, { "color": "#fff", "font-size": "1em", "font-family": "sans-serif" }));
     Editor.appendChild(new Br);
-    Editor.appendChild(new Text({ "innerText": "window.vm.runtime.getSpriteTargetByName(\"Name\")" }, { "color": "#fff", "font-size": "1em", "font-family": "sans-serif" }));
+    Editor.appendChild(new Text({ "innerText": "window.API.Project.GreenFlag()" }, { "color": "#fff", "font-size": "1em", "font-family": "sans-serif" }));
     Editor.appendChild(new Br);
-    Editor.appendChild(new Text({ "innerText": "window.vm.runtime.getTargetForStage()" }, { "color": "#fff", "font-size": "1em", "font-family": "sans-serif" }));
+    Editor.appendChild(new Text({ "innerText": "window.API.Project.Stop()" }, { "color": "#fff", "font-size": "1em", "font-family": "sans-serif" }));
     Editor.appendChild(new Br);
-    Editor.appendChild(new Text({ "innerText": "window.vm.runtime.greenFlag()" }, { "color": "#fff", "font-size": "1em", "font-family": "sans-serif" }));
+    Editor.appendChild(new Text({ "innerText": "window.API.Project[SpriteName].costumes" }, { "color": "#fff", "font-size": "1em", "font-family": "sans-serif" }));
     Editor.appendChild(new Br);
-    Editor.appendChild(new Text({ "innerText": "window.vm.runtime.stop()" }, { "color": "#fff", "font-size": "1em", "font-family": "sans-serif" }));
+    Editor.appendChild(new Text({ "innerText": "window.API.Project[SpriteName].variables" }, { "color": "#fff", "font-size": "1em", "font-family": "sans-serif" }));
     Editor.appendChild(new Br);
+    Editor.appendChild(new Text({ "innerText": "window.API.Project[SpriteName].lists" }, { "color": "#fff", "font-size": "1em", "font-family": "sans-serif" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Text({ "innerText": "window.API.Project[SpriteName].blocks" }, { "color": "#fff", "font-size": "1em", "font-family": "sans-serif" }));
 }
 function SelectBlockMod(ID, Name, Material, DigSpeed, TopBlock, TopBlockImage, BottomBlock, BottomBlockImage) {
     Editor.innerHTML = "";
@@ -1049,6 +1096,60 @@ function SelectObject2x2Mod(ID, Name, Image, img, Material, DigSpeed, TopLeft, T
     Editor.appendChild(new Br);
     Editor.appendChild(new Br);
 }
+function SelectNPCDropMod(ID, Item, Min, Max, Chance, NPC) {
+    Editor.innerHTML = "";
+    Editor.appendChild(new Text({ "innerText": "Add NPC Drop" }, { "color": "#fff", "font-size": "3em" }));
+    Editor.appendChild(new Br);
+    const item = new SelectModItemInput(Item);
+    const min = new NumberInput("Minimum Dropped", "How Little it Can Drop", "Min", Min ? Min : 1);
+    const max = new NumberInput("Maximum Dropped", "How Much it Can Drop", "Max", Max ? Max : 1);
+    const chance = new NumberInput("Drop Chance", "0 = 0%, 0.5 = 50%, 1 = 100%", "Chance", Chance ? Chance : 1);
+    const npc = new SelectModNPCInput(NPC);
+    const cancel = new Button({ "innerText": "Cancel" });
+    cancel.onclick = async () => {
+        Editor.hidden = true;
+        Mod.hidden = false;
+    };
+    const finish = new Button({ "innerText": "Finish" });
+    finish.onclick = async () => {
+        const Sprite = ProjectData.Sprite;
+        Sprite.name = item.name + " from " + npc.name;
+        const costume = await new Costume(assets.zombieArm);
+        Sprite.costumes[0] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        Sprite.variables.type = ["Type", "NPC Drop"];
+        Sprite.variables.item = ["Item Dropped", item.value];
+        Sprite.variables.min = ["Min", min.value];
+        Sprite.variables.max = ["Max", max.value];
+        Sprite.variables.chance = ["Chance", chance.value];
+        Sprite.variables.npc = ["NPC", parseInt(npc.value) + 1];
+        if (ID) ProjectData.json.targets[ID] = Sprite;
+        else ProjectData.json.targets.push(Sprite);
+        Editor.hidden = true;
+        AddItemElements();
+        Mod.hidden = false;
+    };
+    Editor.appendChild(new Text({ "innerText": "Item" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Text({ "innerText": "The Item Being Dropped" }, { "color": "#bfbfbf", "font-size": "0.75em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(item);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Text({ "innerText": "NPC" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Text({ "innerText": "The NPC That Drops the Item" }, { "color": "#bfbfbf", "font-size": "0.75em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(npc);
+    Editor.appendChild(min);
+    Editor.appendChild(max);
+    Editor.appendChild(chance);
+    Editor.appendChild(new Br);
+    Editor.appendChild(cancel);
+    Editor.appendChild(finish);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+}
 //--------------------
 //Costume Constructor
 //--------------------
@@ -1321,6 +1422,7 @@ function ModItem(...args) {
         else if (type == "Other") SelectMod(type, args[3], target.name, target.costumes[0], ProjectData.costumes[target.costumes[0].assetId].dataURL);
         else if (type == "Object 1x1") SelectMod(type, args[3], target.name, target.costumes[0], ProjectData.costumes[target.costumes[0].assetId].dataURL, target.variables.material[1], target.variables.digSpeed[1]);
         else if (type == "Object 2x2") SelectMod(type, args[3], target.name, target.costumes[0], ProjectData.costumes[target.costumes[0].assetId].dataURL, target.variables.material[1], target.variables.digSpeed[1], target.costumes[1], ProjectData.costumes[target.costumes[1].assetId].dataURL, target.costumes[2], ProjectData.costumes[target.costumes[2].assetId].dataURL, target.costumes[3], ProjectData.costumes[target.costumes[3].assetId].dataURL, target.costumes[4], ProjectData.costumes[target.costumes[4].assetId].dataURL);
+        else if (type == "NPC Drop") SelectMod(type, args[3], target.variables.item[1], target.variables.min[1], target.variables.max[1], target.variables.chance[1], target.variables.npc[1]);
         Mod.hidden = true;
         Editor.hidden = false;
     }
@@ -1343,12 +1445,12 @@ function SelectModItemInput(value, ...args) {
     const selectModItemInput = document.createElement("SelectModItemInput");
     const addedItems = [];
     for (var i = 1; i < ProjectData.json.targets.length; i++) {
-        if (ProjectData.json.targets[i].variables.type[1] != "Recipe") {
+        if (ProjectData.json.targets[i].variables.type[1] != "Recipe" && ProjectData.json.targets[i].variables.type[1] != "NPC Drop") {
             addedItems.push(ProjectData.json.targets[i].name);
         }
     }
     const select = new Select([...ModItems, ...addedItems], ...args);
-    if (value) select.value = isNaN(value) ? [...ModItems, ...addedItems].indexOf(value) : value - 1;
+    if (value) select.value = isNaN(value) ? [...ModItems, ...addedItems].indexOf(value) : value-1;
     Object.defineProperty(selectModItemInput, "name", {
         get: () => { return select.options[select.selectedIndex].innerText },
         set: (x) => select.options[select.selectedIndex].innerText = x
@@ -1365,11 +1467,32 @@ function SelectModItemInput(value, ...args) {
     selectModItemInput.appendChild(select);
     return selectModItemInput;
 }
+function SelectModNPCInput(value, ...args) {
+    const selectModNPCInput = document.createElement("SelectModNPCInput");
+    const addedNPCs = [];
+    // for (var i = 1; i < ProjectData.json.targets.length; i++) {
+    //     if (ProjectData.json.targets[i].variables.type[1] != "Recipe" && ProjectData.json.targets[i].variables.type[1] != "NPC Drop") {
+    //         addedItems.push(ProjectData.json.targets[i].name);
+    //     }
+    // }
+    const select = new Select([...NPCs, ...addedNPCs], ...args);
+    if (value) select.value = isNaN(value) ? [...NPCs, ...addedNPCs].indexOf(value) : value-1;
+    Object.defineProperty(selectModNPCInput, "name", {
+        get: () => select.options[select.selectedIndex].innerText,
+        set: (x) => select.options[select.selectedIndex].innerText = x
+    });
+    Object.defineProperty(selectModNPCInput, "value", {
+        get: () => select.value,
+        set: (x) => select.value = x
+    });
+    selectModNPCInput.appendChild(select);
+    return selectModNPCInput;
+}
 function RecipeIngredientsList(value) {
     const recipeIngredientsList = document.createElement("RecipeIngredientsList");
     const name = new Text({ "innerText": "Ingredients" }, { "color": "#fff", "font-size": "1.5em" });
     const description = new Text({ "innerText": "What You Need To Craft The Item" }, { "color": "#bfbfbf", "font-size": "0.75em" });
-    const ingredients = new Div({}, { "width": "fit-content", "margin": "0px auto", "max-height": "125px", "overflow": "auto" });
+    const ingredients = new Div({}, {"width": "fit-content", "margin": "0px auto", "max-height" : "125px", "overflow": "auto"});
     const add = new Button();
     add.innerText = "Add Ingredient";
     add.onclick = () => {
@@ -1454,7 +1577,7 @@ function ImageEditor(defaultState, crop = true) {
         set: x => ImageData = x
     });
     overlay.onclick = async () => {
-        const paint = await openZippedHTMLPage("./scratch-paint.zip", "popup,width=875,height=550", true, { defaultState });
+        const paint = await openZippedHTMLPage("https://cdn.assets.scratch.mit.edu/internalapi/asset/277a00bb2a17cc4d8c531e281d57d963.zip/get/", "popup,width=875,height=550", true, { defaultState });
         paint.onUpdateImage = (IsSVG, imageData, rcx, rcy) => {
             if (crop) {
                 const img = new Image();
@@ -1557,7 +1680,7 @@ async function openZippedHTMLPage(url, parameters = "", autoClose = true, window
         }
         const openedWindow = window.open("", "_blank", parameters);
         openedWindow.document.body.innerText = "Loading...";
-        Object.defineProperty(openedWindow, "windowData", { get: function() { return window.windowData } });
+        Object.defineProperty(openedWindow, "windowData", { get: function () { return window.windowData } });
         Object.assign(openedWindow, windowVariables);
         openedWindow.document.documentElement.innerHTML = windowData[url].innerHTML;
         if (autoClose) window.addEventListener("close", openedWindow.close);
