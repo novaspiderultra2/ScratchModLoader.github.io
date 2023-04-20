@@ -802,7 +802,7 @@ async function ResourcePackMenu() {
     const container = document.querySelector("#LoadSidebar");
     [...container.children].forEach(e => e.remove());
     var o = 0;
-    const projects = await (await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.scratch.mit.edu/studios/33223888/projects/?limit=40&offset=${o}`)}`)).json();
+    const projects = await (await fetch(`https://trampoline.turbowarp.org/proxy/studios/33223888/projects/?limit=40&offset=${o}`)).json();
     function renderProjects(projects) {
         projects.forEach(e => {
             const img = new Image();
@@ -819,7 +819,7 @@ async function ResourcePackMenu() {
             btn.innerText = "Load More";
             btn.onclick = async () => {
                 o += 40;
-                renderProjects(await (await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.scratch.mit.edu/studios/33223888/projects/?limit=40&offset=${o}`)}`)).json());
+                renderProjects(await (await fetch(`https://trampoline.turbowarp.org/proxy/studios/33223888/projects/?limit=40&offset=${o}`)).json());
                 btn.remove();
             }
         }
@@ -840,7 +840,7 @@ async function ModMenu() {
     const container = document.querySelector("#LoadSidebar");
     [...container.children].forEach(e => e.remove());
     var o = 0;
-    const projects = await (await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.scratch.mit.edu/studios/33186922/projects/?limit=40&offset=${o}`)}`)).json();
+    const projects = await (await fetch(`https://trampoline.turbowarp.org/proxy/studios/33186922/projects/?limit=40&offset=${o}`)).json();
     function renderProjects(projects) {
         projects.forEach(e => {
             const img = new Image();
@@ -857,7 +857,7 @@ async function ModMenu() {
             btn.innerText = "Load More";
             btn.onclick = async () => {
                 o += 40;
-                renderProjects(await (await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.scratch.mit.edu/studios/33186922/projects/?limit=40&offset=${o}`)}`)).json());
+                renderProjects(await (await fetch(`https://trampoline.turbowarp.org/proxy/studios/33186922/projects/?limit=40&offset=${o}`)).json());
                 btn.remove();
             }
         }
@@ -878,7 +878,7 @@ async function JoinServerMenu() {
     const container = document.querySelector("#LoadSidebar");
     [...container.children].forEach(e => e.remove());
     var o = 0;
-    const projects = await (await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.scratch.mit.edu/studios/33223915/projects/?limit=40&offset=${o}`)}`)).json();
+    const projects = await (await fetch(`https://trampoline.turbowarp.org/proxy/studios/33223915/projects/?limit=40&offset=${o}`)).json();
     function renderProjects(projects) {
         projects.forEach(e => {
             const img = new Image();
@@ -895,7 +895,7 @@ async function JoinServerMenu() {
             btn.innerText = "Load More";
             btn.onclick = async () => {
                 o += 40;
-                renderProjects(await (await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.scratch.mit.edu/studios/33223915/projects/?limit=40&offset=${o}`)}`)).json());
+                renderProjects(await (await fetch(`https://trampoline.turbowarp.org/proxy/studios/33223915/projects/?limit=40&offset=${o}`)).json());
                 btn.remove();
             }
         }
