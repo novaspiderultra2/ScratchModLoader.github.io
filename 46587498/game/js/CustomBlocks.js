@@ -789,7 +789,7 @@ function Redirect(args) {
     window.open(args.URL == "disc" ? "https://discord.gg/fKB3TjxQsc" : args.URL);
 }
 
-function ResourcePackMenu() {
+async function ResourcePackMenu() {
     document.querySelector("#LoadContainer h1").innerText = "Load Resource Pack";
     document.querySelector("#LoadOverlay").hidden = false;
     document.querySelector("#LoadContainer input").value = "";
@@ -799,9 +799,35 @@ function ResourcePackMenu() {
         document.querySelector("#LoadOverlay").hidden = true;
         LoadTexturePack({ ProjectID: document.querySelector("#LoadContainer input").value.split("").filter(e => !isNaN(e)).join("") });
     }
+    const container = document.querySelector("#LoadSidebar");
+    [...container.children].forEach(e => e.remove());
+    var o = 0;
+    const projects = await (await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.scratch.mit.edu/studios/33223888/projects/?limit=40&offset=${o}`)}`)).json();
+    function renderProjects(projects) {
+        projects.forEach(e => {
+            const img = new Image();
+            img.src = `https://trampoline.turbowarp.org/thumbnails/${e.id}?width=144&height=108`;
+            img.title = e.title;
+            img.onclick = () => {
+                document.querySelector("#LoadContainer input").value = e.id;
+                document.querySelector("#LoadContainer img").src = img.src;
+            }
+            container.appendChild(img);
+        });
+        if (projects.length == 40) {
+            const btn = document.createElement("button");
+            btn.innerText = "Load More";
+            btn.onclick = async () => {
+                o += 40;
+                renderProjects(await (await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.scratch.mit.edu/studios/33223888/projects/?limit=40&offset=${o}`)}`)).json());
+                btn.remove();
+            }
+        }
+    }
+    renderProjects(projects);
 }
 
-function ModMenu() {
+async function ModMenu() {
     document.querySelector("#LoadContainer h1").innerText = "Load Mod";
     document.querySelector("#LoadOverlay").hidden = false;
     document.querySelector("#LoadContainer input").value = "";
@@ -811,9 +837,35 @@ function ModMenu() {
         document.querySelector("#LoadOverlay").hidden = true;
         LoadMod({ ProjectID: document.querySelector("#LoadContainer input").value.split("").filter(e => !isNaN(e)).join("") });
     }
+    const container = document.querySelector("#LoadSidebar");
+    [...container.children].forEach(e => e.remove());
+    var o = 0;
+    const projects = await (await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.scratch.mit.edu/studios/33186922/projects/?limit=40&offset=${o}`)}`)).json();
+    function renderProjects(projects) {
+        projects.forEach(e => {
+            const img = new Image();
+            img.src = `https://trampoline.turbowarp.org/thumbnails/${e.id}?width=144&height=108`;
+            img.title = e.title;
+            img.onclick = () => {
+                document.querySelector("#LoadContainer input").value = e.id;
+                document.querySelector("#LoadContainer img").src = img.src;
+            }
+            container.appendChild(img);
+        });
+        if (projects.length == 40) {
+            const btn = document.createElement("button");
+            btn.innerText = "Load More";
+            btn.onclick = async () => {
+                o += 40;
+                renderProjects(await (await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.scratch.mit.edu/studios/33186922/projects/?limit=40&offset=${o}`)}`)).json());
+                btn.remove();
+            }
+        }
+    }
+    renderProjects(projects);
 }
 
-function JoinServerMenu() {
+async function JoinServerMenu() {
     document.querySelector("#LoadContainer h1").innerText = "Join Server";
     document.querySelector("#LoadOverlay").hidden = false;
     document.querySelector("#LoadContainer input").value = "826771259";
@@ -823,6 +875,32 @@ function JoinServerMenu() {
         document.querySelector("#LoadOverlay").hidden = true;
         JoinServer({ ProjectID: document.querySelector("#LoadContainer input").value.split("").filter(e => !isNaN(e)).join("") });
     }
+    const container = document.querySelector("#LoadSidebar");
+    [...container.children].forEach(e => e.remove());
+    var o = 0;
+    const projects = await (await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.scratch.mit.edu/studios/33223915/projects/?limit=40&offset=${o}`)}`)).json();
+    function renderProjects(projects) {
+        projects.forEach(e => {
+            const img = new Image();
+            img.src = `https://trampoline.turbowarp.org/thumbnails/${e.id}?width=144&height=108`;
+            img.title = e.title;
+            img.onclick = () => {
+                document.querySelector("#LoadContainer input").value = e.id;
+                document.querySelector("#LoadContainer img").src = img.src;
+            }
+            container.appendChild(img);
+        });
+        if (projects.length == 40) {
+            const btn = document.createElement("button");
+            btn.innerText = "Load More";
+            btn.onclick = async () => {
+                o += 40;
+                renderProjects(await (await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.scratch.mit.edu/studios/33223915/projects/?limit=40&offset=${o}`)}`)).json());
+                btn.remove();
+            }
+        }
+    }
+    renderProjects(projects);
 }
 
 document.querySelector("#LoadContainer input").addEventListener("input", e => {

@@ -194,3 +194,25 @@ a {
 #LoadContainer button.load {
     right: calc(50% - 40px);
 }
+#LoadSidebar {
+    width: fit-content;
+    max-width: 30%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    overflow-y: auto;
+    z-index: 99999999;
+    background-color: rgb(0, 0, 0, 0.5);
+    text-align: center;
+}
+#LoadSidebar img {
+    display: inline-block;
+}
+#LoadSidebar button {
+    display: block;
+    width: 144;
+    background-color: #444;
+    border-radius: 5px;
+}
