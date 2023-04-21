@@ -381,6 +381,7 @@ async function LoadMod(args) {
                     "Pickaxe": [],
                     "Axe": [],
                     "Sword": [],
+                    "Mask": [],
                     "Recipe": [],
                     "NPC Drop": [],
                     "JavaScript": []
@@ -485,6 +486,20 @@ async function LoadMod(args) {
                         await vm.addCostume(target.costumes[2].md5ext, target.costumes[2], ToolSwing.id);
                         let Material = ["Pickaxe", "Axe", "Sword"].indexOf(target.variables.type[1]) + 1001;
                         AddItemData(ID, Name, 0, Material, DigSpeed, ToolSwing.sprite.costumes.length, 0);
+                        Data.items[Name] = ID;
+                    }
+                }
+                for (targetID in modItems.Mask) {
+                    if (targetID != "fix") {
+                        let target = modItems.Mask[targetID];
+                        let Name = target.name;
+                        const Tiles = vm.runtime.getSpriteTargetByName("Tiles");
+                        const Hair = vm.runtime.getSpriteTargetByName("Hair");
+                        let ID = Tiles.sprite.costumes.length;
+                        await vm.addCostume(target.costumes[0].md5ext, target.costumes[0], Tiles.id);
+                        Tiles.reorderCostume(Tiles.getCostumeIndexByName("BIG"), Tiles.sprite.costumes.length);
+                        await vm.addCostume(target.costumes[1].md5ext, target.costumes[1], Hair.id);
+                        AddItemData(ID, Name, 0, 3, 0, Hair.sprite.costumes.length, 0);
                         Data.items[Name] = ID;
                     }
                 }
