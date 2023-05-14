@@ -72,7 +72,9 @@ vm.addAddonBlock({
 });
 
 window.canLoadMod = true;
+window.hasLoadedMod = false;
 window.canLoadTexturePack = true;
+window.hasLoadedTexturePack = false;
 
 async function Login() {
     return new Promise((resolve, reject) => {
@@ -130,6 +132,7 @@ async function LoadTexturePack(ProjectID) {
             try {
                 let token = (await (await fetch(`https://trampoline.turbowarp.org/proxy/projects/${ProjectID.ProjectID}`)).json()).project_token;
                 const TexturePack = await (await fetch(`https://projects.scratch.mit.edu/${ProjectID.ProjectID}?token=${token}`)).json();
+                window.hasLoadedTexturePack = true;
                 if (TexturePack.targets[0].variables.version) {
                     if (TexturePack.targets[0].variables.version[1] == "1.0") {
                         let token = (await (await fetch("https://trampoline.turbowarp.org/proxy/projects/759938531")).json()).project_token;
@@ -202,7 +205,6 @@ async function LoadTexturePack(ProjectID) {
                         });
                     });
                 }
-                window.hasLoadedTexturePack = true;
             } catch (err) {
                 console.error(err);
                 alert(`⚠️Error When Loading Texture Pack #${ProjectID.ProjectID}⚠️\n${err}`);
@@ -372,6 +374,7 @@ async function LoadMod(args) {
                 }
                 const manifest = JSON.parse(targets[0].variables.manifest[1]);
                 alert(`Loading Mod ${name} by ${author}\n${manifest.description}`);
+                window.hasLoadedMod = true;
                 const Data = new ModDataConstructor;
                 const modItems = {
                     "Other": [],
@@ -504,31 +507,6 @@ async function LoadMod(args) {
                         Data.items[Name] = ID;
                     }
                 }
-                for (targetID in modItems.Recipe) {
-                    if (targetID != "fix") {
-                        let target = modItems.Recipe[targetID];
-                        var recipeItems = [];
-                        var recipeCounts = [];
-                        if (target.lists.items && target.lists.amounts) {
-                            let Recipe = {};
-                            for (var i = 0; i < target.lists.items[1].length; i++) Recipe[getIDOfItem(target.lists.items[1][i])] = target.lists.amounts[1][i];
-                            recipeItems = Object.keys(Recipe);
-                            recipeCounts = Object.values(Recipe);
-                        }
-                        console.log([target.variables.useStation, getIDOfItem(target.variables.station[1])]);
-                        let Recipe = [
-                            "",
-                            "Mod Item",
-                            getIDOfItem(target.variables.item[1]),
-                            target.variables.amount ? target.variables.amount[1] : 1,
-                            target.variables.useStation && (target.variables.useStation[1] == true || target.variables.useStation[1] == "true") ? getIDOfItem(target.variables.station[1]) : 0,
-                            recipeItems.join(" "),
-                            recipeCounts.join(" ")
-
-                        ];
-                        vm.runtime.getSpriteTargetByName("Cursor").lookupVariableByNameAndType("_Recipes", "list").value.push(...Recipe);
-                    }
-                }
                 const Stage = vm.runtime.getTargetForStage();
                 function NPCData(name) {
                     return Stage.lookupVariableByNameAndType("NPC_" + name, "list");
@@ -567,12 +545,37 @@ async function LoadMod(args) {
                         Data.items[Name] = ID;
                     }
                 }
+                for (targetID in modItems.Recipe) {
+                    if (targetID != "fix") {
+                        let target = modItems.Recipe[targetID];
+                        var recipeItems = [];
+                        var recipeCounts = [];
+                        if (target.lists.items && target.lists.amounts) {
+                            let Recipe = {};
+                            for (var i = 0; i < target.lists.items[1].length; i++) Recipe[getIDOfItem(target.lists.items[1][i])] = target.lists.amounts[1][i];
+                            recipeItems = Object.keys(Recipe);
+                            recipeCounts = Object.values(Recipe);
+                        }
+                        console.log([target.variables.useStation, getIDOfItem(target.variables.station[1])]);
+                        let Recipe = [
+                            "",
+                            "Mod Item",
+                            getIDOfItem(target.variables.item[1]),
+                            target.variables.amount ? target.variables.amount[1] : 1,
+                            target.variables.useStation && (target.variables.useStation[1] == true || target.variables.useStation[1] == "true") ? getIDOfItem(target.variables.station[1]) : 0,
+                            recipeItems.join(" "),
+                            recipeCounts.join(" ")
+
+                        ];
+                        vm.runtime.getSpriteTargetByName("Cursor").lookupVariableByNameAndType("_Recipes", "list").value.push(...Recipe);
+                    }
+                }
                 for (targetID in modItems["NPC Drop"]) {
                     if (targetID != "fix") {
                         let target = modItems["NPC Drop"][targetID];
                         let data = [
                             getIDOfItem(target.variables.item[1]),
-                            target.variables.npc ? target.variables.npc[1] : "undefined",
+                            target.variables.npc ? getIDOfNPC(target.variables.npc[1]) : "undefined",
                             target.variables.min ? target.variables.min[1] : 1,
                             target.variables.max ? target.variables.max[1] : 1,
                             target.variables.chance ? target.variables.chance[1] : 1
@@ -699,6 +702,8 @@ async function JoinServer(args) {
                     ProjectID: A
                 });
             });
+            window.canLoadMod = Data.variables.allowMod[1];
+            window.canLoadTexturePack = Data.variables.allowTexture[1];
             vm.runtime.getTargetForStage().lookupVariableByNameAndType("server").value = args.ProjectID;
         } catch (err) {
             console.error(err);
