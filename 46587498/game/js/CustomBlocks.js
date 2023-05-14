@@ -521,6 +521,7 @@ async function LoadMod(args) {
                         let spd = (target.variables.spd) ? target.variables.spd[1] : 1;
                         let sizX = (target.variables.sizX) ? target.variables.sizX[1] : 10;
                         let sizY = (target.variables.sizY) ? target.variables.sizY[1] : 10;
+                        let rotStyle = (target.variables.rotStyle) ? target.variables.rotStyle[1] : "left-right";
                         let showHealth = (target.variables.showHealth) ? target.variables.showHealth[1] : false;
                         let isBoss = (target.variables.isBoss) ? target.variables.isBoss[1] : false;
                         const Tiles = vm.runtime.getSpriteTargetByName("Tiles");
@@ -535,6 +536,7 @@ async function LoadMod(args) {
                         NPCData("spd").value.push(spd);
                         NPCData("sizX").value.push(sizX);
                         NPCData("sizY").value.push(sizY);
+                        NPCData("rotStyle").value.push(rotStyle);
                         Stage.lookupVariableByNameAndType("Health Visible?", "list").value.push(showHealth)
                         for (var i = 1; i < target.costumes.length; i++) {
                             await vm.addCostume(target.costumes[i].md5ext, target.costumes[i], NPC.id);

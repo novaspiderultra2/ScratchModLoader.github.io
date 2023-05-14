@@ -851,7 +851,7 @@ function SelectJavaScriptMod(ID, Name, Contents) {
     Editor.appendChild(new Text({ "innerText": "Add JavaScript" }, { "color": "#fff", "font-size": "3em" }));
     Editor.appendChild(new Br);
     const name = new StringInput("Name", "New Script's Name", "Script Name", Name ? Name : "My New Script");
-    const script = new TextboxInput("Script", "Script's Contents", "", Contents ? Contents : "");
+    const script = new TextboxInput("Script", "Script's Contents", Contents ? Contents : "");
     Editor.appendChild(name);
     Editor.appendChild(script);
     Editor.appendChild(new Br);
@@ -1567,7 +1567,7 @@ function SelectMaskMod(ID, Name, Item, Mask) {
     Editor.appendChild(new Br);
     Editor.appendChild(new Br);
 }
-function SelectNPCMod(ID, Class, Frames, Item, Name, Health, Aggressive, Speed, Width, Height, ShowHealth, IsBoss) {
+function SelectNPCMod(ID, Class, Frames, Item, Name, Health, Aggressive, Speed, Width, Height, Rotation, ShowHealth, IsBoss) {
     Editor.innerHTML = "";
     Editor.appendChild(new Text({ "innerText": "Add NPC" }, { "color": "#fff", "font-size": "3em" }));
     Editor.appendChild(new Br);
@@ -1602,12 +1602,13 @@ function SelectNPCMod(ID, Class, Frames, Item, Name, Health, Aggressive, Speed, 
         frames.forEach(e => {
             Editor.appendChild(e);
         });
-        const name = new StringInput("Name", "New NPC's Name", "Name", Name ? Name : "My New NPC");
+        const name = new StringInput("Summon Item Name", "Summon Item's Name", "Name", Name ? Name : "My New NPC");
         const hp = new NumberInput("Health", "New NPC's Health", "Health", Health ? Health : 5);
-        const agr = new NumberInput("Aggressive", "0 = Passive | 1 = Aggressive | 10 = Eye of Cthulhu", "Aggressive", Aggressive ? Aggressive : 0);
+        const agr = new SelectInput("Aggressive", "New NPC's Aggression", [{ "0": "Passive", "1": "Aggressive", "10": "Eye of Cthulhu" }, { value: Aggressive ? Aggressive : "0" }]);
         const spd = new NumberInput("Speed", "New NPC's Speed", "Speed", Speed ? Speed : 1);
         const sizX = new NumberInput("Width", "New NPC's Width (Typically Equivalent to Sprite Width)", "Width", Width ? Width : 10);
         const sizY = new NumberInput("Height", "New NPC's Height (Typically Equivalent to Sprite Height)", "Height", Height ? Height : 10);
+        const rotStyle = new SelectInput("Rotation Style", "New NPC's Rotation Style", [{ "left-right": "left-right", "don't rotate": "don't rotate", "all around": "all around" }, { value: Rotation ? Rotation : "left-right" }]);
         const showHealth = new Input({ "type": "checkbox", "checked": ShowHealth ? ShowHealth : false });
         const isBoss = new Input({ "type": "checkbox", "checked": IsBoss ? IsBoss : false });
         Editor.appendChild(new Br);
@@ -1617,6 +1618,9 @@ function SelectNPCMod(ID, Class, Frames, Item, Name, Health, Aggressive, Speed, 
         Editor.appendChild(spd);
         Editor.appendChild(sizX);
         Editor.appendChild(sizY);
+        Editor.appendChild(rotStyle);
+        Editor.appendChild(new Br);
+        Editor.appendChild(new Br);
         Editor.appendChild(showHealth);
         Editor.appendChild(new Text({ "innerText": "Health Visible?" }, { "color": "#fff", "font-size": "1.5em" }));
         Editor.appendChild(new Br);
@@ -1653,8 +1657,9 @@ function SelectNPCMod(ID, Class, Frames, Item, Name, Health, Aggressive, Speed, 
             Sprite.variables.spd = ["Speed", spd.value];
             Sprite.variables.sizX = ["Size X", sizX.value];
             Sprite.variables.sizY = ["Size Y", sizY.value];
+            Sprite.variables.rotStyle = ["Rotation Style", rotStyle.value];
             Sprite.variables.showHealth = ["Health Visible", showHealth.checked];
-            Sprite.variables.isBoss = ["Boss", showHealth.checked];
+            Sprite.variables.isBoss = ["Boss", isBoss.checked];
             if (ID) ProjectData.json.targets[ID] = Sprite;
             else ProjectData.json.targets.push(Sprite);
             Editor.hidden = true;
@@ -1832,7 +1837,7 @@ function TextboxInput(...args) {
     const textboxInput = document.createElement("TextboxInput");
     const name = new Text({ "innerText": args[0] }, { "color": "#fff", "font-size": "1.5em" });
     const description = new Text({ "innerText": args[1] }, { "color": "#bfbfbf", "font-size": "0.75em" });
-    const textarea = new Textarea({ "value": args[2] == null ? "" : args[2] });
+    const textarea = new Textarea({ "value": args[2] ? args[2] : "" });
     textarea.addEventListener("input", () => UnsavedChanges = true);
     Object.defineProperty(textboxInput, 'name', {
         get: () => { return name.innerText },
@@ -1975,7 +1980,7 @@ function ModItem(...args) {
             return target.lists[name] ? target.lists[name][1] : undefined;
         }
         let type = variable("type");
-        console.log(target.costumes.slice(1).map(costumeToData));
+        console.log([target.name, variable("script")]);
         if (type == "JavaScript") SelectMod(type, args[3], target.name, variable("script"));
         else if (type == "Block") SelectMod(type, args[3], target.name, variable("material"), variable("digSpeed"), costumeToData(target.costumes[0]), costumeToData(target.costumes[1]));
         else if (type == "Pickaxe" || type == "Axe" || type == "Sword") SelectMod(type, args[3], target.name, variable("digSpeed"), costumeToData(target.costumes[0]), costumeToData(target.costumes[1]));
@@ -1985,7 +1990,7 @@ function ModItem(...args) {
         else if (type == "Object 2x2") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), variable("material"), variable("digSpeed"), costumeToData(target.costumes[1]), costumeToData(target.costumes[2]), costumeToData(target.costumes[3]), costumeToData(target.costumes[4]));
         else if (type == "NPC Drop") SelectMod(type, args[3], variable("item"), variable("min"), variable("max"), variable("chance"), variable("npc"));
         else if (type == "Mask") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), costumeToData(target.costumes[1]));
-        else if (type == "NPC") SelectMod(type, args[3], target.variables.cls[1], target.costumes.slice(1).map(costumeToData), costumeToData(target.costumes[0]), target.name, variable("hp"), variable("agr"), variable("spd"), variable("sizX"), variable("sizY"), variable("showHealth"), variable("isBoss"));
+        else if (type == "NPC") SelectMod(type, args[3], target.variables.cls[1], target.costumes.slice(1).map(costumeToData), costumeToData(target.costumes[0]), target.name, variable("hp"), variable("agr"), variable("spd"), variable("sizX"), variable("sizY"), variable("rotStyle"), variable("showHealth"), variable("isBoss"));
         Mod.hidden = true;
         Editor.hidden = false;
     }
