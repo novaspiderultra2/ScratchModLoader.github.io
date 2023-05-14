@@ -149,7 +149,7 @@ async function LoadTexturePack(ProjectID) {
                                 if (costume.name in BlankTexturePackData[target.name]) if (JSON.stringify(costume) != JSON.stringify(BlankTexturePackData[target.name][costume.name])) {
                                     vm.setEditingTarget(vm.runtime.getSpriteTargetByName(target.name).id);
                                     let costumeIndex = vm.editingTarget.getCostumeIndexByName(costume.name);
-                                    if (!isNaN(costumeIndex)) {
+                                    if (costumeIndex > -1) {
                                         if (costume.md5ext === undefined) costume.md5ext = `${costume.assetId}.${costume.dataFormat}`;
                                         if (costume.dataFormat == "svg") vm.updateSvg(
                                             costumeIndex,
