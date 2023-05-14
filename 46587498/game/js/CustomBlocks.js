@@ -383,6 +383,7 @@ async function LoadMod(args) {
                     "Sword": [],
                     "Mask": [],
                     "Recipe": [],
+                    "NPC": [],
                     "NPC Drop": [],
                     "JavaScript": []
                 };
@@ -528,6 +529,44 @@ async function LoadMod(args) {
                         vm.runtime.getSpriteTargetByName("Cursor").lookupVariableByNameAndType("_Recipes", "list").value.push(...Recipe);
                     }
                 }
+                const Stage = vm.runtime.getTargetForStage();
+                function NPCData(name) {
+                    return Stage.lookupVariableByNameAndType("NPC_" + name, "list");
+                }
+                for (targetID in modItems.NPC) {
+                    if (targetID != "fix") {
+                        let target = modItems.NPC[targetID];
+                        let Name = target.name;
+                        let cls = (target.variables.cls) ? target.variables.cls[1] : 1;
+                        let hp = (target.variables.hp) ? target.variables.hp[1] : 5;
+                        let agr = (target.variables.agr) ? target.variables.agr[1] : 0;
+                        let spd = (target.variables.spd) ? target.variables.spd[1] : 1;
+                        let sizX = (target.variables.sizX) ? target.variables.sizX[1] : 10;
+                        let sizY = (target.variables.sizY) ? target.variables.sizY[1] : 10;
+                        let showHealth = (target.variables.showHealth) ? target.variables.showHealth[1] : false;
+                        let isBoss = (target.variables.isBoss) ? target.variables.isBoss[1] : false;
+                        const Tiles = vm.runtime.getSpriteTargetByName("Tiles");
+                        let ID = Tiles.sprite.costumes.length;
+                        await vm.addCostume(target.costumes[0].md5ext, target.costumes[0], Tiles.id);
+                        Tiles.reorderCostume(Tiles.getCostumeIndexByName("BIG"), Tiles.sprite.costumes.length);
+                        const NPC = vm.runtime.getSpriteTargetByName("NPC");
+                        NPCData("c#").value.push(NPC.sprite.costumes.length+1);
+                        NPCData("cls").value.push(cls);
+                        NPCData("hp").value.push(hp);
+                        NPCData("agr").value.push(agr);
+                        NPCData("spd").value.push(spd);
+                        NPCData("sizX").value.push(sizX);
+                        NPCData("sizY").value.push(sizY);
+                        Stage.lookupVariableByNameAndType("Health Visible?", "list").value.push(showHealth)
+                        for (var i = 1; i < target.costumes.length; i++) {
+                            await vm.addCostume(target.costumes[i].md5ext, target.costumes[i], NPC.id);
+                        }
+                        let NPCID = NPCData("cls").value.length;
+                        if (isBoss) AddItemData(ID, Name, 0, 2, 0, NPCID, 0);
+                        else AddItemData(ID, Name, -3, 100, 0, NPCID, 0);
+                        Data.items[Name] = ID;
+                    }
+                }
                 for (targetID in modItems["NPC Drop"]) {
                     if (targetID != "fix") {
                         let target = modItems["NPC Drop"][targetID];
@@ -570,6 +609,18 @@ function getIDOfItem(name) {
         var result;
         for (var i = 1; i < TileData.length; i += 8) {
             if (TileData[i] == name) result = TileData[i - 1];
+        }
+        return result;
+    } else {
+        return name;
+    }
+}
+function getIDOfNPC(name) {
+    if (isNaN(name)) {
+        const TileData = vm.runtime.getSpriteTargetByName("Cursor").lookupVariableByNameAndType("_TileData", "list").value;
+        var result;
+        for (var i = 1; i < TileData.length; i += 8) {
+            if (TileData[i] == name) result = TileData[i + 4];
         }
         return result;
     } else {

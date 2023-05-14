@@ -1,13 +1,13 @@
-//--------------------
-//Global Variables
-//--------------------
+/*--------------------
+Global Variables
+--------------------*/
 const Editor = document.getElementById("Editor");
 const Mod = document.getElementById("Mod");
 var UnsavedChanges = false;
 var ModItemsElement;
 const tempCanvas = new Canvas();
 const tempCTX = tempCanvas.getContext("2d");
-const enabledMods = ["Block", "Pickaxe", "Axe", "Sword", "Recipe", "Other", "Object 1x1", "Object 2x2", "JavaScript", "NPC Drop", "Mask"];
+const enabledMods = ["Block", "Pickaxe", "Axe", "Sword", "Recipe", "Other", "Object 1x1", "Object 2x2", "JavaScript", "NPC Drop", "Mask", "NPC"];
 const ModItems = [];
 for (var i = 0; i < 300; i++) ModItems[i] = ["Grass", "Dirt", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Stone", "Stone", "Iron Pickaxe", "Iron Axe", "Wood", "Wood", "Sand", "Sand", "Iron Ore", "Iron Ore", "Bed", "Acorn", "Sapling", "Door Top", "Door Bottom", "Wooden Door", "Platform", "Work Bench", "Furnace", "Iron Bar", "Iron Bar", "Stone Brick", "Stone Brick", "Bed", "Bed", "Chair", "Chair", "Torch", "Torch (left)", "Torch (right)", "Sand Brick", "Sand Brick", "Chandelier", "Bench", "Dresser", "Table", "Barrel", "Chest", "Sign", "Anvil", "Sawmill", "Chain", "Grandfather Clock", "Grandfather Clock", "Grandfather Clock", "Cloud", "Cloud", "Glass", "Glass", "Ice Block", "Ice Block", "Clay", "Clay", "Brick", "Brick", "Gold Ore", "Gold Ore", "Gold Bar", "Gold Brick", "Gold Brick", "Silver Ore", "Silver Ore", "Silver Bar", "Silver Brick", "Silver Brick", "Seed", "Plant", "Plant", "Plant", "Plant", "Plant", "Plant", "Plant", "Plant", "Mushroom", "Plant", "Fence", "Iron Fence", "Gold Chandelier", "Candelabra", "Gold Chest", "Bath Tub", "Trash Can", "Toilet", "Cooking Pot", "Bath Tub", "Bath Tub", "Builder Potion", "Mining Potion", "Swiftness Potion", "Diamond Ore", "Diamond", "Diamond Slab", "Diamond Slab", "Stone Slab", "Sand Slab", "Pot Plant", "Bookcase", "Bookcase", "Bookcase", "Bookcase", "Bookcase", "Sky Chest", "Heavy Work Bench", "Bug Net", "Bunny", "Beam", "Beam", "Sofa", "Sofa", "Sofa", "Piano", "Piano", "Piano", "Chain", "Frog", "Slime", "Wooden Sword", "Iron Sword", "Gel", "Platinum Ore", "Platinum Ore", "Platinum Bar", "Gold Pickaxe", "Gold Axe", "Gold Sword", "Platinum Pickaxe", "Platinum Axe", "Platinum Sword", "Demon Eye", "Lens", "Zombie", "Easter Egg", "Chocolate", "Chocolate", "Land Claim Sign", "Crab", "Molten Pickaxe", "Blue Phaseblade", "Diamond Staff", "Water", "Water 15/16", "Water 14/16", "Water 13/16", "Water 12/16", "Water 11/16", "Water 10/16", "Water 9/16", "Water 8/16", "Water 7/16", "Water 6/16", "Water 5/16", "Water 4/16", "Water 3/16", "Water 2/16", "Water 1/16", "Goldfish", "Jellyfish", "Lava", "Lava 15/16", "Lava 14/16", "Lava 13/16", "Lava 12/16", "Lava 11/16", "Lava 10/16", "Lava 9/16", "Lava 8/16", "Lava 7/16", "Lava 6/16", "Lava 5/16", "Lava 4/16", "Lava 3/16", "Lava 2/16", "Lava 1/16", "Obsidian", "Lesser Healing Potion", "Healing Potion", "Greater Healing Potion", "Featherfall Potion", "Spelunker Potion", "Obsidian Skin Potion", "Gills Potion", "Purple Slime", "Bunny Slime", "Dungeon Slime", "Lava Slime", "Pyranha", "Shark", "Shark Fin", "Hook", "Zombie Arm", "Copper Pickaxe", "Copper Sword", "Copper Axe", "Bucket", "Water Bucket", "Lava Bucket", "Hellstone", "Hellstone", "Hellstone Bar", "Vine", "Hellforge", "Bat", "Lava Bat", "Water Chest", "Obsidian Chest", "Copper Coin", "Silver Coin", "Gold Coin", "Topaz Stone", "Topaz", "Ruby Stone", "Ruby", "Emerald Stone", "Emerald", "Sapphire Stone", "Sapphire", "Amethyst Stone", "Amethyst", "Iron Door", "Glass Door", "Obsidian Door", "Iron Door Top", "Iron Door Bottom", "Glass Door Top", "Glass Door Bottom", "Obsidian Door Top", "Obsidian Door Bottom", "Glass Kiln", "Butterfly", "Glass Table", "Glass Lantern", "Glass Chandelier", "Pot", "Wooden Sink", "Glass Platform", "Squirrel", "Mouse", "Firefly", "Fiery Greatsword", "Glass Bed", "Glass Bed L", "Glass Bed R", "Obsidian Bed", "Obsidian Bed L", "Obsidian Bed R", "Gold Bed", "Gold Bed L", "Gold Bed R", "Mushroom Bed", "Mushroom Bed L", "Mushroom Bed R", "Wooden Crate", "Iron Crate", "Mushroom Block", "Mushroom Block", "Table L", "Table R", "Iron Table", "Iron Table L", "Iron Table R", "Obsidian Table", "Obsidian Table L", "Obsidian Table R", "Mushroom Table", "Mushroom Table L", "Mushroom Table R", "Glass Table L", "Glass Table R", "Blue Dungeon Vase", "Green Dungeon Vase", "Pink Dungeon Vase", "Obsidian Vase", "Suspicious Looking Eye", "Demon Altar", "Demonite Ore", "Demonite Ore", "Demonite Bar", "Light's Bane", "Eye of Cthulhu Mask", "Santa Mask"][i];
 // const TileData = vm.runtime.targets[0].lookupVariableByNameAndType("_TileData", "list").value;
@@ -44,9 +44,34 @@ const NPCs = [
     "Firefly",
     "Eye of Cthulhu"
 ];
-//--------------------
+// const NPCClass = {
+//     "1": {
+//         name: "Hop",
+
+//     }
+//     "2": "Slime",
+//     "3": "Angry Slime",
+//     "4": "Fly",
+//     "5": "Walk (Aggressive)",
+//     "5.5": "Walk",
+//     "6": "Swim"
+// };
+
+/*--------------------
 //Images
-//--------------------
+--------------------*/
+// const assets = [];
+// document.querySelectorAll(".sprite-selector-item_sprite-image-outer_Xs0wN").forEach(e => e.onclick = () => {
+//     let costume = vm.editingTarget.getCostumes()[e.parentElement.querySelector(".sprite-selector-item_number_AnXUk").innerText-1];
+//     assets["ITEM_" + costume.name] = "https://cdn.assets.scratch.mit.edu/internalapi/asset/" + costume.md5 + "/get/";
+//     console.log({
+//         name: "Item",
+//         rotationCenterX: costume.rotationCenterX,
+//         rotationCenterY: costume.rotationCenterY,
+//         dataFormat: costume.dataFormat,
+//         image: "ITEM_" + costume.name
+//     });
+// });
 const assets = {
     block: "https://cdn.assets.scratch.mit.edu/internalapi/asset/999a77dc64a8c4c37e29d2d26ad45737.png/get/",
     pickaxe: "https://cdn.assets.scratch.mit.edu/internalapi/asset/5ccbea0f874664d49b44b67cb0897cd5.png/get/",
@@ -76,13 +101,327 @@ const assets = {
     beam: "https://cdn.assets.scratch.mit.edu/internalapi/asset/c01129a7283a29e7631d5654c8f0d653.png/get/",
     trashBtn: "https://cdn.assets.scratch.mit.edu/internalapi/asset/710a6ef1048f968401b16a6b9eb07773.png/get/",
     zombieArm: "https://cdn.assets.scratch.mit.edu/internalapi/asset/b6b22cb0ab0f8c52bdd625a7c85c0520.png/get/",
-    head: "https://cdn.assets.scratch.mit.edu/internalapi/asset/e682a401da2bae8293ca2f108d4f1ed4.png/get/"
+    head: "https://cdn.assets.scratch.mit.edu/internalapi/asset/e682a401da2bae8293ca2f108d4f1ed4.png/get/",
+    "rabbit1": "https://cdn.assets.scratch.mit.edu/internalapi/asset/2f3c462b5e8ce9c4eecba58fd65c3483.png/get/",
+    "rabbit2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/744bf0c254530866edb442cf3a519140.png/get/",
+    "rabbit3": "https://cdn.assets.scratch.mit.edu/internalapi/asset/64efeaf66d1890bce7a73cb51f1879a2.png/get/",
+    "frog1": "https://cdn.assets.scratch.mit.edu/internalapi/asset/4354c5895e3350a2a5bc50ad78595089.png/get/",
+    "frog2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/289603f70519ca76e7e790a49506d2a3.png/get/",
+    "frog3": "https://cdn.assets.scratch.mit.edu/internalapi/asset/92343ec2d63913d092d87e6ace62d70d.png/get/",
+    "slime-green-1": "https://cdn.assets.scratch.mit.edu/internalapi/asset/698359608402d9d9a07c3685dd9c0b06.png/get/",
+    "slime-green-2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/b652b14e127ba0f87acef4b8df38d65d.png/get/",
+    "Demon_Eye": "https://cdn.assets.scratch.mit.edu/internalapi/asset/9ea36789adf1c2d54f32a270cdbdff3d.png/get/",
+    "zombie_01": "https://cdn.assets.scratch.mit.edu/internalapi/asset/8d7c51f9a8cd6444b84ef33e82fac994.png/get/",
+    "zombie_02": "https://cdn.assets.scratch.mit.edu/internalapi/asset/fabadd056aeae709902458b878148c14.png/get/",
+    "zombie_03": "https://cdn.assets.scratch.mit.edu/internalapi/asset/250c97f5276bef2b2068b34dd9b93063.png/get/",
+    "crab_1": "https://cdn.assets.scratch.mit.edu/internalapi/asset/5f08736e22cd3117330d9a12e25de2ed.png/get/",
+    "crab_2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/31af06cd44bba1d398317eb2c9723b99.png/get/",
+    "crab_3": "https://cdn.assets.scratch.mit.edu/internalapi/asset/63ec18ab7aadba8ed01fcde7f3c41665.png/get/",
+    "goldfish": "https://cdn.assets.scratch.mit.edu/internalapi/asset/1c905bf540677b588b713807b444ccbc.png/get/",
+    "goldfish2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/960a58b283894332071a33f624701d8b.png/get/",
+    "goldfish3": "https://cdn.assets.scratch.mit.edu/internalapi/asset/cc4a3d754ca3c2269a6e124e7c5b2fcd.png/get/",
+    "jellyfish": "https://cdn.assets.scratch.mit.edu/internalapi/asset/aeb3771b722c8917ebf8cad9c0839d6a.png/get/",
+    "jellyfish2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/362c53e9461eea8d52b542925a6f6b68.png/get/",
+    "jellyfish3": "https://cdn.assets.scratch.mit.edu/internalapi/asset/c909051321f056ae6869fa37166bcb7c.png/get/",
+    "bat4": "https://cdn.assets.scratch.mit.edu/internalapi/asset/423ce0744a13eb16957b3fc7348eaca0.png/get/",
+    "bat": "https://cdn.assets.scratch.mit.edu/internalapi/asset/632216ce59020a2a0d65cc12013d2db4.png/get/",
+    "bat2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/2a3feeee2355f78655aba4b1ec7221f5.png/get/",
+    "bat3": "https://cdn.assets.scratch.mit.edu/internalapi/asset/5c4212d626f5e1ddf14789d1b9747549.png/get/",
+    "bird": "https://cdn.assets.scratch.mit.edu/internalapi/asset/c136b0a0c9cf426ce71897b8f3a34f70.png/get/",
+    "bird2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/f6f95d687c2c094268fd2115400123d5.png/get/",
+    "bird3": "https://cdn.assets.scratch.mit.edu/internalapi/asset/7b6e6161bfdcb86ffc03e670b4f27112.png/get/",
+    "bird4": "https://cdn.assets.scratch.mit.edu/internalapi/asset/c72d190f950491fe63cce7447309c8ed.png/get/",
+    "pyrana": "https://cdn.assets.scratch.mit.edu/internalapi/asset/ee322f40273c3e7e5bcef517c78f399f.png/get/",
+    "pyrana2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/9e38e25c37f5520893050bcf962b2a9f.png/get/",
+    "pyrana3": "https://cdn.assets.scratch.mit.edu/internalapi/asset/cad41e976ffe952dd2d988e71e8491a9.png/get/",
+    "slime-purple": "https://cdn.assets.scratch.mit.edu/internalapi/asset/26d28677d8bcb8e126282fc9ff6087ca.png/get/",
+    "slime-purple2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/c466113602821c2068df0c474d2eece2.png/get/",
+    "slime-blue": "https://cdn.assets.scratch.mit.edu/internalapi/asset/04044dd3f4f1cc3d8863b88bc0c14da3.png/get/",
+    "slime-blue2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/d351ba633a244905f0636ecd0544f44b.png/get/",
+    "shark": "https://cdn.assets.scratch.mit.edu/internalapi/asset/989635aebf2bf4cca93b10cb58286160.png/get/",
+    "shark2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/59015f65469eb1e2bf5ebd2136426fb3.png/get/",
+    "shark3": "https://cdn.assets.scratch.mit.edu/internalapi/asset/989635aebf2bf4cca93b10cb58286160.png/get/",
+    "shark4": "https://cdn.assets.scratch.mit.edu/internalapi/asset/4c3df6e38533cc89da137665d1e9e5a0.png/get/",
+    "bunny-slime": "https://cdn.assets.scratch.mit.edu/internalapi/asset/9ae8a630958822e9dab634502a271cca.png/get/",
+    "bunny-slime2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/9a298ad8eb4d5296cedbe353278ac2c0.png/get/",
+    "lava-bat2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/bbbd37e0dd809b474c7a3f4525192a65.png/get/",
+    "lava-bat3": "https://cdn.assets.scratch.mit.edu/internalapi/asset/94dff28c89ba452e7504cc3597c128ee.png/get/",
+    "lava-bat4": "https://cdn.assets.scratch.mit.edu/internalapi/asset/84121e8d62871664f364cb92587a93b7.png/get/",
+    "lava-slime": "https://cdn.assets.scratch.mit.edu/internalapi/asset/1e7fe85e1670de004ff98e36a676bbcd.png/get/",
+    "lava-slime2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/6488f99379bebea5f973d476308e95b6.png/get/",
+    "Butterfly1": "https://cdn.assets.scratch.mit.edu/internalapi/asset/a5fd11959551d61d0d7e14706dc40f8f.png/get/",
+    "Butterfly2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/38ee62168f7c2e3d6fe54671d1b172a3.png/get/",
+    "Butterfly3": "https://cdn.assets.scratch.mit.edu/internalapi/asset/220ed2ab828b9374c9361a419ac26cc5.png/get/",
+    "SquirrelW2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/42f4c0f7760f7a652926e89f3250574e.png/get/",
+    "SquirrelW3": "https://cdn.assets.scratch.mit.edu/internalapi/asset/d15bcb8c4bcad6e4880de435ee0f6353.png/get/",
+    "SquirrelW4": "https://cdn.assets.scratch.mit.edu/internalapi/asset/08a071dbc043403d8903dadec385e61e.png/get/",
+    "SquirrelW5": "https://cdn.assets.scratch.mit.edu/internalapi/asset/ca8d6dee3771522222b8f506e154db7f.png/get/",
+    "SquirrelW": "https://cdn.assets.scratch.mit.edu/internalapi/asset/67e7b45ae0c7a204f8c5931e07e18531.png/get/",
+    "mouse2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/a409057e6ed81084f6df133a1c71dc87.png/get/",
+    "mouse3": "https://cdn.assets.scratch.mit.edu/internalapi/asset/795b6cab721e33145e23f9cfa21399ca.png/get/",
+    "mouse4": "https://cdn.assets.scratch.mit.edu/internalapi/asset/a409057e6ed81084f6df133a1c71dc87.png/get/",
+    "mouse5": "https://cdn.assets.scratch.mit.edu/internalapi/asset/fb0052ffdea7074632731a42135c3d12.png/get/",
+    "mouse": "https://cdn.assets.scratch.mit.edu/internalapi/asset/633ef31480b1eb0cba42705b0000b821.png/get/",
+    "Firefly": "https://cdn.assets.scratch.mit.edu/internalapi/asset/ad229e3dbfc63ec58c652ac0f4909f11.png/get/",
+    "Firefly2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/7533f9a21466065781d0e7f03c7e15de.png/get/",
+    "Firefly3": "https://cdn.assets.scratch.mit.edu/internalapi/asset/6bd914498888315165a5324e4ce2313c.png/get/",
+    "Eye-of-Cthulhu": "https://cdn.assets.scratch.mit.edu/internalapi/asset/d1606fdf99b7aa4d291f4206f69300b6.png/get/",
+    "ITEM_SquirrelW": "https://cdn.assets.scratch.mit.edu/internalapi/asset/67e7b45ae0c7a204f8c5931e07e18531.png/get/",
+    "ITEM_goldfish2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/960a58b283894332071a33f624701d8b.png/get/",
+    "ITEM_rabbit1": "https://cdn.assets.scratch.mit.edu/internalapi/asset/2f3c462b5e8ce9c4eecba58fd65c3483.png/get/",
+    "ITEM_slime-green-1": "https://cdn.assets.scratch.mit.edu/internalapi/asset/698359608402d9d9a07c3685dd9c0b06.png/get/",
+    "ITEM_zombie_01": "https://cdn.assets.scratch.mit.edu/internalapi/asset/3d4a56c7c04dd34b014e7d67e0ee04bb.png/get/",
+    "ITEM_bat": "https://cdn.assets.scratch.mit.edu/internalapi/asset/632216ce59020a2a0d65cc12013d2db4.png/get/"
 };
-Object.keys(assets).forEach(async (key) => assets[key] = await ReadAsDataURL(await (await fetch(assets[key])).blob()));
+var NPCClass;
+(async () => {
+    let assetNames = Object.keys(assets);
+    for (var i = 0; i < assetNames.length; i++) assets[assetNames[i]] = await ReadAsDataURL(await (await fetch(assets[assetNames[i]])).blob());
+    NPCClass = {
+        "1": {
+            name: "Hop",
+            images: [assets.rabbit1, assets.frog1],
+            frames: [
+                {
+                    "name": "Frame1",
+                    "rotationCenterX": 14,
+                    "rotationCenterY": 24,
+                    "dataFormat": "png",
+                    "image": assets.rabbit1
+                },
+                {
+                    "name": "Frame2",
+                    "rotationCenterX": 16,
+                    "rotationCenterY": 24,
+                    "dataFormat": "png",
+                    "image": assets.rabbit2
+                },
+                {
+                    "name": "Frame3",
+                    "rotationCenterX": 14,
+                    "rotationCenterY": 26,
+                    "dataFormat": "png",
+                    "image": assets.rabbit3
+                }
+            ],
+            item: {
+                "name": "Item",
+                "rotationCenterX": -2,
+                "rotationCenterY": 28,
+                "dataFormat": "png",
+                "image": assets.ITEM_rabbit1
+            }
+        },
+        "2": {
+            name: "Slime",
+            images: [assets["slime-green-1"], assets["slime-purple"]],
+            frames: [
+                {
+                    "name": "Frame1",
+                    "rotationCenterX": 16,
+                    "rotationCenterY": 22,
+                    "dataFormat": "png",
+                    "image": assets["slime-green-1"]
+                },
+                {
+                    "name": "Frame2",
+                    "rotationCenterX": 14,
+                    "rotationCenterY": 24,
+                    "dataFormat": "png",
+                    "image": assets["slime-green-2"]
+                }
+            ],
+            item: {
+                "name": "Item",
+                "rotationCenterX": 0,
+                "rotationCenterY": 25,
+                "dataFormat": "png",
+                "image": assets["ITEM_slime-green-1"]
+            }
+        },
+        "3": {
+            name: "Angry Slime",
+            images: [assets["slime-green-1"], assets["slime-purple"], assets["slime-blue"], assets["bunny-slime"], assets["lava-slime"]],
+            frames: [
+                {
+                    "name": "Frame1",
+                    "rotationCenterX": 16,
+                    "rotationCenterY": 22,
+                    "dataFormat": "png",
+                    "image": assets["slime-green-1"]
+                },
+                {
+                    "name": "Frame2",
+                    "rotationCenterX": 14,
+                    "rotationCenterY": 24,
+                    "dataFormat": "png",
+                    "image": assets["slime-green-2"]
+                }
+            ],
+            item: {
+                "name": "Item",
+                "rotationCenterX": 0,
+                "rotationCenterY": 25,
+                "dataFormat": "png",
+                "image": assets["ITEM_slime-green-1"]
+            }
+        },
+        "4": {
+            name: "Fly",
+            images: [assets.Demon_Eye, assets.bat, assets.bird, assets["lava-bat2"], assets.Butterfly1, assets.Firefly, assets["Eye-of-Cthulhu"]],
+            frames: [
+                {
+                    "name": "Frame1",
+                    "rotationCenterX": 16,
+                    "rotationCenterY": 10,
+                    "dataFormat": "png",
+                    "image": assets.bat
+                },
+                {
+                    "name": "Frame2",
+                    "rotationCenterX": 14,
+                    "rotationCenterY": 6,
+                    "dataFormat": "png",
+                    "image": assets.bat2
+                },
+                {
+                    "name": "Frame3",
+                    "rotationCenterX": 8,
+                    "rotationCenterY": 8,
+                    "dataFormat": "png",
+                    "image": assets.bat3
+                }
+            ],
+            item: {
+                "name": "Item",
+                "rotationCenterX": 0,
+                "rotationCenterY": 26,
+                "dataFormat": "png",
+                "image": assets.ITEM_bat
+            }
+        },
+        "5": {
+            name: "Walk (Aggressive)",
+            images: [assets.zombie_01, assets.crab_1],
+            frames: [
+                {
+                    "name": "Frame1",
+                    "rotationCenterX": 16,
+                    "rotationCenterY": 44,
+                    "dataFormat": "png",
+                    "image": assets.zombie_01
+                },
+                {
+                    "name": "Frame2",
+                    "rotationCenterX": 16,
+                    "rotationCenterY": 44,
+                    "dataFormat": "png",
+                    "image": assets.zombie_02
+                },
+                {
+                    "name": "Frame3",
+                    "rotationCenterX": 16,
+                    "rotationCenterY": 44,
+                    "dataFormat": "png",
+                    "image": assets.zombie_03
+                }
+            ],
+            item: {
+                "name": "Item",
+                "rotationCenterX": 0,
+                "rotationCenterY": 37,
+                "dataFormat": "png",
+                "image": assets.ITEM_zombie_01
+            }
+        },
+        "5.5": {
+            name: "Walk (Passive)",
+            images: [assets.SquirrelW, assets.mouse],
+            frames: [
+                {
+                    "name": "Frame1",
+                    "rotationCenterX": 24,
+                    "rotationCenterY": 22,
+                    "dataFormat": "png",
+                    "image": assets.SquirrelW2
+                },
+                {
+                    "name": "Frame2",
+                    "rotationCenterX": 24,
+                    "rotationCenterY": 22,
+                    "dataFormat": "png",
+                    "image": assets.SquirrelW3
+                },
+                {
+                    "name": "Frame3",
+                    "rotationCenterX": 24,
+                    "rotationCenterY": 19,
+                    "dataFormat": "png",
+                    "image": assets.SquirrelW4
+                },
+                {
+                    "name": "Frame4",
+                    "rotationCenterX": 22,
+                    "rotationCenterY": 26,
+                    "dataFormat": "png",
+                    "image": assets.SquirrelW5
+                },
+                {
+                    "name": "Frame5",
+                    "rotationCenterX": 18,
+                    "rotationCenterY": 30,
+                    "dataFormat": "png",
+                    "image": assets.SquirrelW
+                }
+            ],
+            item: {
+                "name": "Item",
+                "rotationCenterX": 0,
+                "rotationCenterY": 30,
+                "dataFormat": "png",
+                "image": assets.ITEM_SquirrelW
+            }
+        },
+        "6": {
+            name: "Swim",
+            images: [assets.goldfish, assets.jellyfish, assets.pyrana, assets.shark],
+            frames: [
+                {
+                    "name": "Frame1",
+                    "rotationCenterX": 14,
+                    "rotationCenterY": 18,
+                    "dataFormat": "png",
+                    "image": assets.goldfish
+                },
+                {
+                    "name": "Frame2",
+                    "rotationCenterX": 16,
+                    "rotationCenterY": 18,
+                    "dataFormat": "png",
+                    "image": assets.goldfish2
+                },
+                {
+                    "name": "Frame3",
+                    "rotationCenterX": 14,
+                    "rotationCenterY": 18,
+                    "dataFormat": "png",
+                    "image": assets.goldfish3
+                }
+            ],
+            item: {
+                "name": "Item",
+                "rotationCenterX": -2,
+                "rotationCenterY": 28,
+                "dataFormat": "png",
+                "image": assets.ITEM_goldfish2
+            }
+        }
+    };
+})();
 
-//--------------------
-//Project Data
-//--------------------
+/*--------------------
+Project Data
+--------------------*/
 const ProjectData = {};
 ProjectData.blankCostume = {
     "ID": md5('<svg version="1.1" width="2" height="2" viewBox="-1 -1 2 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"></svg>'),
@@ -165,9 +504,9 @@ Object.defineProperty(ProjectData, "Sprite", {
 });
 
 
-//--------------------
-//Unsaved Changes
-//--------------------
+/*--------------------
+Unsaved Changes
+--------------------*/
 if (false) window.onbeforeunload = function (e) {
     if (UnsavedChanges) {
         (e || window.event).returnValue = true;
@@ -175,9 +514,9 @@ if (false) window.onbeforeunload = function (e) {
     }
 }
 
-//--------------------
-//Create New Mod
-//--------------------
+/*--------------------
+Create New Mod
+--------------------*/
 document.getElementById("CreateNewMod").onclick = function () {
     Editor.innerHTML = "";
     Editor.appendChild(new Text({ "innerText": "Create New Mod" }, { "color": "#fff", "font-size": "3em" }));
@@ -207,9 +546,9 @@ document.getElementById("CreateNewMod").onclick = function () {
     Editor.hidden = false;
 }
 
-//--------------------
-//Load Mod
-//--------------------
+/*--------------------
+Load Mod
+--------------------*/
 document.getElementById("EditMod").onclick = function () {
     let input = new Input({ type: "file", accept: ".zip, .sb3" });
     input.click();
@@ -232,9 +571,9 @@ document.getElementById("EditMod").onclick = function () {
     }
 }
 
-//--------------------
-//Mod Menu
-//--------------------
+/*--------------------
+Mod Menu
+--------------------*/
 function SetupModEditor(name) {
     Mod.innerHTML = "";
     Mod.appendChild(new Text({ "innerText": name }, { "color": "#fff", "font-size": "3em" }));
@@ -292,9 +631,9 @@ function SetupModEditor(name) {
     Mod.appendChild(new Br);
 }
 
-//--------------------
-//Edit Manifest
-//--------------------
+/*--------------------
+Edit Manifest
+--------------------*/
 function EditManifest() {
     Editor.innerHTML = "";
     Editor.appendChild(new Text({ "innerText": "Edit Manifest" }, { "color": "#fff", "font-size": "3em" }));
@@ -325,9 +664,9 @@ function EditManifest() {
     Editor.hidden = false;
 }
 
-//--------------------
-//Download Mod
-//--------------------
+/*--------------------
+Download Mod
+--------------------*/
 async function DownloadMod() {
     const sb3 = new JSZip();
     Object.values(ProjectData.costumes).forEach(data => sb3.file(`${data.ID}.${data.type}`, data.data));
@@ -338,9 +677,9 @@ async function DownloadMod() {
     }).click();
 }
 
-//--------------------
-//Item
-//--------------------
+/*--------------------
+Item
+--------------------*/
 function AddItem() {
     Editor.innerHTML = "";
     Editor.appendChild(new Text({ "innerText": "Add Item" }, { "color": "#fff", "font-size": "3em" }));
@@ -366,13 +705,15 @@ function AddItem() {
     Editor.appendChild(new Br);
     Editor.appendChild(new ModSelect("Mask", assets.mask));
     Editor.appendChild(new ModSelect("Recipe", assets.craftingRecipe));
+    Editor.appendChild(new ModSelect("NPC", assets.npc));
     Editor.appendChild(new ModSelect("NPC Drop", assets.zombieArm));
+    Editor.appendChild(new Br);
     Editor.appendChild(new ModSelect("Other", assets.other));
     Editor.appendChild(new Br);
     Editor.appendChild(new Text({ "innerText": "Intermediate" }, { "color": "#fff", "font-size": "1.5em" }));
     Editor.appendChild(new Br);
     Editor.appendChild(new ModSelect("Potion", assets.potion));
-    Editor.appendChild(new ModSelect("NPC", assets.npc));
+    Editor.appendChild(new ModSelect("NPC Class", assets.npc));
     Editor.appendChild(new Br);
     Editor.appendChild(new Text({ "innerText": "Advanced" }, { "color": "#fff", "font-size": "1.5em" }));
     Editor.appendChild(new Br);
@@ -463,13 +804,20 @@ function AddItemElements() {
                 "Mask",
                 i
             ));
+        } else if (target.variables.type[1] == "NPC") {
+            ModItemsElement.appendChild(new ModItem(
+                ProjectData.costumes[target.costumes[0].assetId].dataURL,
+                target.name,
+                "NPC",
+                i
+            ));
         }
     }
 }
 
-//--------------------
-//Select Mod
-//--------------------
+/*--------------------
+Select Mod
+--------------------*/
 function SelectMod(type, ...args) {
     if (type == "JavaScript") {
         SelectJavaScriptMod(...args);
@@ -491,8 +839,10 @@ function SelectMod(type, ...args) {
         SelectObject2x2Mod(...args);
     } else if (type == "NPC Drop") {
         SelectNPCDropMod(...args);
-    }  else if (type == "Mask") {
+    } else if (type == "Mask") {
         SelectMaskMod(...args);
+    } else if (type == "NPC") {
+        SelectNPCMod(...args);
     }
 }
 
@@ -542,7 +892,7 @@ function SelectJavaScriptMod(ID, Name, Contents) {
     Editor.appendChild(new Text({ "innerText": "window.vm.runtime.stop()" }, { "color": "#fff", "font-size": "1em", "font-family": "sans-serif" }));
     Editor.appendChild(new Br);
 }
-function SelectBlockMod(ID, Name, Material, DigSpeed, TopBlock, TopBlockImage, BottomBlock, BottomBlockImage) {
+function SelectBlockMod(ID, Name, Material, DigSpeed, TopBlock, BottomBlock) {
     Editor.innerHTML = "";
     Editor.appendChild(new Text({ "innerText": "Add Block" }, { "color": "#fff", "font-size": "3em" }));
     Editor.appendChild(new Br);
@@ -551,14 +901,14 @@ function SelectBlockMod(ID, Name, Material, DigSpeed, TopBlock, TopBlockImage, B
         rotationCenterX: TopBlock ? TopBlock.rotationCenterX : 0,
         rotationCenterY: TopBlock ? TopBlock.rotationCenterY : 32,
         imageFormat: TopBlock ? TopBlock.dataFormat : "png",
-        image: TopBlockImage ? TopBlockImage : assets.block
+        image: TopBlock ? TopBlock.image : assets.block
     });
     const bottomBlock = new ImageEditor({
         name: "Bottom Block",
         rotationCenterX: BottomBlock ? BottomBlock.rotationCenterX : 0,
         rotationCenterY: BottomBlock ? BottomBlock.rotationCenterY : 32,
         imageFormat: BottomBlock ? BottomBlock.dataFormat : "png",
-        image: BottomBlockImage ? BottomBlockImage : assets.dirt
+        image: BottomBlock ? BottomBlock.image : assets.dirt
     });
     const name = new StringInput("Name", "New Block's Name", "Name", Name ? Name : "My New Block");
     const material = new SelectInput("Material", "What The Block Is Made Out Of", [{ 12: "Wood", 20: "Dirt", 30: "Stone", 50: "Ore", 60: "Metal", 70: "Hellstone" }, { value: Material ? Material : 12 }]);
@@ -608,7 +958,7 @@ function SelectBlockMod(ID, Name, Material, DigSpeed, TopBlock, TopBlockImage, B
     Editor.appendChild(new Br);
     Editor.appendChild(new Br);
 }
-function SelectPickaxeMod(ID, Name, DigSpeed, InventorySprite, InventorySpriteImage, UseSprite, UseSpriteImage) {
+function SelectPickaxeMod(ID, Name, DigSpeed, InventorySprite, UseSprite) {
     Editor.innerHTML = "";
     Editor.appendChild(new Text({ "innerText": "Add Pickaxe" }, { "color": "#fff", "font-size": "3em" }));
     Editor.appendChild(new Br);
@@ -618,14 +968,14 @@ function SelectPickaxeMod(ID, Name, DigSpeed, InventorySprite, InventorySpriteIm
         rotationCenterX: InventorySprite ? InventorySprite.rotationCenterX : 0,
         rotationCenterY: InventorySprite ? InventorySprite.rotationCenterY : 32,
         imageFormat: InventorySprite ? InventorySprite.dataFormat : "png",
-        image: InventorySpriteImage ? InventorySpriteImage : assets.pickaxe
+        image: InventorySprite ? InventorySprite.image : assets.pickaxe
     });
     const useSprite = new ImageEditor({
         name: "Pickaxe (Use)",
         rotationCenterX: UseSprite ? UseSprite.rotationCenterX : -10,
         rotationCenterY: UseSprite ? UseSprite.rotationCenterY : 29,
         imageFormat: UseSprite ? UseSprite.dataFormat : "png",
-        image: UseSpriteImage ? UseSpriteImage : assets.pickaxe
+        image: UseSprite ? UseSprite.image : assets.pickaxe
     }, false);
     const digSpeed = new NumberInput("Dig Speed", "The Pickaxe's Strength", "Dig Speed", DigSpeed ? DigSpeed : 5);
     const cancel = new Button({ "innerText": "Cancel" });
@@ -681,7 +1031,7 @@ function SelectPickaxeMod(ID, Name, DigSpeed, InventorySprite, InventorySpriteIm
     Editor.appendChild(new Br);
     Editor.appendChild(new Br);
 }
-function SelectAxeMod(ID, Name, DigSpeed, InventorySprite, InventorySpriteImage, UseSprite, UseSpriteImage) {
+function SelectAxeMod(ID, Name, DigSpeed, InventorySprite, UseSprite) {
     Editor.innerHTML = "";
     Editor.appendChild(new Text({ "innerText": "Add Axe" }, { "color": "#fff", "font-size": "3em" }));
     Editor.appendChild(new Br);
@@ -691,14 +1041,14 @@ function SelectAxeMod(ID, Name, DigSpeed, InventorySprite, InventorySpriteImage,
         rotationCenterX: InventorySprite ? InventorySprite.rotationCenterX : 0,
         rotationCenterY: InventorySprite ? InventorySprite.rotationCenterY : 32,
         imageFormat: InventorySprite ? InventorySprite.dataFormat : "png",
-        image: InventorySpriteImage ? InventorySpriteImage : assets.axe
+        image: InventorySprite ? InventorySprite.image : assets.axe
     });
     const useSprite = new ImageEditor({
         name: "Axe (Use)",
         rotationCenterX: UseSprite ? UseSprite.rotationCenterX : -10,
         rotationCenterY: UseSprite ? UseSprite.rotationCenterY : 29,
         imageFormat: UseSprite ? UseSprite.dataFormat : "png",
-        image: UseSpriteImage ? UseSpriteImage : assets.axe
+        image: UseSprite ? UseSprite.image : assets.axe
     }, false);
     const digSpeed = new NumberInput("Dig Speed", "The Axe's Strength", "Dig Speed", DigSpeed ? DigSpeed : 5);
     const cancel = new Button({ "innerText": "Cancel" });
@@ -754,7 +1104,7 @@ function SelectAxeMod(ID, Name, DigSpeed, InventorySprite, InventorySpriteImage,
     Editor.appendChild(new Br);
     Editor.appendChild(new Br);
 }
-function SelectSwordMod(ID, Name, DigSpeed, InventorySprite, InventorySpriteImage, UseSprite, UseSpriteImage) {
+function SelectSwordMod(ID, Name, DigSpeed, InventorySprite, UseSprite) {
     Editor.innerHTML = "";
     Editor.appendChild(new Text({ "innerText": "Add Sword" }, { "color": "#fff", "font-size": "3em" }));
     Editor.appendChild(new Br);
@@ -764,14 +1114,14 @@ function SelectSwordMod(ID, Name, DigSpeed, InventorySprite, InventorySpriteImag
         rotationCenterX: InventorySprite ? InventorySprite.rotationCenterX : 0,
         rotationCenterY: InventorySprite ? InventorySprite.rotationCenterY : 32,
         imageFormat: InventorySprite ? InventorySprite.dataFormat : "png",
-        image: InventorySpriteImage ? InventorySpriteImage : assets.sword
+        image: InventorySprite ? InventorySprite.image : assets.sword
     });
     const useSprite = new ImageEditor({
         name: "Sword (Use)",
         rotationCenterX: UseSprite ? UseSprite.rotationCenterX : -10,
         rotationCenterY: UseSprite ? UseSprite.rotationCenterY : 29,
         imageFormat: UseSprite ? UseSprite.dataFormat : "png",
-        image: UseSpriteImage ? UseSpriteImage : assets.sword
+        image: UseSprite ? UseSprite.image : assets.sword
     }, false);
     const digSpeed = new NumberInput("Dig Speed", "The Sword's Strength", "Dig Speed", DigSpeed ? DigSpeed : 10);
     const cancel = new Button({ "innerText": "Cancel" });
@@ -891,7 +1241,7 @@ function SelectRecipeMod(ID, Item, Amount, UseStation, CraftingStation, Items, A
     Editor.appendChild(new Br);
     Editor.appendChild(new Br);
 }
-function SelectOtherMod(ID, Name, Image, img) {
+function SelectOtherMod(ID, Name, Image) {
     Editor.innerHTML = "";
     Editor.appendChild(new Text({ "innerText": "Add Item" }, { "color": "#fff", "font-size": "3em" }));
     Editor.appendChild(new Br);
@@ -900,7 +1250,7 @@ function SelectOtherMod(ID, Name, Image, img) {
         rotationCenterX: Image ? Image.rotationCenterX : -8,
         rotationCenterY: Image ? Image.rotationCenterY : 22,
         imageFormat: Image ? Image.dataFormat : "png",
-        image: img ? img : assets.other
+        image: Image ? Image.image : assets.other
     });
     const name = new StringInput("Name", "New Item's Name", "Name", Name ? Name : "My New Item");
     const cancel = new Button({ "innerText": "Cancel" });
@@ -935,7 +1285,7 @@ function SelectOtherMod(ID, Name, Image, img) {
     Editor.appendChild(new Br);
     Editor.appendChild(new Br);
 }
-function SelectObject1x1Mod(ID, Name, Image, img, Material, DigSpeed) {
+function SelectObject1x1Mod(ID, Name, Image, Material, DigSpeed) {
     Editor.innerHTML = "";
     Editor.appendChild(new Text({ "innerText": "Add Object 1x1" }, { "color": "#fff", "font-size": "3em" }));
     Editor.appendChild(new Br);
@@ -944,7 +1294,7 @@ function SelectObject1x1Mod(ID, Name, Image, img, Material, DigSpeed) {
         rotationCenterX: Image ? Image.rotationCenterX : 0,
         rotationCenterY: Image ? Image.rotationCenterY : 28,
         imageFormat: Image ? Image.dataFormat : "png",
-        image: img ? img : assets.object1x1
+        image: Image ? Image.image : assets.object1x1
     });
     const name = new StringInput("Name", "New Object's Name", "Name", Name ? Name : "My New Object");
     const material = new SelectInput("Material", "What The Object Is Made Out Of", [{ 11: "Veg", 12: "Wood", 13: "Chest", 20: "Dirt", 30: "Stone", 50: "Ore", 60: "Metal", 63: "Metal Chest", 70: "Hellstone" }, { value: Material ? Material : 12 }]);
@@ -985,7 +1335,7 @@ function SelectObject1x1Mod(ID, Name, Image, img, Material, DigSpeed) {
     Editor.appendChild(new Br);
     Editor.appendChild(new Br);
 }
-function SelectObject2x2Mod(ID, Name, Image, img, Material, DigSpeed, TopLeft, TopLeftImg, BottomLeft, BottomLeftImg, TopRight, TopRightImg, BottomRight, BottomRightImg) {
+function SelectObject2x2Mod(ID, Name, Image, Material, DigSpeed, TopLeft, BottomLeft, TopRight, BottomRight) {
     Editor.innerHTML = "";
     Editor.appendChild(new Text({ "innerText": "Add Object 2x2" }, { "color": "#fff", "font-size": "3em" }));
     Editor.appendChild(new Br);
@@ -994,35 +1344,35 @@ function SelectObject2x2Mod(ID, Name, Image, img, Material, DigSpeed, TopLeft, T
         rotationCenterX: Image ? Image.rotationCenterX : -8,
         rotationCenterY: Image ? Image.rotationCenterY : 30,
         imageFormat: Image ? Image.dataFormat : "png",
-        image: img ? img : assets.bookcase_item
+        image: Image ? Image.image : assets.bookcase_item
     });
     const topLeft = new ImageEditor({
         name: "Top Left",
         rotationCenterX: TopLeft ? TopLeft.rotationCenterX : -8,
         rotationCenterY: TopLeft ? TopLeft.rotationCenterY : 32,
         imageFormat: TopLeft ? TopLeft.dataFormat : "png",
-        image: TopLeftImg ? TopLeftImg : assets.bookcase1
+        image: TopLeft ? TopLeft.image : assets.bookcase1
     });
     const bottomLeft = new ImageEditor({
         name: "Bottom Left",
         rotationCenterX: BottomLeft ? BottomLeft.rotationCenterX : -8,
         rotationCenterY: BottomLeft ? BottomLeft.rotationCenterY : 32,
         imageFormat: BottomLeft ? BottomLeft.dataFormat : "png",
-        image: BottomLeftImg ? BottomLeftImg : assets.bookcase2
+        image: BottomLeft ? BottomLeft.image : assets.bookcase2
     });
     const topRight = new ImageEditor({
         name: "Top Right",
         rotationCenterX: TopRight ? TopRight.rotationCenterX : 0,
         rotationCenterY: TopRight ? TopRight.rotationCenterY : 32,
         imageFormat: TopRight ? TopRight.dataFormat : "png",
-        image: TopRightImg ? TopRightImg : assets.bookcase3
+        image: TopRight ? TopRight.image : assets.bookcase3
     });
     const bottomRight = new ImageEditor({
         name: "Bottom Right",
         rotationCenterX: BottomRight ? BottomRight.rotationCenterX : 0,
         rotationCenterY: BottomRight ? BottomRight.rotationCenterY : 32,
         imageFormat: BottomRight ? BottomRight.dataFormat : "png",
-        image: BottomRightImg ? BottomRightImg : assets.bookcase4
+        image: BottomRight ? BottomRight.image : assets.bookcase4
     });
     topLeft.style.display = "inline-block";
     topRight.style.display = "inline-block";
@@ -1129,7 +1479,7 @@ function SelectNPCDropMod(ID, Item, Min, Max, Chance, NPC) {
         Sprite.variables.min = ["Min", min.value];
         Sprite.variables.max = ["Max", max.value];
         Sprite.variables.chance = ["Chance", chance.value];
-        Sprite.variables.npc = ["NPC", parseInt(npc.value) + 1];
+        Sprite.variables.npc = ["NPC", npc.value];
         if (ID) ProjectData.json.targets[ID] = Sprite;
         else ProjectData.json.targets.push(Sprite);
         Editor.hidden = true;
@@ -1157,7 +1507,7 @@ function SelectNPCDropMod(ID, Item, Min, Max, Chance, NPC) {
     Editor.appendChild(new Br);
     Editor.appendChild(new Br);
 }
-function SelectMaskMod(ID, Name, Item, ItemIMG, Mask, MaskIMG) {
+function SelectMaskMod(ID, Name, Item, Mask) {
     Editor.innerHTML = "";
     Editor.appendChild(new Text({ "innerText": "Add Mask" }, { "color": "#fff", "font-size": "3em" }));
     Editor.appendChild(new Br);
@@ -1166,14 +1516,14 @@ function SelectMaskMod(ID, Name, Item, ItemIMG, Mask, MaskIMG) {
         rotationCenterX: Item ? Item.rotationCenterX : -8,
         rotationCenterY: Item ? Item.rotationCenterY : 24,
         imageFormat: Item ? Item.dataFormat : "png",
-        image: ItemIMG ? ItemIMG : assets.head
+        image: Item ? Item.image : assets.head
     });
     const mask = new ImageEditor({
         name: "Mask",
         rotationCenterX: Mask ? Mask.rotationCenterX : 8,
         rotationCenterY: Mask ? Mask.rotationCenterY : 16,
         imageFormat: Mask ? Mask.dataFormat : "png",
-        image: MaskIMG ? MaskIMG : assets.head
+        image: Mask ? Mask.image : assets.head
     }, false);
     const name = new StringInput("Name", "New Mask's Name", "Name", Name ? Name : "My New Mask");
     const cancel = new Button({ "innerText": "Cancel" });
@@ -1217,9 +1567,116 @@ function SelectMaskMod(ID, Name, Item, ItemIMG, Mask, MaskIMG) {
     Editor.appendChild(new Br);
     Editor.appendChild(new Br);
 }
-//--------------------
-//Costume Constructor
-//--------------------
+function SelectNPCMod(ID, Class, Frames, Item, Name, Health, Aggressive, Speed, Width, Height, ShowHealth, IsBoss) {
+    Editor.innerHTML = "";
+    Editor.appendChild(new Text({ "innerText": "Add NPC" }, { "color": "#fff", "font-size": "3em" }));
+    Editor.appendChild(new Br);
+    const cancel = new Button({ "innerText": "Cancel" });
+    cancel.onclick = async () => {
+        Editor.hidden = true;
+        Mod.hidden = false;
+    };
+    if (Class) {
+        Editor.appendChild(new Text({ "innerText": NPCClass[Class].name + " Class" }, { "color": "#fff", "font-size": "2em" }));
+        Editor.appendChild(new Br);
+        Editor.appendChild(new Br);
+        const item = new ImageEditor({
+            name: "Item",
+            rotationCenterX: Item.rotationCenterX,
+            rotationCenterY: Item.rotationCenterY,
+            imageFormat: Item.dataFormat,
+            image: Item.image
+        });
+        Editor.appendChild(new Text({ "innerText": "Summon Item" }, { "color": "#fff", "font-size": "1.5em" }));
+        Editor.appendChild(item);
+        Editor.appendChild(new Br);
+        Editor.appendChild(new Br);
+        Editor.appendChild(new Text({ "innerText": "NPC Frames" }, { "color": "#fff", "font-size": "1.5em" }));
+        const frames = Frames.map((e, i) => new ImageEditor({
+            name: "Frame" + (i+1).toString(),
+            rotationCenterX: e.rotationCenterX,
+            rotationCenterY: e.rotationCenterY,
+            imageFormat: e.dataFormat,
+            image: e.image
+        }, false));
+        frames.forEach(e => {
+            Editor.appendChild(e);
+        });
+        const name = new StringInput("Name", "New NPC's Name", "Name", Name ? Name : "My New NPC");
+        const hp = new NumberInput("Health", "New NPC's Health", "Health", Health ? Health : 5);
+        const agr = new NumberInput("Aggressive", "0 = Passive | 1 = Aggressive | 10 = Eye of Cthulhu", "Aggressive", Aggressive ? Aggressive : 0);
+        const spd = new NumberInput("Speed", "New NPC's Speed", "Speed", Speed ? Speed : 1);
+        const sizX = new NumberInput("Width", "New NPC's Width (Typically Equivalent to Sprite Width)", "Width", Width ? Width : 10);
+        const sizY = new NumberInput("Height", "New NPC's Height (Typically Equivalent to Sprite Height)", "Height", Height ? Height : 10);
+        const showHealth = new Input({ "type": "checkbox", "checked": ShowHealth ? ShowHealth : false });
+        const isBoss = new Input({ "type": "checkbox", "checked": IsBoss ? IsBoss : false });
+        Editor.appendChild(new Br);
+        Editor.appendChild(name);
+        Editor.appendChild(hp);
+        Editor.appendChild(agr);
+        Editor.appendChild(spd);
+        Editor.appendChild(sizX);
+        Editor.appendChild(sizY);
+        Editor.appendChild(showHealth);
+        Editor.appendChild(new Text({ "innerText": "Health Visible?" }, { "color": "#fff", "font-size": "1.5em" }));
+        Editor.appendChild(new Br);
+        Editor.appendChild(isBoss);
+        Editor.appendChild(new Text({ "innerText": "Is Boss?" }, { "color": "#fff", "font-size": "1.5em" }));
+        Editor.appendChild(new Br);
+        Editor.appendChild(new Br);
+        Editor.appendChild(cancel);
+        const finish = new Button({ "innerText": "Finish" });
+        finish.onclick = async () => {
+            const Sprite = ProjectData.Sprite;
+            Sprite.name = name.value;
+            Sprite.variables.type = ["Type", "NPC"];
+            Sprite.variables.cls = ["Class", Class];
+            var costume = await new Costume(item.value.image, item.value.imageFormat);
+            costume[1].name = name.value;
+            costume[1].bitmapResolution = item.value.bitmapResolution;
+            costume[1].rotationCenterX = item.value.rotationCenterX;
+            costume[1].rotationCenterY = item.value.rotationCenterY;
+            Sprite.costumes[0] = costume[1];
+            ProjectData.costumes[costume[0].ID] = costume[0];
+            for (var i = 0; i < frames.length; i++) {
+                let frame = frames[i];
+                costume = await new Costume(frame.value.image, frame.value.imageFormat);
+                costume[1].name = "Frame" + (i+1).toString();
+                costume[1].bitmapResolution = frame.value.bitmapResolution;
+                costume[1].rotationCenterX = frame.value.rotationCenterX;
+                costume[1].rotationCenterY = frame.value.rotationCenterY;
+                Sprite.costumes.push(costume[1]);
+                ProjectData.costumes[costume[0].ID] = costume[0];
+            }
+            Sprite.variables.hp = ["Health", hp.value];
+            Sprite.variables.agr = ["Aggressive", agr.value];
+            Sprite.variables.spd = ["Speed", spd.value];
+            Sprite.variables.sizX = ["Size X", sizX.value];
+            Sprite.variables.sizY = ["Size Y", sizY.value];
+            Sprite.variables.showHealth = ["Health Visible", showHealth.checked];
+            Sprite.variables.isBoss = ["Boss", showHealth.checked];
+            if (ID) ProjectData.json.targets[ID] = Sprite;
+            else ProjectData.json.targets.push(Sprite);
+            Editor.hidden = true;
+            AddItemElements();
+            Mod.hidden = false;
+        };
+        Editor.appendChild(finish);
+        Editor.appendChild(new Br);
+        Editor.appendChild(new Br);
+    } else {
+        Editor.appendChild(new Text({ "innerText": "Select NPC Class" }, { "color": "#fff", "font-size": "1.5em" }));
+        Editor.appendChild(new Br);
+        Object.keys(NPCClass).forEach(id => {
+            Editor.appendChild(new ClassSelect(id));
+            Editor.appendChild(new Br);
+        });
+    }
+}
+
+/*--------------------
+Costume Constructor
+--------------------*/
 function Costume(Link, type = "png") {
     return new Promise(async (resolve, reject) => {
         let Text = await (await fetch(Link)).text();
@@ -1275,9 +1732,9 @@ function FlippedCostume(url, type, bitmapResolution, rotationCenterX, rotationCe
 }
 
 
-//--------------------
-//Element Constructors
-//--------------------
+/*--------------------
+Element Constructors
+--------------------*/
 function Br() {
     return document.createElement("br");
 }
@@ -1337,9 +1794,9 @@ function Select(...args) {
     return select;
 }
 
-//--------------------
-//Custom Elements
-//--------------------
+/*--------------------
+Custom Elements
+--------------------*/
 function Text(...args) {
     const text = document.createElement("text");
     Object.assign(text, args[0]);
@@ -1423,6 +1880,31 @@ function ModSelect(...args) {
     modSelect.appendChild(button);
     return modSelect;
 }
+function ClassSelect(id) {
+    const images = NPCClass[id].images;
+    const className = NPCClass[id].name;
+    const frames = NPCClass[id].frames;
+    const item = NPCClass[id].item;
+    const classSelect = document.createElement("ClassSelect");
+    const button = new Button({}, { "background-color": "#00000080", "width": "fit-content", "height": "68px" });
+    images.forEach(e => {
+        button.appendChild(new Img({ "src": e }, { "width": "50px", "height": "50px", "object-fit": "contain" }));
+    });
+    button.appendChild(new Br);
+    const name = new Text({ "innerText": className }, { "color": "#fff", "font-size": "0.75em" });
+    button.appendChild(name);
+    Object.defineProperty(classSelect, "name", {
+        get: () => { return name.innerText },
+        set: (x) => name.innerText = x
+    });
+    classSelect.onclick = e => {
+        var target = e.target;
+        while (target && target.tagName != "CLASSSELECT") target = target.parentElement;
+        if (target.tagName == "CLASSSELECT") SelectMod("NPC", null, id, frames, item);
+    }
+    classSelect.appendChild(button);
+    return classSelect;
+}
 function SelectInput(...args) {
     const selectInput = document.createElement("SelectInput");
     const name = new Text({ "innerText": args[0] }, { "color": "#fff", "font-size": "1.5em" });
@@ -1472,6 +1954,11 @@ function NumberInput(...args) {
     numberInput.appendChild(input);
     return numberInput;
 }
+function costumeToData(costume) {
+    const data = costume;
+    data.image = ProjectData.costumes[data.assetId].dataURL;
+    return data;
+}
 function ModItem(...args) {
     const modItem = document.createElement("ModItem");
     const button = new Button({}, { "width": "fit-content", "height": "fit-content" });
@@ -1481,16 +1968,24 @@ function ModItem(...args) {
     const trash = new Img({ src: assets.trash, className: "trash" }, {});
     button.onclick = () => {
         let target = ProjectData.json.targets[args[3]];
-        let type = target.variables.type[1];
-        if (type == "JavaScript") SelectMod(type, args[3], target.name, target.variables.script[1]);
-        else if (type == "Block") SelectMod(type, args[3], target.name, target.variables.material[1], target.variables.digSpeed[1], target.costumes[0], ProjectData.costumes[target.costumes[0].assetId].dataURL, target.costumes[1], ProjectData.costumes[target.costumes[1].assetId].dataURL);
-        else if (type == "Pickaxe" || type == "Axe" || type == "Sword") SelectMod(type, args[3], target.name, target.variables.digSpeed[1], target.costumes[0], ProjectData.costumes[target.costumes[0].assetId].dataURL, target.costumes[1], ProjectData.costumes[target.costumes[1].assetId].dataURL);
-        else if (type == "Recipe") SelectMod(type, args[3], target.variables.item[1], target.variables.amount[1], target.variables.useStation[1], target.variables.station[1], target.lists.items[1], target.lists.amounts[1]);
-        else if (type == "Other") SelectMod(type, args[3], target.name, target.costumes[0], ProjectData.costumes[target.costumes[0].assetId].dataURL);
-        else if (type == "Object 1x1") SelectMod(type, args[3], target.name, target.costumes[0], ProjectData.costumes[target.costumes[0].assetId].dataURL, target.variables.material[1], target.variables.digSpeed[1]);
-        else if (type == "Object 2x2") SelectMod(type, args[3], target.name, target.costumes[0], ProjectData.costumes[target.costumes[0].assetId].dataURL, target.variables.material[1], target.variables.digSpeed[1], target.costumes[1], ProjectData.costumes[target.costumes[1].assetId].dataURL, target.costumes[2], ProjectData.costumes[target.costumes[2].assetId].dataURL, target.costumes[3], ProjectData.costumes[target.costumes[3].assetId].dataURL, target.costumes[4], ProjectData.costumes[target.costumes[4].assetId].dataURL);
-        else if (type == "NPC Drop") SelectMod(type, args[3], target.variables.item[1], target.variables.min[1], target.variables.max[1], target.variables.chance[1], target.variables.npc[1]);
-        else if (type == "Mask") SelectMod(type, args[3], target.name, target.costumes[0], ProjectData.costumes[target.costumes[0].assetId].dataURL, target.costumes[1], ProjectData.costumes[target.costumes[1].assetId].dataURL);
+        function variable(name) {
+            return target.variables[name] ? target.variables[name][1] : undefined;
+        }
+        function list(name) {
+            return target.lists[name] ? target.lists[name][1] : undefined;
+        }
+        let type = variable("type");
+        console.log(target.costumes.slice(1).map(costumeToData));
+        if (type == "JavaScript") SelectMod(type, args[3], target.name, variable("script"));
+        else if (type == "Block") SelectMod(type, args[3], target.name, variable("material"), variable("digSpeed"), costumeToData(target.costumes[0]), costumeToData(target.costumes[1]));
+        else if (type == "Pickaxe" || type == "Axe" || type == "Sword") SelectMod(type, args[3], target.name, variable("digSpeed"), costumeToData(target.costumes[0]), costumeToData(target.costumes[1]));
+        else if (type == "Recipe") SelectMod(type, args[3], variable("item"), variable("amount"), variable("useStation"), variable("station"), list("items"), list("amounts"));
+        else if (type == "Other") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]));
+        else if (type == "Object 1x1") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), variable("material"), variable("digSpeed"));
+        else if (type == "Object 2x2") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), variable("material"), variable("digSpeed"), costumeToData(target.costumes[1]), costumeToData(target.costumes[2]), costumeToData(target.costumes[3]), costumeToData(target.costumes[4]));
+        else if (type == "NPC Drop") SelectMod(type, args[3], variable("item"), variable("min"), variable("max"), variable("chance"), variable("npc"));
+        else if (type == "Mask") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), costumeToData(target.costumes[1]));
+        else if (type == "NPC") SelectMod(type, args[3], target.variables.cls[1], target.costumes.slice(1).map(costumeToData), costumeToData(target.costumes[0]), target.name, variable("hp"), variable("agr"), variable("spd"), variable("sizX"), variable("sizY"), variable("showHealth"), variable("isBoss"));
         Mod.hidden = true;
         Editor.hidden = false;
     }
@@ -1513,7 +2008,7 @@ function SelectModItemInput(value, ...args) {
     const selectModItemInput = document.createElement("SelectModItemInput");
     const addedItems = [];
     for (var i = 1; i < ProjectData.json.targets.length; i++) {
-        if (ProjectData.json.targets[i].variables.type[1] != "Recipe" && ProjectData.json.targets[i].variables.type[1] != "NPC Drop") {
+        if (["Recipe", "NPC Drop", "JavaScript"].indexOf(ProjectData.json.targets[i].variables.type[1]) == -1) {
             addedItems.push(ProjectData.json.targets[i].name);
         }
     }
@@ -1538,20 +2033,26 @@ function SelectModItemInput(value, ...args) {
 function SelectModNPCInput(value, ...args) {
     const selectModNPCInput = document.createElement("SelectModNPCInput");
     const addedNPCs = [];
-    // for (var i = 1; i < ProjectData.json.targets.length; i++) {
-    //     if (ProjectData.json.targets[i].variables.type[1] != "Recipe" && ProjectData.json.targets[i].variables.type[1] != "NPC Drop") {
-    //         addedItems.push(ProjectData.json.targets[i].name);
-    //     }
-    // }
+    for (var i = 1; i < ProjectData.json.targets.length; i++) {
+        if (ProjectData.json.targets[i].variables.type[1] == "NPC") {
+            addedNPCs.push(ProjectData.json.targets[i].name);
+        }
+    }
     const select = new Select([...NPCs, ...addedNPCs], ...args);
     if (value) select.value = isNaN(value) ? [...NPCs, ...addedNPCs].indexOf(value) : value-1;
     Object.defineProperty(selectModNPCInput, "name", {
         get: () => select.options[select.selectedIndex].innerText,
         set: (x) => select.options[select.selectedIndex].innerText = x
     });
+    window.test = select;
     Object.defineProperty(selectModNPCInput, "value", {
-        get: () => select.value,
-        set: (x) => select.value = x
+        get: () => {
+            return parseInt(select.value) < 24 ? parseInt(select.value) + 1 : select.options[select.selectedIndex].innerText
+        },
+        set: (x) => {
+            if (isNaN(x)) select.value = [...select.options].find(element => element.innerText == x).value;
+            else select.value = x;
+        }
     });
     selectModNPCInput.appendChild(select);
     return selectModNPCInput;
@@ -1609,9 +2110,9 @@ function RecipeIngredient(item, amount) {
     return recipeIngredient;
 }
 
-//--------------------
-//Animation
-//--------------------
+/*--------------------
+Animation
+--------------------*/
 const Title = document.querySelector("#Title");
 setInterval(() => Title.style.transform = `rotate(${5 * Math.cos((Math.PI * (Date.now() * 0.08)) / 180)}deg)`);
 
@@ -1632,9 +2133,9 @@ function ButtonAnimation(e) {
     }
 }
 
-//--------------------
-//Image Editor
-//--------------------
+/*--------------------
+Image Editor
+--------------------*/
 function ImageEditor(defaultState, crop = true) {
     const imageEditor = document.createElement("ImageEditor");
     const display = new Img({ src: defaultState.image, className: "ImageEditorDisplay" });
@@ -1699,9 +2200,9 @@ function ImageEditor(defaultState, crop = true) {
     return imageEditor;
 }
 
-//--------------------
-//Reader
-//--------------------
+/*--------------------
+Reader
+--------------------*/
 function ReadAsDataURL(blob) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -1710,9 +2211,9 @@ function ReadAsDataURL(blob) {
     });
 }
 
-//--------------------
-//Open Zipped HTML Pages
-//--------------------
+/*--------------------
+Open Zipped HTML Pages
+--------------------*/
 window.windowData = window.windowData || {};
 async function openZippedHTMLPage(url, parameters = "", autoClose = true, windowVariables = {}) {
     return new Promise(async (resolve) => {
