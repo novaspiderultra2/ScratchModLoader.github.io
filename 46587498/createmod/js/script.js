@@ -7,7 +7,7 @@ var UnsavedChanges = false;
 var ModItemsElement;
 const tempCanvas = new Canvas();
 const tempCTX = tempCanvas.getContext("2d");
-const enabledMods = ["Block", "Pickaxe", "Axe", "Sword", "Recipe", "Other", "Object 1x1", "Object 2x2", "JavaScript", "NPC Drop", "Mask", "NPC", "Object 1x2", "Object 2x1", "Door", "Beam", "Fence", "Platform", "Torch", "Chain", "Staff"];
+const enabledMods = ["Block", "Pickaxe", "Axe", "Sword", "Recipe", "Other", "Object 1x1", "Object 2x2", "JavaScript", "NPC Drop", "Mask", "NPC", "Object 1x2", "Object 2x1", "Door", "Beam", "Fence", "Platform", "Torch", "Chain", "Staff", "Chest Gen", "Table", "Chair"];
 const ModItems = [];
 for (var i = 0; i < 300; i++) ModItems[i] = ["Grass", "Dirt", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Stone", "Stone", "Iron Pickaxe", "Iron Axe", "Wood", "Wood", "Sand", "Sand", "Iron Ore", "Iron Ore", "Bed", "Acorn", "Sapling", "Door Top", "Door Bottom", "Wooden Door", "Platform", "Work Bench", "Furnace", "Iron Bar", "Iron Bar", "Stone Brick", "Stone Brick", "Bed", "Bed", "Chair", "Chair", "Torch", "Torch (left)", "Torch (right)", "Sand Brick", "Sand Brick", "Chandelier", "Bench", "Dresser", "Table", "Barrel", "Chest", "Sign", "Anvil", "Sawmill", "Chain", "Grandfather Clock", "Grandfather Clock", "Grandfather Clock", "Cloud", "Cloud", "Glass", "Glass", "Ice Block", "Ice Block", "Clay", "Clay", "Brick", "Brick", "Gold Ore", "Gold Ore", "Gold Bar", "Gold Brick", "Gold Brick", "Silver Ore", "Silver Ore", "Silver Bar", "Silver Brick", "Silver Brick", "Seed", "Plant", "Plant", "Plant", "Plant", "Plant", "Plant", "Plant", "Plant", "Mushroom", "Plant", "Fence", "Iron Fence", "Gold Chandelier", "Candelabra", "Gold Chest", "Bath Tub", "Trash Can", "Toilet", "Cooking Pot", "Bath Tub", "Bath Tub", "Builder Potion", "Mining Potion", "Swiftness Potion", "Diamond Ore", "Diamond", "Diamond Slab", "Diamond Slab", "Stone Slab", "Sand Slab", "Pot Plant", "Bookcase", "Bookcase", "Bookcase", "Bookcase", "Bookcase", "Sky Chest", "Heavy Work Bench", "Bug Net", "Bunny", "Beam", "Beam", "Sofa", "Sofa", "Sofa", "Piano", "Piano", "Piano", "Chain", "Frog", "Slime", "Wooden Sword", "Iron Sword", "Gel", "Platinum Ore", "Platinum Ore", "Platinum Bar", "Gold Pickaxe", "Gold Axe", "Gold Sword", "Platinum Pickaxe", "Platinum Axe", "Platinum Sword", "Demon Eye", "Lens", "Zombie", "Easter Egg", "Chocolate", "Chocolate", "Land Claim Sign", "Crab", "Molten Pickaxe", "Blue Phaseblade", "Diamond Staff", "Water", "Water 15/16", "Water 14/16", "Water 13/16", "Water 12/16", "Water 11/16", "Water 10/16", "Water 9/16", "Water 8/16", "Water 7/16", "Water 6/16", "Water 5/16", "Water 4/16", "Water 3/16", "Water 2/16", "Water 1/16", "Goldfish", "Jellyfish", "Lava", "Lava 15/16", "Lava 14/16", "Lava 13/16", "Lava 12/16", "Lava 11/16", "Lava 10/16", "Lava 9/16", "Lava 8/16", "Lava 7/16", "Lava 6/16", "Lava 5/16", "Lava 4/16", "Lava 3/16", "Lava 2/16", "Lava 1/16", "Obsidian", "Lesser Healing Potion", "Healing Potion", "Greater Healing Potion", "Featherfall Potion", "Spelunker Potion", "Obsidian Skin Potion", "Gills Potion", "Purple Slime", "Bunny Slime", "Dungeon Slime", "Lava Slime", "Pyranha", "Shark", "Shark Fin", "Hook", "Zombie Arm", "Copper Pickaxe", "Copper Sword", "Copper Axe", "Bucket", "Water Bucket", "Lava Bucket", "Hellstone", "Hellstone", "Hellstone Bar", "Vine", "Hellforge", "Bat", "Lava Bat", "Water Chest", "Obsidian Chest", "Copper Coin", "Silver Coin", "Gold Coin", "Topaz Stone", "Topaz", "Ruby Stone", "Ruby", "Emerald Stone", "Emerald", "Sapphire Stone", "Sapphire", "Amethyst Stone", "Amethyst", "Iron Door", "Glass Door", "Obsidian Door", "Iron Door Top", "Iron Door Bottom", "Glass Door Top", "Glass Door Bottom", "Obsidian Door Top", "Obsidian Door Bottom", "Glass Kiln", "Butterfly", "Glass Table", "Glass Lantern", "Glass Chandelier", "Pot", "Wooden Sink", "Glass Platform", "Squirrel", "Mouse", "Firefly", "Fiery Greatsword", "Glass Bed", "Glass Bed L", "Glass Bed R", "Obsidian Bed", "Obsidian Bed L", "Obsidian Bed R", "Gold Bed", "Gold Bed L", "Gold Bed R", "Mushroom Bed", "Mushroom Bed L", "Mushroom Bed R", "Wooden Crate", "Iron Crate", "Mushroom Block", "Mushroom Block", "Table L", "Table R", "Iron Table", "Iron Table L", "Iron Table R", "Obsidian Table", "Obsidian Table L", "Obsidian Table R", "Mushroom Table", "Mushroom Table L", "Mushroom Table R", "Glass Table L", "Glass Table R", "Blue Dungeon Vase", "Green Dungeon Vase", "Pink Dungeon Vase", "Obsidian Vase", "Suspicious Looking Eye", "Demon Altar", "Demonite Ore", "Demonite Ore", "Demonite Bar", "Light's Bane", "Eye of Cthulhu Mask", "Santa Mask"][i];
 // const TileData = vm.runtime.targets[0].lookupVariableByNameAndType("_TileData", "list").value;
@@ -79,7 +79,7 @@ const assets = {
     door: "https://cdn.assets.scratch.mit.edu/internalapi/asset/2be54e296826faeee00c28af84d6c27e.png/get/",
     potion: "https://cdn.assets.scratch.mit.edu/internalapi/asset/2d1f80466ea0288a00e2e01df19ed01b.png/get/",
     torch: "https://cdn.assets.scratch.mit.edu/internalapi/asset/9d710f2e694d204fdf35678850653beb.png/get/",
-    object1x1: "https://cdn.assets.scratch.mit.edu/internalapi/asset/6d2752f72c580f3ae8f1f3aa088acc24.png/get/",
+    chest: "https://cdn.assets.scratch.mit.edu/internalapi/asset/6d2752f72c580f3ae8f1f3aa088acc24.png/get/",
     object2x1: "https://cdn.assets.scratch.mit.edu/internalapi/asset/f2c8be1e6819d92f2399347a7ac8160c.png/get/",
     object1x2: "https://cdn.assets.scratch.mit.edu/internalapi/asset/27b687c370854241c30b5cc6021e64a1.png/get/",
     object2x2: "https://cdn.assets.scratch.mit.edu/internalapi/asset/3389c5990450aa8aeef2202c15a198ac.png/get/",
@@ -194,6 +194,12 @@ const assets = {
     "Projectile2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/4f08fb3f7163cf527e3dea6bf66e37c1.png/get/",
     "Projectile3": "https://cdn.assets.scratch.mit.edu/internalapi/asset/36f8614ed0f8031788f41f1fe3ab5948.png/get/",
     "DiamondStaff": "https://cdn.assets.scratch.mit.edu/internalapi/asset/8173b8094d2307e7ec4306aab5c76b36.png/get/",
+    "Barrel": "https://cdn.assets.scratch.mit.edu/internalapi/asset/4f2c9446340e93baa05e4b4cdc608bb2.png/get/",
+    "ITEM_table": "https://cdn.assets.scratch.mit.edu/internalapi/asset/2f9adacdfd7457715ab80818d9bf2641.png/get/",
+    "table1": "https://cdn.assets.scratch.mit.edu/internalapi/asset/f6e763d3c84f6bc5027976a56eaf2cc5.png/get/",
+    "table2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/d6edf356ba9495284820447ccf58981c.png/get/",
+    "chair_left": "https://cdn.assets.scratch.mit.edu/internalapi/asset/4eb4a45670bcf59d0b6c79f850082d84.png/get/",
+    "goldChest": "https://cdn.assets.scratch.mit.edu/internalapi/asset/2ff95983ed7dc51bcb4e7d1756a4697f.png/get/"
 };
 var NPCClass;
 (async () => {
@@ -715,22 +721,26 @@ function AddItem() {
     Editor.appendChild(new ModSelect("Fence", assets.fence));
     Editor.appendChild(new ModSelect("Platform", assets.platform));
     Editor.appendChild(new Br);
-    Editor.appendChild(new ModSelect("Object 1x1", assets.object1x1));
+    Editor.appendChild(new ModSelect("Object 1x1", assets.chest));
     Editor.appendChild(new ModSelect("Object 2x1", assets.object2x1));
     Editor.appendChild(new ModSelect("Object 1x2", assets.object1x2));
     Editor.appendChild(new ModSelect("Object 2x2", assets.object2x2));
     Editor.appendChild(new Br);
+    Editor.appendChild(new ModSelect("Table", assets.ITEM_table));
+    Editor.appendChild(new ModSelect("Chair", assets.chair_left));
     Editor.appendChild(new ModSelect("Torch", assets.torch));
     Editor.appendChild(new ModSelect("Chain", assets.chain));
-    Editor.appendChild(new ModSelect("Door", assets.door));
-    Editor.appendChild(new ModSelect("Mask", assets.mask));
     Editor.appendChild(new Br);
     Editor.appendChild(new ModSelect("Pickaxe", assets.pickaxe));
     Editor.appendChild(new ModSelect("Axe", assets.axe));
     Editor.appendChild(new ModSelect("Sword", assets.sword));
     Editor.appendChild(new ModSelect("Staff", assets.staff));
     Editor.appendChild(new Br);
+    Editor.appendChild(new ModSelect("Mask", assets.mask));
+    Editor.appendChild(new ModSelect("Door", assets.door));
     Editor.appendChild(new ModSelect("Recipe", assets.craftingRecipe));
+    Editor.appendChild(new ModSelect("Chest Gen", assets.goldChest));
+    Editor.appendChild(new Br);
     Editor.appendChild(new ModSelect("NPC", assets.npc));
     Editor.appendChild(new ModSelect("NPC Drop", assets.zombieArm));
     Editor.appendChild(new ModSelect("Other", assets.other));
@@ -899,6 +909,27 @@ function AddItemElements() {
                 "Staff",
                 i
             ));
+        } else if (target.variables.type[1] == "Chest Gen") {
+            ModItemsElement.appendChild(new ModItem(
+                assets.goldChest,
+                target.name,
+                "Chest Gen",
+                i
+            ));
+        } else if (target.variables.type[1] == "Table") {
+            ModItemsElement.appendChild(new ModItem(
+                ProjectData.costumes[target.costumes[0].assetId].dataURL,
+                target.name,
+                "Table",
+                i
+            ));
+        } else if (target.variables.type[1] == "Chair") {
+            ModItemsElement.appendChild(new ModItem(
+                ProjectData.costumes[target.costumes[0].assetId].dataURL,
+                target.name,
+                "Chair",
+                i
+            ));
         }
     }
 }
@@ -949,6 +980,12 @@ function SelectMod(type, ...args) {
         SelectChainMod(...args);
     } else if (type == "Staff") {
         SelectStaffMod(...args);
+    } else if (type == "Chest Gen") {
+        SelectChestGenMod(...args);
+    } else if (type == "Table") {
+        SelectTableMod(...args);
+    } else if (type == "Chair") {
+        SelectChairMod(...args);
     }
 }
 
@@ -1406,7 +1443,7 @@ function SelectObject1x1Mod(ID, Name, Image, Material, DigSpeed, Light) {
         rotationCenterX: Image ? Image.rotationCenterX : 0,
         rotationCenterY: Image ? Image.rotationCenterY : 28,
         imageFormat: Image ? Image.dataFormat : "png",
-        image: Image ? Image.image : assets.object1x1
+        image: Image ? Image.image : assets.chest
     });
     const name = new StringInput("Name", "New Object's Name", "Name", Name ? Name : "My New Object");
     const material = new SelectInput("Material", "What The Object Is Made Out Of", [{ 11: "Veg", 12: "Wood", 13: "Chest", 20: "Dirt", 30: "Stone", 50: "Ore", 60: "Metal", 63: "Metal Chest", 70: "Hellstone" }, { value: Material ? Material : 12 }]);
@@ -2553,6 +2590,215 @@ function SelectStaffMod(ID, Name, DigSpeed, InventorySprite, UseSprite, Projecti
     Editor.appendChild(new Br);
     Editor.appendChild(new Br);
 }
+function SelectChestGenMod(ID, Item, Max, Chance, Rarity) {
+    Editor.innerHTML = "";
+    Editor.appendChild(new Text({ "innerText": "Add Item to Chest Generation" }, { "color": "#fff", "font-size": "3em" }));
+    Editor.appendChild(new Br);
+    const item = new SelectModItemInput(Item);
+    const rarity = new SelectInput("Rarity", "How it Generates", [{ "": "Rare | Only 1 Rare Item Generates Per Chest", "Common": "Common | No Limit" }, { value: Rarity ? Rarity : "" }]);
+    const max = new NumberInput("Maximum Generated", "How Much it Can Contain", "Maximum Generated", Max ? Max : 1);
+    const chance = new NumberInput("Probability", "0 = 0%, 0.5 = 50%, 1 = 100%", "Chance", Chance ? Chance : 1);
+    const cancel = new Button({ "innerText": "Cancel" });
+    cancel.onclick = async () => {
+        Editor.hidden = true;
+        Mod.hidden = false;
+    };
+    const finish = new Button({ "innerText": "Finish" });
+    finish.onclick = async () => {
+        const Sprite = ProjectData.Sprite;
+        Sprite.name = item.name;
+        const costume = await new Costume(assets.goldChest);
+        Sprite.costumes[0] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        Sprite.variables.type = ["Type", "Chest Gen"];
+        Sprite.variables.item = ["Item", item.value];
+        Sprite.variables.rarity = ["Rarity", rarity.value];
+        Sprite.variables.chance = ["Probability", chance.value];
+        Sprite.variables.max = ["Maximum", max.value];
+        if (ID) ProjectData.json.targets[ID] = Sprite;
+        else ProjectData.json.targets.push(Sprite);
+        Editor.hidden = true;
+        AddItemElements();
+        Mod.hidden = false;
+    };
+    Editor.appendChild(new Text({ "innerText": "Item" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Text({ "innerText": "The Item Being Generated" }, { "color": "#bfbfbf", "font-size": "0.75em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(item);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+    Editor.appendChild(rarity);
+    Editor.appendChild(max);
+    Editor.appendChild(chance);
+    Editor.appendChild(new Br);
+    Editor.appendChild(cancel);
+    Editor.appendChild(finish);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+}
+function SelectTableMod(ID, Name, Image, Material, DigSpeed, Left, Right, Light) {
+    Editor.innerHTML = "";
+    Editor.appendChild(new Text({ "innerText": "Add Table" }, { "color": "#fff", "font-size": "3em" }));
+    Editor.appendChild(new Br);
+    const image = new ImageEditor({
+        name: "Item",
+        rotationCenterX: Image ? Image.rotationCenterX : 0,
+        rotationCenterY: Image ? Image.rotationCenterY : 27,
+        imageFormat: Image ? Image.dataFormat : "png",
+        image: Image ? Image.image : assets.ITEM_table
+    });
+    const left = new ImageEditor({
+        name: "Left",
+        rotationCenterX: Left ? Left.rotationCenterX : -2,
+        rotationCenterY: Left ? Left.rotationCenterY : 32,
+        imageFormat: Left ? Left.dataFormat : "png",
+        image: Left ? Left.image : assets.table1
+    });
+    const right = new ImageEditor({
+        name: "Right",
+        rotationCenterX: Right ? Right.rotationCenterX : 0,
+        rotationCenterY: Right ? Right.rotationCenterY : 32,
+        imageFormat: Right ? Right.dataFormat : "png",
+        image: Right ? Right.image : assets.table2
+    });
+    left.style.display = "inline-block";
+    right.style.display = "inline-block";
+    const name = new StringInput("Name", "New Table's Name", "Name", Name ? Name : "My New Table");
+    const material = new SelectInput("Material", "What The Table Is Made Out Of", [{ 11: "Veg", 12: "Wood", 20: "Dirt", 30: "Stone", 50: "Ore", 60: "Metal", 63: "Metal Chest", 70: "Hellstone" }, { value: Material ? Material : 12 }]);
+    const digSpeed = new NumberInput("Dig Speed", "How Fast The Table Will Break", "Dig Speed", DigSpeed ? DigSpeed : "");
+    const light = new Input({ "type": "checkbox", "checked": !!Light });
+    const cancel = new Button({ "innerText": "Cancel" });
+    cancel.onclick = async () => {
+        Editor.hidden = true;
+        Mod.hidden = false;
+    };
+    const finish = new Button({ "innerText": "Finish" });
+    finish.onclick = async () => {
+        const Sprite = ProjectData.Sprite;
+        Sprite.name = name.value;
+        var costume = await new Costume(image.value.image, image.value.imageFormat);
+        costume[1].name = name.value;
+        costume[1].bitmapResolution = image.value.bitmapResolution;
+        costume[1].rotationCenterX = image.value.rotationCenterX;
+        costume[1].rotationCenterY = image.value.rotationCenterY;
+        Sprite.costumes[0] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        costume = await new Costume(left.value.image, left.value.imageFormat);
+        costume[1].name = name.value + "-Left";
+        costume[1].bitmapResolution = left.value.bitmapResolution;
+        costume[1].rotationCenterX = left.value.rotationCenterX;
+        costume[1].rotationCenterY = left.value.rotationCenterY;
+        Sprite.costumes[1] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        costume = await new Costume(right.value.image, right.value.imageFormat);
+        costume[1].name = name.value + "-Right";
+        costume[1].bitmapResolution = right.value.bitmapResolution;
+        costume[1].rotationCenterX = right.value.rotationCenterX;
+        costume[1].rotationCenterY = right.value.rotationCenterY;
+        Sprite.costumes[2] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        Sprite.variables.type = ["Type", "Table"];
+        Sprite.variables.material = ["Material", material.value];
+        Sprite.variables.digSpeed = ["Dig Speed", digSpeed.value];
+        Sprite.variables.light = ["Emits Light?", light.checked];
+        if (ID) ProjectData.json.targets[ID] = Sprite;
+        else ProjectData.json.targets.push(Sprite);
+        Editor.hidden = true;
+        AddItemElements();
+        Mod.hidden = false;
+    };
+    Editor.appendChild(new Text({ "innerText": "Item Sprite" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(image);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Text({ "innerText": "Tiles" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(left);
+    Editor.appendChild(right);
+    Editor.appendChild(name);
+    Editor.appendChild(material);
+    Editor.appendChild(digSpeed);
+    Editor.appendChild(new Br);
+    Editor.appendChild(light);
+    Editor.appendChild(new Text({ "innerText": "Emits Light?" }, { "color": "#fff", "font-size": "0.75em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+    Editor.appendChild(cancel);
+    Editor.appendChild(finish);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+}
+function SelectChairMod(ID, Name, Image, Left, Material, DigSpeed, Light) {
+    Editor.innerHTML = "";
+    Editor.appendChild(new Text({ "innerText": "Add Chair" }, { "color": "#fff", "font-size": "3em" }));
+    Editor.appendChild(new Br);
+    const image = new ImageEditor({
+        name: "Item",
+        rotationCenterX: Image ? Image.rotationCenterX : -8,
+        rotationCenterY: Image ? Image.rotationCenterY : 32,
+        imageFormat: Image ? Image.dataFormat : "png",
+        image: Image ? Image.image : assets.chair_right
+    });
+    const left = new ImageEditor({
+        name: "Left",
+        rotationCenterX: Left ? Left.rotationCenterX : -8,
+        rotationCenterY: Left ? Left.rotationCenterY : 32,
+        imageFormat: Left ? Left.dataFormat : "png",
+        image: Left ? Left.image : assets.chair_left
+    });
+    const name = new StringInput("Name", "New Chair's Name", "Name", Name ? Name : "My New Chair");
+    const material = new SelectInput("Material", "What The Chair Is Made Out Of", [{ 11: "Veg", 12: "Wood", 13: "Chest", 20: "Dirt", 30: "Stone", 50: "Ore", 60: "Metal", 63: "Metal Chest", 70: "Hellstone" }, { value: Material ? Material : 12 }]);
+    const digSpeed = new NumberInput("Dig Speed", "How Fast The Chair Will Break", "Dig Speed", DigSpeed ? DigSpeed : "");
+    const light = new Input({ "type": "checkbox", "checked": !!Light });
+    const cancel = new Button({ "innerText": "Cancel" });
+    cancel.onclick = async () => {
+        Editor.hidden = true;
+        Mod.hidden = false;
+    };
+    const finish = new Button({ "innerText": "Finish" });
+    finish.onclick = async () => {
+        const Sprite = ProjectData.Sprite;
+        Sprite.name = name.value;
+        var costume = await new Costume(image.value.image, image.value.imageFormat);
+        costume[1].name = name.value + "_Right";
+        costume[1].bitmapResolution = image.value.bitmapResolution;
+        costume[1].rotationCenterX = image.value.rotationCenterX;
+        costume[1].rotationCenterY = image.value.rotationCenterY;
+        Sprite.costumes[0] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        var costume = await new Costume(left.value.image, left.value.imageFormat);
+        costume[1].name = name.value + "_Left";
+        costume[1].bitmapResolution = left.value.bitmapResolution;
+        costume[1].rotationCenterX = left.value.rotationCenterX;
+        costume[1].rotationCenterY = left.value.rotationCenterY;
+        Sprite.costumes[1] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        Sprite.variables.type = ["Type", "Chair"];
+        Sprite.variables.material = ["Material", material.value];
+        Sprite.variables.digSpeed = ["Dig Speed", digSpeed.value];
+        Sprite.variables.light = ["Emits Light?", light.checked];
+        if (ID) ProjectData.json.targets[ID] = Sprite;
+        else ProjectData.json.targets.push(Sprite);
+        Editor.hidden = true;
+        AddItemElements();
+        Mod.hidden = false;
+    };
+    Editor.appendChild(new Text({ "innerText": "Item Sprite" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(image);
+    Editor.appendChild(left);
+    Editor.appendChild(name);
+    Editor.appendChild(material);
+    Editor.appendChild(digSpeed);
+    Editor.appendChild(new Br);
+    Editor.appendChild(light);
+    Editor.appendChild(new Text({ "innerText": "Emits Light?" }, { "color": "#fff", "font-size": "0.75em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+    Editor.appendChild(cancel);
+    Editor.appendChild(finish);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+}
 
 /*--------------------
 Costume Constructor
@@ -2865,10 +3111,12 @@ function ModItem(...args) {
         else if (type == "NPC Drop") SelectMod(type, args[3], variable("item"), variable("min"), variable("max"), variable("chance"), variable("npc"));
         else if (type == "Mask") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), costumeToData(target.costumes[1]));
         else if (type == "NPC") SelectMod(type, args[3], target.variables.cls[1], target.costumes.slice(1).map(costumeToData), costumeToData(target.costumes[0]), target.name, variable("hp"), variable("agr"), variable("spd"), variable("sizX"), variable("sizY"), variable("rotStyle"), variable("showHealth"), variable("isBoss"));
-        else if (type == "Object 2x1" || type == "Object 1x2" || type == "Torch") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), variable("material"), variable("digSpeed"), costumeToData(target.costumes[1]), costumeToData(target.costumes[2]), variable("light"));
+        else if (type == "Object 2x1" || type == "Object 1x2" || type == "Torch" || type == "Table") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), variable("material"), variable("digSpeed"), costumeToData(target.costumes[1]), costumeToData(target.costumes[2]), variable("light"));
         else if (type == "Door") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), variable("material"), variable("digSpeed"), costumeToData(target.costumes[1]), costumeToData(target.costumes[2]), costumeToData(target.costumes[3]), variable("light"));
         else if (type == "Chain") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), variable("material"), variable("digSpeed"), costumeToData(target.costumes[1]), variable("light"));
         else if (type == "Staff") SelectMod(type, args[3], target.name, variable("digSpeed"), costumeToData(target.costumes[0]), costumeToData(target.costumes[1]), costumeToData(target.costumes[3]), costumeToData(target.costumes[4]), costumeToData(target.costumes[5]));
+        else if (type == "Chest") SelectMod(type, args[3], variable("max"), variable("item"), variable("chance"), variable("rarity"));
+        else if (type == "Chair") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), costumeToData(target.costumes[1]), variable("material"), variable("digSpeed"), variable("light"));
         Mod.hidden = true;
         Editor.hidden = false;
     }
