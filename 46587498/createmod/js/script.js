@@ -199,6 +199,7 @@ const assets = {
     "table1": "https://cdn.assets.scratch.mit.edu/internalapi/asset/f6e763d3c84f6bc5027976a56eaf2cc5.png/get/",
     "table2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/d6edf356ba9495284820447ccf58981c.png/get/",
     "chair_left": "https://cdn.assets.scratch.mit.edu/internalapi/asset/4eb4a45670bcf59d0b6c79f850082d84.png/get/",
+    "chair_right": "https://cdn.assets.scratch.mit.edu/internalapi/asset/f4a5dc82a52116edb343a4f28e14608c.png/get/",
     "goldChest": "https://cdn.assets.scratch.mit.edu/internalapi/asset/2ff95983ed7dc51bcb4e7d1756a4697f.png/get/"
 };
 var NPCClass;
@@ -727,7 +728,7 @@ function AddItem() {
     Editor.appendChild(new ModSelect("Object 2x2", assets.object2x2));
     Editor.appendChild(new Br);
     Editor.appendChild(new ModSelect("Table", assets.ITEM_table));
-    Editor.appendChild(new ModSelect("Chair", assets.chair_left));
+    Editor.appendChild(new ModSelect("Chair", assets.chair_right));
     Editor.appendChild(new ModSelect("Torch", assets.torch));
     Editor.appendChild(new ModSelect("Chain", assets.chain));
     Editor.appendChild(new Br);
