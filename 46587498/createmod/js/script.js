@@ -7,7 +7,7 @@ var UnsavedChanges = false;
 var ModItemsElement;
 const tempCanvas = new Canvas();
 const tempCTX = tempCanvas.getContext("2d");
-const enabledMods = ["Block", "Pickaxe", "Axe", "Sword", "Recipe", "Other", "Object 1x1", "Object 2x2", "JavaScript", "NPC Drop", "Mask", "NPC"];
+const enabledMods = ["Block", "Pickaxe", "Axe", "Sword", "Recipe", "Other", "Object 1x1", "Object 2x2", "JavaScript", "NPC Drop", "Mask", "NPC", "Object 1x2", "Object 2x1", "Door", "Beam", "Fence", "Platform", "Torch", "Chain", "Staff"];
 const ModItems = [];
 for (var i = 0; i < 300; i++) ModItems[i] = ["Grass", "Dirt", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Stone", "Stone", "Iron Pickaxe", "Iron Axe", "Wood", "Wood", "Sand", "Sand", "Iron Ore", "Iron Ore", "Bed", "Acorn", "Sapling", "Door Top", "Door Bottom", "Wooden Door", "Platform", "Work Bench", "Furnace", "Iron Bar", "Iron Bar", "Stone Brick", "Stone Brick", "Bed", "Bed", "Chair", "Chair", "Torch", "Torch (left)", "Torch (right)", "Sand Brick", "Sand Brick", "Chandelier", "Bench", "Dresser", "Table", "Barrel", "Chest", "Sign", "Anvil", "Sawmill", "Chain", "Grandfather Clock", "Grandfather Clock", "Grandfather Clock", "Cloud", "Cloud", "Glass", "Glass", "Ice Block", "Ice Block", "Clay", "Clay", "Brick", "Brick", "Gold Ore", "Gold Ore", "Gold Bar", "Gold Brick", "Gold Brick", "Silver Ore", "Silver Ore", "Silver Bar", "Silver Brick", "Silver Brick", "Seed", "Plant", "Plant", "Plant", "Plant", "Plant", "Plant", "Plant", "Plant", "Mushroom", "Plant", "Fence", "Iron Fence", "Gold Chandelier", "Candelabra", "Gold Chest", "Bath Tub", "Trash Can", "Toilet", "Cooking Pot", "Bath Tub", "Bath Tub", "Builder Potion", "Mining Potion", "Swiftness Potion", "Diamond Ore", "Diamond", "Diamond Slab", "Diamond Slab", "Stone Slab", "Sand Slab", "Pot Plant", "Bookcase", "Bookcase", "Bookcase", "Bookcase", "Bookcase", "Sky Chest", "Heavy Work Bench", "Bug Net", "Bunny", "Beam", "Beam", "Sofa", "Sofa", "Sofa", "Piano", "Piano", "Piano", "Chain", "Frog", "Slime", "Wooden Sword", "Iron Sword", "Gel", "Platinum Ore", "Platinum Ore", "Platinum Bar", "Gold Pickaxe", "Gold Axe", "Gold Sword", "Platinum Pickaxe", "Platinum Axe", "Platinum Sword", "Demon Eye", "Lens", "Zombie", "Easter Egg", "Chocolate", "Chocolate", "Land Claim Sign", "Crab", "Molten Pickaxe", "Blue Phaseblade", "Diamond Staff", "Water", "Water 15/16", "Water 14/16", "Water 13/16", "Water 12/16", "Water 11/16", "Water 10/16", "Water 9/16", "Water 8/16", "Water 7/16", "Water 6/16", "Water 5/16", "Water 4/16", "Water 3/16", "Water 2/16", "Water 1/16", "Goldfish", "Jellyfish", "Lava", "Lava 15/16", "Lava 14/16", "Lava 13/16", "Lava 12/16", "Lava 11/16", "Lava 10/16", "Lava 9/16", "Lava 8/16", "Lava 7/16", "Lava 6/16", "Lava 5/16", "Lava 4/16", "Lava 3/16", "Lava 2/16", "Lava 1/16", "Obsidian", "Lesser Healing Potion", "Healing Potion", "Greater Healing Potion", "Featherfall Potion", "Spelunker Potion", "Obsidian Skin Potion", "Gills Potion", "Purple Slime", "Bunny Slime", "Dungeon Slime", "Lava Slime", "Pyranha", "Shark", "Shark Fin", "Hook", "Zombie Arm", "Copper Pickaxe", "Copper Sword", "Copper Axe", "Bucket", "Water Bucket", "Lava Bucket", "Hellstone", "Hellstone", "Hellstone Bar", "Vine", "Hellforge", "Bat", "Lava Bat", "Water Chest", "Obsidian Chest", "Copper Coin", "Silver Coin", "Gold Coin", "Topaz Stone", "Topaz", "Ruby Stone", "Ruby", "Emerald Stone", "Emerald", "Sapphire Stone", "Sapphire", "Amethyst Stone", "Amethyst", "Iron Door", "Glass Door", "Obsidian Door", "Iron Door Top", "Iron Door Bottom", "Glass Door Top", "Glass Door Bottom", "Obsidian Door Top", "Obsidian Door Bottom", "Glass Kiln", "Butterfly", "Glass Table", "Glass Lantern", "Glass Chandelier", "Pot", "Wooden Sink", "Glass Platform", "Squirrel", "Mouse", "Firefly", "Fiery Greatsword", "Glass Bed", "Glass Bed L", "Glass Bed R", "Obsidian Bed", "Obsidian Bed L", "Obsidian Bed R", "Gold Bed", "Gold Bed L", "Gold Bed R", "Mushroom Bed", "Mushroom Bed L", "Mushroom Bed R", "Wooden Crate", "Iron Crate", "Mushroom Block", "Mushroom Block", "Table L", "Table R", "Iron Table", "Iron Table L", "Iron Table R", "Obsidian Table", "Obsidian Table L", "Obsidian Table R", "Mushroom Table", "Mushroom Table L", "Mushroom Table R", "Glass Table L", "Glass Table R", "Blue Dungeon Vase", "Green Dungeon Vase", "Pink Dungeon Vase", "Obsidian Vase", "Suspicious Looking Eye", "Demon Altar", "Demonite Ore", "Demonite Ore", "Demonite Bar", "Light's Bane", "Eye of Cthulhu Mask", "Santa Mask"][i];
 // const TileData = vm.runtime.targets[0].lookupVariableByNameAndType("_TileData", "list").value;
@@ -60,16 +60,16 @@ const NPCs = [
 /*--------------------
 //Images
 --------------------*/
-// const assets = [];
+// const assets = {};
 // document.querySelectorAll(".sprite-selector-item_sprite-image-outer_Xs0wN").forEach(e => e.onclick = () => {
 //     let costume = vm.editingTarget.getCostumes()[e.parentElement.querySelector(".sprite-selector-item_number_AnXUk").innerText-1];
-//     assets["ITEM_" + costume.name] = "https://cdn.assets.scratch.mit.edu/internalapi/asset/" + costume.md5 + "/get/";
+//     assets[costume.name] = "https://cdn.assets.scratch.mit.edu/internalapi/asset/" + costume.md5 + "/get/";
 //     console.log({
-//         name: "Item",
+//         name: costume.name,
 //         rotationCenterX: costume.rotationCenterX,
 //         rotationCenterY: costume.rotationCenterY,
 //         dataFormat: costume.dataFormat,
-//         image: "ITEM_" + costume.name
+//         image: costume.name
 //     });
 // });
 const assets = {
@@ -171,7 +171,29 @@ const assets = {
     "ITEM_rabbit1": "https://cdn.assets.scratch.mit.edu/internalapi/asset/2f3c462b5e8ce9c4eecba58fd65c3483.png/get/",
     "ITEM_slime-green-1": "https://cdn.assets.scratch.mit.edu/internalapi/asset/698359608402d9d9a07c3685dd9c0b06.png/get/",
     "ITEM_zombie_01": "https://cdn.assets.scratch.mit.edu/internalapi/asset/3d4a56c7c04dd34b014e7d67e0ee04bb.png/get/",
-    "ITEM_bat": "https://cdn.assets.scratch.mit.edu/internalapi/asset/632216ce59020a2a0d65cc12013d2db4.png/get/"
+    "ITEM_bat": "https://cdn.assets.scratch.mit.edu/internalapi/asset/632216ce59020a2a0d65cc12013d2db4.png/get/",
+    bed_item: "https://cdn.assets.scratch.mit.edu/internalapi/asset/e681dedca85199b201c5a4a79c6bb5f6.png/get/",
+    bed1: "https://cdn.assets.scratch.mit.edu/internalapi/asset/9123c9b572f4d69bd49308b818b65895.png/get/",
+    bed2: "https://cdn.assets.scratch.mit.edu/internalapi/asset/985eb6ec935f5b12866f47ab8cf0da7e.png/get/",
+    clock_item: "https://cdn.assets.scratch.mit.edu/internalapi/asset/c474ee57b38ab795345340a7e1d0b537.png/get/",
+    clock1: "https://cdn.assets.scratch.mit.edu/internalapi/asset/2ed18779b8a70065804eaffd18b31b05.png/get/",
+    clock2: "https://cdn.assets.scratch.mit.edu/internalapi/asset/97c836591b8512448aa569de31ed5d9d.png/get/",
+    door_item: "https://cdn.assets.scratch.mit.edu/internalapi/asset/d80b3c5b4f9b385000b06974fbe5ebd7.png/get/",
+    door1: "https://cdn.assets.scratch.mit.edu/internalapi/asset/922ee80d60ea66f5edc3f5bd2f4f999b.png/get/",
+    door2: "https://cdn.assets.scratch.mit.edu/internalapi/asset/d7782ccce3484fc72a7ca41190b9de30.png/get/",
+    door_open: "https://cdn.assets.scratch.mit.edu/internalapi/asset/2be54e296826faeee00c28af84d6c27e.png/get/",
+    chain: "https://cdn.assets.scratch.mit.edu/internalapi/asset/973cfab893b08ddf06613b58348d3067.png/get/",
+    platform:"https://cdn.assets.scratch.mit.edu/internalapi/asset/2312ad91f2dad4a34958ea0ac8f0236b.png/get/",
+    beam_top: "https://cdn.assets.scratch.mit.edu/internalapi/asset/4d8024b500756cf7784f840732cf0833.png/get/",
+    fence: "https://cdn.assets.scratch.mit.edu/internalapi/asset/82d70787a7bbf33ea6283e54d30aa876.png/get/",
+    "torch_left": "https://cdn.assets.scratch.mit.edu/internalapi/asset/06b1b29e3307a2017bf30c8cf2d17412.png/get/",
+    "torch_right": "https://cdn.assets.scratch.mit.edu/internalapi/asset/942de10e0f4b9230c288a14b5b0d9461.png/get/",
+    chain2: "https://cdn.assets.scratch.mit.edu/internalapi/asset/2c026634f54bc4f799daa73d7628a95c.png/get/",
+    "ITEM_DiamondStaff": "https://cdn.assets.scratch.mit.edu/internalapi/asset/68ca074dbb53f6a8bf7621ebc1c91bee.svg/get/",
+    "Projectile1": "https://cdn.assets.scratch.mit.edu/internalapi/asset/4db4ae82cba3a3afb045378d28a529b1.png/get/",
+    "Projectile2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/4f08fb3f7163cf527e3dea6bf66e37c1.png/get/",
+    "Projectile3": "https://cdn.assets.scratch.mit.edu/internalapi/asset/36f8614ed0f8031788f41f1fe3ab5948.png/get/",
+    "DiamondStaff": "https://cdn.assets.scratch.mit.edu/internalapi/asset/8173b8094d2307e7ec4306aab5c76b36.png/get/",
 };
 var NPCClass;
 (async () => {
@@ -507,7 +529,7 @@ Object.defineProperty(ProjectData, "Sprite", {
 /*--------------------
 Unsaved Changes
 --------------------*/
-if (false) window.onbeforeunload = function (e) {
+if (false) window.onbeforeunload = function(e) {
     if (UnsavedChanges) {
         (e || window.event).returnValue = true;
         return true;
@@ -517,7 +539,7 @@ if (false) window.onbeforeunload = function (e) {
 /*--------------------
 Create New Mod
 --------------------*/
-document.getElementById("CreateNewMod").onclick = function () {
+document.getElementById("CreateNewMod").onclick = function() {
     Editor.innerHTML = "";
     Editor.appendChild(new Text({ "innerText": "Create New Mod" }, { "color": "#fff", "font-size": "3em" }));
     Editor.appendChild(new Br);
@@ -549,7 +571,7 @@ document.getElementById("CreateNewMod").onclick = function () {
 /*--------------------
 Load Mod
 --------------------*/
-document.getElementById("EditMod").onclick = function () {
+document.getElementById("EditMod").onclick = function() {
     let input = new Input({ type: "file", accept: ".zip, .sb3" });
     input.click();
     input.onchange = async () => {
@@ -690,24 +712,27 @@ function AddItem() {
     Editor.appendChild(new Br);
     Editor.appendChild(new ModSelect("Block", assets.block));
     Editor.appendChild(new ModSelect("Beam", assets.beam));
-    Editor.appendChild(new ModSelect("Door", assets.door));
-    Editor.appendChild(new ModSelect("Torch", assets.torch));
+    Editor.appendChild(new ModSelect("Fence", assets.fence));
+    Editor.appendChild(new ModSelect("Platform", assets.platform));
     Editor.appendChild(new Br);
     Editor.appendChild(new ModSelect("Object 1x1", assets.object1x1));
     Editor.appendChild(new ModSelect("Object 2x1", assets.object2x1));
     Editor.appendChild(new ModSelect("Object 1x2", assets.object1x2));
     Editor.appendChild(new ModSelect("Object 2x2", assets.object2x2));
     Editor.appendChild(new Br);
+    Editor.appendChild(new ModSelect("Torch", assets.torch));
+    Editor.appendChild(new ModSelect("Chain", assets.chain));
+    Editor.appendChild(new ModSelect("Door", assets.door));
+    Editor.appendChild(new ModSelect("Mask", assets.mask));
+    Editor.appendChild(new Br);
     Editor.appendChild(new ModSelect("Pickaxe", assets.pickaxe));
     Editor.appendChild(new ModSelect("Axe", assets.axe));
     Editor.appendChild(new ModSelect("Sword", assets.sword));
     Editor.appendChild(new ModSelect("Staff", assets.staff));
     Editor.appendChild(new Br);
-    Editor.appendChild(new ModSelect("Mask", assets.mask));
     Editor.appendChild(new ModSelect("Recipe", assets.craftingRecipe));
     Editor.appendChild(new ModSelect("NPC", assets.npc));
     Editor.appendChild(new ModSelect("NPC Drop", assets.zombieArm));
-    Editor.appendChild(new Br);
     Editor.appendChild(new ModSelect("Other", assets.other));
     Editor.appendChild(new Br);
     Editor.appendChild(new Text({ "innerText": "Intermediate" }, { "color": "#fff", "font-size": "1.5em" }));
@@ -811,6 +836,69 @@ function AddItemElements() {
                 "NPC",
                 i
             ));
+        } else if (target.variables.type[1] == "Object 2x1") {
+            ModItemsElement.appendChild(new ModItem(
+                ProjectData.costumes[target.costumes[0].assetId].dataURL,
+                target.name,
+                "Object 2x1",
+                i
+            ));
+        } else if (target.variables.type[1] == "Object 1x2") {
+            ModItemsElement.appendChild(new ModItem(
+                ProjectData.costumes[target.costumes[0].assetId].dataURL,
+                target.name,
+                "Object 1x2",
+                i
+            ));
+        } else if (target.variables.type[1] == "Door") {
+            ModItemsElement.appendChild(new ModItem(
+                ProjectData.costumes[target.costumes[0].assetId].dataURL,
+                target.name,
+                "Door",
+                i
+            ));
+        } else if (target.variables.type[1] == "Beam") {
+            ModItemsElement.appendChild(new ModItem(
+                ProjectData.costumes[target.costumes[0].assetId].dataURL,
+                target.name,
+                "Beam",
+                i
+            ));
+        } else if (target.variables.type[1] == "Fence") {
+            ModItemsElement.appendChild(new ModItem(
+                ProjectData.costumes[target.costumes[0].assetId].dataURL,
+                target.name,
+                "Fence",
+                i
+            ));
+        } else if (target.variables.type[1] == "Platform") {
+            ModItemsElement.appendChild(new ModItem(
+                ProjectData.costumes[target.costumes[0].assetId].dataURL,
+                target.name,
+                "Platform",
+                i
+            ));
+        } else if (target.variables.type[1] == "Torch") {
+            ModItemsElement.appendChild(new ModItem(
+                ProjectData.costumes[target.costumes[0].assetId].dataURL,
+                target.name,
+                "Torch",
+                i
+            ));
+        } else if (target.variables.type[1] == "Chain") {
+            ModItemsElement.appendChild(new ModItem(
+                ProjectData.costumes[target.costumes[0].assetId].dataURL,
+                target.name,
+                "Chain",
+                i
+            ));
+        } else if (target.variables.type[1] == "Staff") {
+            ModItemsElement.appendChild(new ModItem(
+                ProjectData.costumes[target.costumes[0].assetId].dataURL,
+                target.name,
+                "Staff",
+                i
+            ));
         }
     }
 }
@@ -843,6 +931,24 @@ function SelectMod(type, ...args) {
         SelectMaskMod(...args);
     } else if (type == "NPC") {
         SelectNPCMod(...args);
+    } else if (type == "Object 2x1") {
+        SelectObject2x1Mod(...args);
+    } else if (type == "Object 1x2") {
+        SelectObject1x2Mod(...args);
+    } else if (type == "Door") {
+        SelectDoorMod(...args);
+    } else if (type == "Beam") {
+        SelectBeamMod(...args);
+    } else if (type == "Fence") {
+        SelectFenceMod(...args);
+    } else if (type == "Platform") {
+        SelectPlatformMod(...args);
+    } else if (type == "Torch") {
+        SelectTorchMod(...args);
+    } else if (type == "Chain") {
+        SelectChainMod(...args);
+    } else if (type == "Staff") {
+        SelectStaffMod(...args);
     }
 }
 
@@ -892,7 +998,7 @@ function SelectJavaScriptMod(ID, Name, Contents) {
     Editor.appendChild(new Text({ "innerText": "window.vm.runtime.stop()" }, { "color": "#fff", "font-size": "1em", "font-family": "sans-serif" }));
     Editor.appendChild(new Br);
 }
-function SelectBlockMod(ID, Name, Material, DigSpeed, TopBlock, BottomBlock) {
+function SelectBlockMod(ID, Name, Material, DigSpeed, TopBlock, BottomBlock, Light) {
     Editor.innerHTML = "";
     Editor.appendChild(new Text({ "innerText": "Add Block" }, { "color": "#fff", "font-size": "3em" }));
     Editor.appendChild(new Br);
@@ -913,6 +1019,7 @@ function SelectBlockMod(ID, Name, Material, DigSpeed, TopBlock, BottomBlock) {
     const name = new StringInput("Name", "New Block's Name", "Name", Name ? Name : "My New Block");
     const material = new SelectInput("Material", "What The Block Is Made Out Of", [{ 12: "Wood", 20: "Dirt", 30: "Stone", 50: "Ore", 60: "Metal", 70: "Hellstone" }, { value: Material ? Material : 12 }]);
     const digSpeed = new NumberInput("Dig Speed", "How Fast The Block Will Break", "Dig Speed", DigSpeed ? DigSpeed : "");
+    const light = new Input({ "type": "checkbox", "checked": !!Light });
     const cancel = new Button({ "innerText": "Cancel" });
     cancel.onclick = async () => {
         Editor.hidden = true;
@@ -939,6 +1046,7 @@ function SelectBlockMod(ID, Name, Material, DigSpeed, TopBlock, BottomBlock) {
         Sprite.variables.type = ["Type", "Block"];
         Sprite.variables.material = ["Material", material.value];
         Sprite.variables.digSpeed = ["Dig Speed", digSpeed.value];
+        Sprite.variables.light = ["Emits Light?", light.checked];
         if (ID) ProjectData.json.targets[ID] = Sprite;
         else ProjectData.json.targets.push(Sprite);
         Editor.hidden = true;
@@ -952,6 +1060,10 @@ function SelectBlockMod(ID, Name, Material, DigSpeed, TopBlock, BottomBlock) {
     Editor.appendChild(name);
     Editor.appendChild(material);
     Editor.appendChild(digSpeed);
+    Editor.appendChild(new Br);
+    Editor.appendChild(light);
+    Editor.appendChild(new Text({ "innerText": "Emits Light?" }, { "color": "#fff", "font-size": "0.75em" }));
+    Editor.appendChild(new Br);
     Editor.appendChild(new Br);
     Editor.appendChild(cancel);
     Editor.appendChild(finish);
@@ -1285,7 +1397,7 @@ function SelectOtherMod(ID, Name, Image) {
     Editor.appendChild(new Br);
     Editor.appendChild(new Br);
 }
-function SelectObject1x1Mod(ID, Name, Image, Material, DigSpeed) {
+function SelectObject1x1Mod(ID, Name, Image, Material, DigSpeed, Light) {
     Editor.innerHTML = "";
     Editor.appendChild(new Text({ "innerText": "Add Object 1x1" }, { "color": "#fff", "font-size": "3em" }));
     Editor.appendChild(new Br);
@@ -1299,6 +1411,7 @@ function SelectObject1x1Mod(ID, Name, Image, Material, DigSpeed) {
     const name = new StringInput("Name", "New Object's Name", "Name", Name ? Name : "My New Object");
     const material = new SelectInput("Material", "What The Object Is Made Out Of", [{ 11: "Veg", 12: "Wood", 13: "Chest", 20: "Dirt", 30: "Stone", 50: "Ore", 60: "Metal", 63: "Metal Chest", 70: "Hellstone" }, { value: Material ? Material : 12 }]);
     const digSpeed = new NumberInput("Dig Speed", "How Fast The Block Will Break", "Dig Speed", DigSpeed ? DigSpeed : "");
+    const light = new Input({ "type": "checkbox", "checked": !!Light });
     const cancel = new Button({ "innerText": "Cancel" });
     cancel.onclick = async () => {
         Editor.hidden = true;
@@ -1318,6 +1431,7 @@ function SelectObject1x1Mod(ID, Name, Image, Material, DigSpeed) {
         Sprite.variables.type = ["Type", "Object 1x1"];
         Sprite.variables.material = ["Material", material.value];
         Sprite.variables.digSpeed = ["Dig Speed", digSpeed.value];
+        Sprite.variables.light = ["Emits Light?", light.checked];
         if (ID) ProjectData.json.targets[ID] = Sprite;
         else ProjectData.json.targets.push(Sprite);
         Editor.hidden = true;
@@ -1330,12 +1444,16 @@ function SelectObject1x1Mod(ID, Name, Image, Material, DigSpeed) {
     Editor.appendChild(material);
     Editor.appendChild(digSpeed);
     Editor.appendChild(new Br);
+    Editor.appendChild(light);
+    Editor.appendChild(new Text({ "innerText": "Emits Light?" }, { "color": "#fff", "font-size": "0.75em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
     Editor.appendChild(cancel);
     Editor.appendChild(finish);
     Editor.appendChild(new Br);
     Editor.appendChild(new Br);
 }
-function SelectObject2x2Mod(ID, Name, Image, Material, DigSpeed, TopLeft, BottomLeft, TopRight, BottomRight) {
+function SelectObject2x2Mod(ID, Name, Image, Material, DigSpeed, TopLeft, BottomLeft, TopRight, BottomRight, Light) {
     Editor.innerHTML = "";
     Editor.appendChild(new Text({ "innerText": "Add Object 2x2" }, { "color": "#fff", "font-size": "3em" }));
     Editor.appendChild(new Br);
@@ -1381,6 +1499,7 @@ function SelectObject2x2Mod(ID, Name, Image, Material, DigSpeed, TopLeft, Bottom
     const name = new StringInput("Name", "New Object's Name", "Name", Name ? Name : "My New Object");
     const material = new SelectInput("Material", "What The Object Is Made Out Of", [{ 11: "Veg", 12: "Wood", 20: "Dirt", 30: "Stone", 50: "Ore", 60: "Metal", 63: "Metal Chest", 70: "Hellstone" }, { value: Material ? Material : 12 }]);
     const digSpeed = new NumberInput("Dig Speed", "How Fast The Block Will Break", "Dig Speed", DigSpeed ? DigSpeed : "");
+    const light = new Input({ "type": "checkbox", "checked": !!Light });
     const cancel = new Button({ "innerText": "Cancel" });
     cancel.onclick = async () => {
         Editor.hidden = true;
@@ -1428,6 +1547,7 @@ function SelectObject2x2Mod(ID, Name, Image, Material, DigSpeed, TopLeft, Bottom
         Sprite.variables.type = ["Type", "Object 2x2"];
         Sprite.variables.material = ["Material", material.value];
         Sprite.variables.digSpeed = ["Dig Speed", digSpeed.value];
+        Sprite.variables.light = ["Emits Light?", light.checked];
         if (ID) ProjectData.json.targets[ID] = Sprite;
         else ProjectData.json.targets.push(Sprite);
         Editor.hidden = true;
@@ -1447,6 +1567,10 @@ function SelectObject2x2Mod(ID, Name, Image, Material, DigSpeed, TopLeft, Bottom
     Editor.appendChild(name);
     Editor.appendChild(material);
     Editor.appendChild(digSpeed);
+    Editor.appendChild(new Br);
+    Editor.appendChild(light);
+    Editor.appendChild(new Text({ "innerText": "Emits Light?" }, { "color": "#fff", "font-size": "0.75em" }));
+    Editor.appendChild(new Br);
     Editor.appendChild(new Br);
     Editor.appendChild(cancel);
     Editor.appendChild(finish);
@@ -1593,7 +1717,7 @@ function SelectNPCMod(ID, Class, Frames, Item, Name, Health, Aggressive, Speed, 
         Editor.appendChild(new Br);
         Editor.appendChild(new Text({ "innerText": "NPC Frames" }, { "color": "#fff", "font-size": "1.5em" }));
         const frames = Frames.map((e, i) => new ImageEditor({
-            name: "Frame" + (i+1).toString(),
+            name: "Frame" + (i + 1).toString(),
             rotationCenterX: e.rotationCenterX,
             rotationCenterY: e.rotationCenterY,
             imageFormat: e.dataFormat,
@@ -1645,7 +1769,7 @@ function SelectNPCMod(ID, Class, Frames, Item, Name, Health, Aggressive, Speed, 
             for (var i = 0; i < frames.length; i++) {
                 let frame = frames[i];
                 costume = await new Costume(frame.value.image, frame.value.imageFormat);
-                costume[1].name = "Frame" + (i+1).toString();
+                costume[1].name = "Frame" + (i + 1).toString();
                 costume[1].bitmapResolution = frame.value.bitmapResolution;
                 costume[1].rotationCenterX = frame.value.rotationCenterX;
                 costume[1].rotationCenterY = frame.value.rotationCenterY;
@@ -1678,24 +1802,774 @@ function SelectNPCMod(ID, Class, Frames, Item, Name, Health, Aggressive, Speed, 
         });
     }
 }
+function SelectObject2x1Mod(ID, Name, Image, Material, DigSpeed, Left, Right, Light) {
+    Editor.innerHTML = "";
+    Editor.appendChild(new Text({ "innerText": "Add Object 2x1" }, { "color": "#fff", "font-size": "3em" }));
+    Editor.appendChild(new Br);
+    const image = new ImageEditor({
+        name: "Item",
+        rotationCenterX: Image ? Image.rotationCenterX : 0,
+        rotationCenterY: Image ? Image.rotationCenterY : 26,
+        imageFormat: Image ? Image.dataFormat : "png",
+        image: Image ? Image.image : assets.bed_item
+    });
+    const left = new ImageEditor({
+        name: "Left",
+        rotationCenterX: Left ? Left.rotationCenterX : 0,
+        rotationCenterY: Left ? Left.rotationCenterY : 32,
+        imageFormat: Left ? Left.dataFormat : "png",
+        image: Left ? Left.image : assets.bed1
+    });
+    const right = new ImageEditor({
+        name: "Right",
+        rotationCenterX: Right ? Right.rotationCenterX : 0,
+        rotationCenterY: Right ? Right.rotationCenterY : 22,
+        imageFormat: Right ? Right.dataFormat : "png",
+        image: Right ? Right.image : assets.bed2
+    });
+    left.style.display = "inline-block";
+    right.style.display = "inline-block";
+    const name = new StringInput("Name", "New Object's Name", "Name", Name ? Name : "My New Object");
+    const material = new SelectInput("Material", "What The Object Is Made Out Of", [{ 11: "Veg", 12: "Wood", 20: "Dirt", 30: "Stone", 50: "Ore", 60: "Metal", 63: "Metal Chest", 70: "Hellstone" }, { value: Material ? Material : 12 }]);
+    const digSpeed = new NumberInput("Dig Speed", "How Fast The Block Will Break", "Dig Speed", DigSpeed ? DigSpeed : "");
+    const light = new Input({ "type": "checkbox", "checked": !!Light });
+    const cancel = new Button({ "innerText": "Cancel" });
+    cancel.onclick = async () => {
+        Editor.hidden = true;
+        Mod.hidden = false;
+    };
+    const finish = new Button({ "innerText": "Finish" });
+    finish.onclick = async () => {
+        const Sprite = ProjectData.Sprite;
+        Sprite.name = name.value;
+        var costume = await new Costume(image.value.image, image.value.imageFormat);
+        costume[1].name = name.value;
+        costume[1].bitmapResolution = image.value.bitmapResolution;
+        costume[1].rotationCenterX = image.value.rotationCenterX;
+        costume[1].rotationCenterY = image.value.rotationCenterY;
+        Sprite.costumes[0] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        costume = await new Costume(left.value.image, left.value.imageFormat);
+        costume[1].name = name.value + "-Left";
+        costume[1].bitmapResolution = left.value.bitmapResolution;
+        costume[1].rotationCenterX = left.value.rotationCenterX;
+        costume[1].rotationCenterY = left.value.rotationCenterY;
+        Sprite.costumes[1] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        costume = await new Costume(right.value.image, right.value.imageFormat);
+        costume[1].name = name.value + "-Right";
+        costume[1].bitmapResolution = right.value.bitmapResolution;
+        costume[1].rotationCenterX = right.value.rotationCenterX;
+        costume[1].rotationCenterY = right.value.rotationCenterY;
+        Sprite.costumes[2] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        Sprite.variables.type = ["Type", "Object 2x1"];
+        Sprite.variables.material = ["Material", material.value];
+        Sprite.variables.digSpeed = ["Dig Speed", digSpeed.value];
+        Sprite.variables.light = ["Emits Light?", light.checked];
+        if (ID) ProjectData.json.targets[ID] = Sprite;
+        else ProjectData.json.targets.push(Sprite);
+        Editor.hidden = true;
+        AddItemElements();
+        Mod.hidden = false;
+    };
+    Editor.appendChild(new Text({ "innerText": "Item Sprite" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(image);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Text({ "innerText": "Tiles" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(left);
+    Editor.appendChild(right);
+    Editor.appendChild(name);
+    Editor.appendChild(material);
+    Editor.appendChild(digSpeed);
+    Editor.appendChild(new Br);
+    Editor.appendChild(light);
+    Editor.appendChild(new Text({ "innerText": "Emits Light?" }, { "color": "#fff", "font-size": "0.75em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+    Editor.appendChild(cancel);
+    Editor.appendChild(finish);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+}
+function SelectObject1x2Mod(ID, Name, Image, Material, DigSpeed, Top, Bottom, Light) {
+    Editor.innerHTML = "";
+    Editor.appendChild(new Text({ "innerText": "Add Object 1x2" }, { "color": "#fff", "font-size": "3em" }));
+    Editor.appendChild(new Br);
+    const image = new ImageEditor({
+        name: "Item",
+        rotationCenterX: Image ? Image.rotationCenterX : -8,
+        rotationCenterY: Image ? Image.rotationCenterY : 30,
+        imageFormat: Image ? Image.dataFormat : "png",
+        image: Image ? Image.image : assets.clock_item
+    });
+    const top = new ImageEditor({
+        name: "Top",
+        rotationCenterX: Top ? Top.rotationCenterX : -4,
+        rotationCenterY: Top ? Top.rotationCenterY : 32,
+        imageFormat: Top ? Top.dataFormat : "png",
+        image: Top ? Top.image : assets.clock1
+    });
+    const bottom = new ImageEditor({
+        name: "Bottom",
+        rotationCenterX: Bottom ? Bottom.rotationCenterX : -4,
+        rotationCenterY: Bottom ? Bottom.rotationCenterY : 32,
+        imageFormat: Bottom ? Bottom.dataFormat : "png",
+        image: Bottom ? Bottom.image : assets.clock2
+    });
+    const name = new StringInput("Name", "New Object's Name", "Name", Name ? Name : "My New Object");
+    const material = new SelectInput("Material", "What The Object Is Made Out Of", [{ 11: "Veg", 12: "Wood", 20: "Dirt", 30: "Stone", 50: "Ore", 60: "Metal", 63: "Metal Chest", 70: "Hellstone" }, { value: Material ? Material : 12 }]);
+    const digSpeed = new NumberInput("Dig Speed", "How Fast The Block Will Break", "Dig Speed", DigSpeed ? DigSpeed : "");
+    const light = new Input({ "type": "checkbox", "checked": !!Light });
+    const cancel = new Button({ "innerText": "Cancel" });
+    cancel.onclick = async () => {
+        Editor.hidden = true;
+        Mod.hidden = false;
+    };
+    const finish = new Button({ "innerText": "Finish" });
+    finish.onclick = async () => {
+        const Sprite = ProjectData.Sprite;
+        Sprite.name = name.value;
+        var costume = await new Costume(image.value.image, image.value.imageFormat);
+        costume[1].name = name.value;
+        costume[1].bitmapResolution = image.value.bitmapResolution;
+        costume[1].rotationCenterX = image.value.rotationCenterX;
+        costume[1].rotationCenterY = image.value.rotationCenterY;
+        Sprite.costumes[0] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        costume = await new Costume(top.value.image, top.value.imageFormat);
+        costume[1].name = name.value + "-Top";
+        costume[1].bitmapResolution = top.value.bitmapResolution;
+        costume[1].rotationCenterX = top.value.rotationCenterX;
+        costume[1].rotationCenterY = top.value.rotationCenterY;
+        Sprite.costumes[1] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        costume = await new Costume(bottom.value.image, bottom.value.imageFormat);
+        costume[1].name = name.value + "-Bottom";
+        costume[1].bitmapResolution = bottom.value.bitmapResolution;
+        costume[1].rotationCenterX = bottom.value.rotationCenterX;
+        costume[1].rotationCenterY = bottom.value.rotationCenterY;
+        Sprite.costumes[2] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        Sprite.variables.type = ["Type", "Object 1x2"];
+        Sprite.variables.material = ["Material", material.value];
+        Sprite.variables.digSpeed = ["Dig Speed", digSpeed.value];
+        Sprite.variables.light = ["Emits Light?", light.checked];
+        if (ID) ProjectData.json.targets[ID] = Sprite;
+        else ProjectData.json.targets.push(Sprite);
+        Editor.hidden = true;
+        AddItemElements();
+        Mod.hidden = false;
+    };
+    Editor.appendChild(new Text({ "innerText": "Item Sprite" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(image);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Text({ "innerText": "Tiles" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(top);
+    Editor.appendChild(bottom);
+    Editor.appendChild(name);
+    Editor.appendChild(material);
+    Editor.appendChild(digSpeed);
+    Editor.appendChild(new Br);
+    Editor.appendChild(light);
+    Editor.appendChild(new Text({ "innerText": "Emits Light?" }, { "color": "#fff", "font-size": "0.75em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+    Editor.appendChild(cancel);
+    Editor.appendChild(finish);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+}
+function SelectDoorMod(ID, Name, Image, Material, DigSpeed, Top, Bottom, Open, Light) {
+    Editor.innerHTML = "";
+    Editor.appendChild(new Text({ "innerText": "Add Door" }, { "color": "#fff", "font-size": "3em" }));
+    Editor.appendChild(new Br);
+    const image = new ImageEditor({
+        name: "Item",
+        rotationCenterX: Image ? Image.rotationCenterX : -7,
+        rotationCenterY: Image ? Image.rotationCenterY : 32,
+        imageFormat: Image ? Image.dataFormat : "png",
+        image: Image ? Image.image : assets.door_item
+    });
+    const top = new ImageEditor({
+        name: "Top",
+        rotationCenterX: Top ? Top.rotationCenterX : -8,
+        rotationCenterY: Top ? Top.rotationCenterY : 32,
+        imageFormat: Top ? Top.dataFormat : "png",
+        image: Top ? Top.image : assets.door1
+    });
+    const bottom = new ImageEditor({
+        name: "Bottom",
+        rotationCenterX: Bottom ? Bottom.rotationCenterX : -8,
+        rotationCenterY: Bottom ? Bottom.rotationCenterY : 32,
+        imageFormat: Bottom ? Bottom.dataFormat : "png",
+        image: Bottom ? Bottom.image : assets.door2
+    });
+    const open = new ImageEditor({
+        name: "Open",
+        rotationCenterX: Open ? Open.rotationCenterX : 8,
+        rotationCenterY: Open ? Open.rotationCenterY : 64,
+        imageFormat: Open ? Open.dataFormat : "png",
+        image: Open ? Open.image : assets.door_open
+    }, false);
+    const name = new StringInput("Name", "New Door's Name", "Name", Name ? Name : "My New Door");
+    const material = new SelectInput("Material", "What The Door Is Made Out Of", [{ 11: "Veg", 12: "Wood", 20: "Dirt", 30: "Stone", 50: "Ore", 60: "Metal", 63: "Metal Chest", 70: "Hellstone" }, { value: Material ? Material : 12 }]);
+    const digSpeed = new NumberInput("Dig Speed", "How Fast The Block Will Break", "Dig Speed", DigSpeed ? DigSpeed : "");
+    const light = new Input({ "type": "checkbox", "checked": !!Light });
+    const cancel = new Button({ "innerText": "Cancel" });
+    cancel.onclick = async () => {
+        Editor.hidden = true;
+        Mod.hidden = false;
+    };
+    const finish = new Button({ "innerText": "Finish" });
+    finish.onclick = async () => {
+        const Sprite = ProjectData.Sprite;
+        Sprite.name = name.value;
+        var costume = await new Costume(image.value.image, image.value.imageFormat);
+        costume[1].name = name.value;
+        costume[1].bitmapResolution = image.value.bitmapResolution;
+        costume[1].rotationCenterX = image.value.rotationCenterX;
+        costume[1].rotationCenterY = image.value.rotationCenterY;
+        Sprite.costumes[0] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        costume = await new Costume(top.value.image, top.value.imageFormat);
+        costume[1].name = name.value + "-Top";
+        costume[1].bitmapResolution = top.value.bitmapResolution;
+        costume[1].rotationCenterX = top.value.rotationCenterX;
+        costume[1].rotationCenterY = top.value.rotationCenterY;
+        Sprite.costumes[1] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        costume = await new Costume(bottom.value.image, bottom.value.imageFormat);
+        costume[1].name = name.value + "-Bottom";
+        costume[1].bitmapResolution = bottom.value.bitmapResolution;
+        costume[1].rotationCenterX = bottom.value.rotationCenterX;
+        costume[1].rotationCenterY = bottom.value.rotationCenterY;
+        Sprite.costumes[2] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        costume = await new Costume(open.value.image, open.value.imageFormat);
+        costume[1].name = name.value + "-Open";
+        costume[1].bitmapResolution = open.value.bitmapResolution;
+        costume[1].rotationCenterX = open.value.rotationCenterX;
+        costume[1].rotationCenterY = open.value.rotationCenterY;
+        Sprite.costumes[3] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        Sprite.variables.type = ["Type", "Door"];
+        Sprite.variables.material = ["Material", material.value];
+        Sprite.variables.digSpeed = ["Dig Speed", digSpeed.value];
+        Sprite.variables.light = ["Emits Light?", light.checked];
+        if (ID) ProjectData.json.targets[ID] = Sprite;
+        else ProjectData.json.targets.push(Sprite);
+        Editor.hidden = true;
+        AddItemElements();
+        Mod.hidden = false;
+    };
+    Editor.appendChild(new Text({ "innerText": "Item Sprite" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(image);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Text({ "innerText": "Tiles" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(top);
+    Editor.appendChild(bottom);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Text({ "innerText": "Open" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(open);
+    Editor.appendChild(name);
+    Editor.appendChild(material);
+    Editor.appendChild(digSpeed);
+    Editor.appendChild(new Br);
+    Editor.appendChild(light);
+    Editor.appendChild(new Text({ "innerText": "Emits Light?" }, { "color": "#fff", "font-size": "0.75em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+    Editor.appendChild(cancel);
+    Editor.appendChild(finish);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+}
+function SelectBeamMod(ID, Name, Material, DigSpeed, Top, Bottom, Light) {
+    Editor.innerHTML = "";
+    Editor.appendChild(new Text({ "innerText": "Add Beam" }, { "color": "#fff", "font-size": "3em" }));
+    Editor.appendChild(new Br);
+    const top = new ImageEditor({
+        name: "Top",
+        rotationCenterX: Top ? Top.rotationCenterX : 0,
+        rotationCenterY: Top ? Top.rotationCenterY : 32,
+        imageFormat: Top ? Top.dataFormat : "png",
+        image: Top ? Top.image : assets.beam_top
+    });
+    const bottom = new ImageEditor({
+        name: "Bottom",
+        rotationCenterX: Bottom ? Bottom.rotationCenterX : 0,
+        rotationCenterY: Bottom ? Bottom.rotationCenterY : 32,
+        imageFormat: Bottom ? Bottom.dataFormat : "png",
+        image: Bottom ? Bottom.image : assets.beam
+    });
+    const name = new StringInput("Name", "New Beam's Name", "Name", Name ? Name : "My New Beam");
+    const material = new SelectInput("Material", "What The Beam Is Made Out Of", [{ 12: "Wood", 20: "Dirt", 30: "Stone", 50: "Ore", 60: "Metal", 70: "Hellstone" }, { value: Material ? Material : 12 }]);
+    const digSpeed = new NumberInput("Dig Speed", "How Fast The Beam Will Break", "Dig Speed", DigSpeed ? DigSpeed : "");
+    const light = new Input({ "type": "checkbox", "checked": !!Light });
+    const cancel = new Button({ "innerText": "Cancel" });
+    cancel.onclick = async () => {
+        Editor.hidden = true;
+        Mod.hidden = false;
+    };
+    const finish = new Button({ "innerText": "Finish" });
+    finish.onclick = async () => {
+        const Sprite = ProjectData.Sprite;
+        Sprite.name = name.value;
+        var costume = await new Costume(top.value.image, top.value.imageFormat);
+        costume[1].name = name.value;
+        costume[1].bitmapResolution = top.value.bitmapResolution;
+        costume[1].rotationCenterX = top.value.rotationCenterX;
+        costume[1].rotationCenterY = top.value.rotationCenterY;
+        Sprite.costumes[0] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        costume = await new Costume(bottom.value.image, bottom.value.imageFormat);
+        costume[1].name = `${name.value}2`;
+        costume[1].bitmapResolution = bottom.value.bitmapResolution;
+        costume[1].rotationCenterX = bottom.value.rotationCenterX;
+        costume[1].rotationCenterY = bottom.value.rotationCenterY;
+        Sprite.costumes[1] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        Sprite.variables.type = ["Type", "Beam"];
+        Sprite.variables.material = ["Material", material.value];
+        Sprite.variables.digSpeed = ["Dig Speed", digSpeed.value];
+        Sprite.variables.light = ["Emits Light?", light.checked];
+        if (ID) ProjectData.json.targets[ID] = Sprite;
+        else ProjectData.json.targets.push(Sprite);
+        Editor.hidden = true;
+        AddItemElements();
+        Mod.hidden = false;
+    };
+    Editor.appendChild(new Text({ "innerText": "Top Sprite" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(top);
+    Editor.appendChild(new Text({ "innerText": "Bottom Sprite" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(bottom);
+    Editor.appendChild(name);
+    Editor.appendChild(material);
+    Editor.appendChild(digSpeed);
+    Editor.appendChild(new Br);
+    Editor.appendChild(light);
+    Editor.appendChild(new Text({ "innerText": "Emits Light?" }, { "color": "#fff", "font-size": "0.75em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+    Editor.appendChild(cancel);
+    Editor.appendChild(finish);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+}
+function SelectFenceMod(ID, Name, Image, Material, DigSpeed, Light) {
+    Editor.innerHTML = "";
+    Editor.appendChild(new Text({ "innerText": "Add Fence" }, { "color": "#fff", "font-size": "3em" }));
+    Editor.appendChild(new Br);
+    const image = new ImageEditor({
+        name: "Item",
+        rotationCenterX: Image ? Image.rotationCenterX : 0,
+        rotationCenterY: Image ? Image.rotationCenterY : 30,
+        imageFormat: Image ? Image.dataFormat : "png",
+        image: Image ? Image.image : assets.fence
+    });
+    const name = new StringInput("Name", "New Fence's Name", "Name", Name ? Name : "My New Fence");
+    const material = new SelectInput("Material", "What The Fence Is Made Out Of", [{ 11: "Veg", 12: "Wood", 20: "Dirt", 30: "Stone", 50: "Ore", 60: "Metal", 70: "Hellstone" }, { value: Material ? Material : 12 }]);
+    const digSpeed = new NumberInput("Dig Speed", "How Fast The Fence Will Break", "Dig Speed", DigSpeed ? DigSpeed : "");
+    const light = new Input({ "type": "checkbox", "checked": !!Light });
+    const cancel = new Button({ "innerText": "Cancel" });
+    cancel.onclick = async () => {
+        Editor.hidden = true;
+        Mod.hidden = false;
+    };
+    const finish = new Button({ "innerText": "Finish" });
+    finish.onclick = async () => {
+        const Sprite = ProjectData.Sprite;
+        Sprite.name = name.value;
+        var costume = await new Costume(image.value.image, image.value.imageFormat);
+        costume[1].name = name.value;
+        costume[1].bitmapResolution = image.value.bitmapResolution;
+        costume[1].rotationCenterX = image.value.rotationCenterX;
+        costume[1].rotationCenterY = image.value.rotationCenterY;
+        Sprite.costumes[0] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        Sprite.variables.type = ["Type", "Fence"];
+        Sprite.variables.material = ["Material", material.value];
+        Sprite.variables.digSpeed = ["Dig Speed", digSpeed.value];
+        Sprite.variables.light = ["Emits Light?", light.checked];
+        if (ID) ProjectData.json.targets[ID] = Sprite;
+        else ProjectData.json.targets.push(Sprite);
+        Editor.hidden = true;
+        AddItemElements();
+        Mod.hidden = false;
+    };
+    Editor.appendChild(new Text({ "innerText": "Item Sprite" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(image);
+    Editor.appendChild(name);
+    Editor.appendChild(material);
+    Editor.appendChild(digSpeed);
+    Editor.appendChild(new Br);
+    Editor.appendChild(light);
+    Editor.appendChild(new Text({ "innerText": "Emits Light?" }, { "color": "#fff", "font-size": "0.75em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+    Editor.appendChild(cancel);
+    Editor.appendChild(finish);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+}
+function SelectPlatformMod(ID, Name, Image, Material, DigSpeed, Light) {
+    Editor.innerHTML = "";
+    Editor.appendChild(new Text({ "innerText": "Add Platform" }, { "color": "#fff", "font-size": "3em" }));
+    Editor.appendChild(new Br);
+    const image = new ImageEditor({
+        name: "Item",
+        rotationCenterX: Image ? Image.rotationCenterX : 0,
+        rotationCenterY: Image ? Image.rotationCenterY : 32,
+        imageFormat: Image ? Image.dataFormat : "png",
+        image: Image ? Image.image : assets.platform
+    });
+    const name = new StringInput("Name", "New Platform's Name", "Name", Name ? Name : "My New Platform");
+    const material = new SelectInput("Material", "What The Platform Is Made Out Of", [{ 11: "Veg", 12: "Wood", 20: "Dirt", 30: "Stone", 50: "Ore", 60: "Metal", 70: "Hellstone" }, { value: Material ? Material : 12 }]);
+    const digSpeed = new NumberInput("Dig Speed", "How Fast The Platform Will Break", "Dig Speed", DigSpeed ? DigSpeed : "");
+    const light = new Input({ "type": "checkbox", "checked": !!Light });
+    const cancel = new Button({ "innerText": "Cancel" });
+    cancel.onclick = async () => {
+        Editor.hidden = true;
+        Mod.hidden = false;
+    };
+    const finish = new Button({ "innerText": "Finish" });
+    finish.onclick = async () => {
+        const Sprite = ProjectData.Sprite;
+        Sprite.name = name.value;
+        var costume = await new Costume(image.value.image, image.value.imageFormat);
+        costume[1].name = name.value;
+        costume[1].bitmapResolution = image.value.bitmapResolution;
+        costume[1].rotationCenterX = image.value.rotationCenterX;
+        costume[1].rotationCenterY = image.value.rotationCenterY;
+        Sprite.costumes[0] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        Sprite.variables.type = ["Type", "Platform"];
+        Sprite.variables.material = ["Material", material.value];
+        Sprite.variables.digSpeed = ["Dig Speed", digSpeed.value];
+        Sprite.variables.light = ["Emits Light?", light.checked];
+        if (ID) ProjectData.json.targets[ID] = Sprite;
+        else ProjectData.json.targets.push(Sprite);
+        Editor.hidden = true;
+        AddItemElements();
+        Mod.hidden = false;
+    };
+    Editor.appendChild(new Text({ "innerText": "Item Sprite" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(image);
+    Editor.appendChild(name);
+    Editor.appendChild(material);
+    Editor.appendChild(digSpeed);
+    Editor.appendChild(new Br);
+    Editor.appendChild(light);
+    Editor.appendChild(new Text({ "innerText": "Emits Light?" }, { "color": "#fff", "font-size": "0.75em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+    Editor.appendChild(cancel);
+    Editor.appendChild(finish);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+}
+function SelectTorchMod(ID, Name, Image, Material, DigSpeed, Left, Right, Light) {
+    Editor.innerHTML = "";
+    Editor.appendChild(new Text({ "innerText": "Torch" }, { "color": "#fff", "font-size": "3em" }));
+    Editor.appendChild(new Br);
+    const image = new ImageEditor({
+        name: "Item",
+        rotationCenterX: Image ? Image.rotationCenterX : -12,
+        rotationCenterY: Image ? Image.rotationCenterY : 20,
+        imageFormat: Image ? Image.dataFormat : "png",
+        image: Image ? Image.image : assets.torch
+    });
+    const left = new ImageEditor({
+        name: "Left",
+        rotationCenterX: Left ? Left.rotationCenterX : 0,
+        rotationCenterY: Left ? Left.rotationCenterY : 22,
+        imageFormat: Left ? Left.dataFormat : "png",
+        image: Left ? Left.image : assets.torch_left
+    });
+    const right = new ImageEditor({
+        name: "Right",
+        rotationCenterX: Right ? Right.rotationCenterX : -18,
+        rotationCenterY: Right ? Right.rotationCenterY : 22,
+        imageFormat: Right ? Right.dataFormat : "png",
+        image: Right ? Right.image : assets.torch_right
+    });
+    left.style.display = "inline-block";
+    right.style.display = "inline-block";
+    const name = new StringInput("Name", "New Torch's Name", "Name", Name ? Name : "My New Torch");
+    const material = new SelectInput("Material", "What The Torch Is Made Out Of", [{ 11: "Veg", 12: "Wood", 20: "Dirt", 30: "Stone", 50: "Ore", 60: "Metal", 63: "Metal Chest", 70: "Hellstone" }, { value: Material ? Material : 12 }]);
+    const digSpeed = new NumberInput("Dig Speed", "How Fast The Torch Will Break", "Dig Speed", DigSpeed ? DigSpeed : "");
+    const light = new Input({ "type": "checkbox", "checked": Light == undefined ? true : !!Light });
+    const cancel = new Button({ "innerText": "Cancel" });
+    cancel.onclick = async () => {
+        Editor.hidden = true;
+        Mod.hidden = false;
+    };
+    const finish = new Button({ "innerText": "Finish" });
+    finish.onclick = async () => {
+        const Sprite = ProjectData.Sprite;
+        Sprite.name = name.value;
+        var costume = await new Costume(image.value.image, image.value.imageFormat);
+        costume[1].name = name.value;
+        costume[1].bitmapResolution = image.value.bitmapResolution;
+        costume[1].rotationCenterX = image.value.rotationCenterX;
+        costume[1].rotationCenterY = image.value.rotationCenterY;
+        Sprite.costumes[0] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        costume = await new Costume(left.value.image, left.value.imageFormat);
+        costume[1].name = name.value + "-Left";
+        costume[1].bitmapResolution = left.value.bitmapResolution;
+        costume[1].rotationCenterX = left.value.rotationCenterX;
+        costume[1].rotationCenterY = left.value.rotationCenterY;
+        Sprite.costumes[1] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        costume = await new Costume(right.value.image, right.value.imageFormat);
+        costume[1].name = name.value + "-Right";
+        costume[1].bitmapResolution = right.value.bitmapResolution;
+        costume[1].rotationCenterX = right.value.rotationCenterX;
+        costume[1].rotationCenterY = right.value.rotationCenterY;
+        Sprite.costumes[2] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        Sprite.variables.type = ["Type", "Torch"];
+        Sprite.variables.material = ["Material", material.value];
+        Sprite.variables.digSpeed = ["Dig Speed", digSpeed.value];
+        Sprite.variables.light = ["Emits Light?", light.checked];
+        if (ID) ProjectData.json.targets[ID] = Sprite;
+        else ProjectData.json.targets.push(Sprite);
+        Editor.hidden = true;
+        AddItemElements();
+        Mod.hidden = false;
+    };
+    Editor.appendChild(image);
+    Editor.appendChild(left);
+    Editor.appendChild(right);
+    Editor.appendChild(name);
+    Editor.appendChild(material);
+    Editor.appendChild(digSpeed);
+    Editor.appendChild(new Br);
+    Editor.appendChild(light);
+    Editor.appendChild(new Text({ "innerText": "Emits Light?" }, { "color": "#fff", "font-size": "0.75em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+    Editor.appendChild(cancel);
+    Editor.appendChild(finish);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+}
+function SelectChainMod(ID, Name, Image, Material, DigSpeed, Placed, Light) {
+    Editor.innerHTML = "";
+    Editor.appendChild(new Text({ "innerText": "Add Chain" }, { "color": "#fff", "font-size": "3em" }));
+    Editor.appendChild(new Br);
+    const image = new ImageEditor({
+        name: "Item",
+        rotationCenterX: Image ? Image.rotationCenterX : -8,
+        rotationCenterY: Image ? Image.rotationCenterY : 28,
+        imageFormat: Image ? Image.dataFormat : "png",
+        image: Image ? Image.image : assets.chain
+    });
+    const placed = new ImageEditor({
+        name: "Placed",
+        rotationCenterX: Placed ? Placed.rotationCenterX : -12,
+        rotationCenterY: Placed ? Placed.rotationCenterY : 32,
+        imageFormat: Placed ? Placed.dataFormat : "png",
+        image: Placed ? Placed.image : assets.chain2
+    });
+    const name = new StringInput("Name", "New Chain's Name", "Name", Name ? Name : "My New Chain");
+    const material = new SelectInput("Material", "What The Chain Is Made Out Of", [{ 11: "Veg", 12: "Wood", 20: "Dirt", 30: "Stone", 50: "Ore", 60: "Metal", 63: "Metal Chest", 70: "Hellstone" }, { value: Material ? Material : 60 }]);
+    const digSpeed = new NumberInput("Dig Speed", "How Fast The Chain Will Break", "Dig Speed", DigSpeed ? DigSpeed : "");
+    const light = new Input({ "type": "checkbox", "checked": !!Light });
+    const cancel = new Button({ "innerText": "Cancel" });
+    cancel.onclick = async () => {
+        Editor.hidden = true;
+        Mod.hidden = false;
+    };
+    const finish = new Button({ "innerText": "Finish" });
+    finish.onclick = async () => {
+        const Sprite = ProjectData.Sprite;
+        Sprite.name = name.value;
+        var costume = await new Costume(image.value.image, image.value.imageFormat);
+        costume[1].name = name.value;
+        costume[1].bitmapResolution = image.value.bitmapResolution;
+        costume[1].rotationCenterX = image.value.rotationCenterX;
+        costume[1].rotationCenterY = image.value.rotationCenterY;
+        Sprite.costumes[0] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        costume = await new Costume(placed.value.image, placed.value.imageFormat);
+        costume[1].name = name.value + "-Placed";
+        costume[1].bitmapResolution = placed.value.bitmapResolution;
+        costume[1].rotationCenterX = placed.value.rotationCenterX;
+        costume[1].rotationCenterY = placed.value.rotationCenterY;
+        Sprite.costumes[1] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        Sprite.variables.type = ["Type", "Chain"];
+        Sprite.variables.material = ["Material", material.value];
+        Sprite.variables.digSpeed = ["Dig Speed", digSpeed.value];
+        Sprite.variables.light = ["Emits Light?", light.checked];
+        if (ID) ProjectData.json.targets[ID] = Sprite;
+        else ProjectData.json.targets.push(Sprite);
+        Editor.hidden = true;
+        AddItemElements();
+        Mod.hidden = false;
+    };
+    Editor.appendChild(new Text({ "innerText": "Item Sprite" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(image);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Text({ "innerText": "Tiles" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(placed);
+    Editor.appendChild(name);
+    Editor.appendChild(material);
+    Editor.appendChild(digSpeed);
+    Editor.appendChild(new Br);
+    Editor.appendChild(light);
+    Editor.appendChild(new Text({ "innerText": "Emits Light?" }, { "color": "#fff", "font-size": "0.75em" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+    Editor.appendChild(cancel);
+    Editor.appendChild(finish);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+}
+function SelectStaffMod(ID, Name, DigSpeed, InventorySprite, UseSprite, Projectile1, Projectile2, Projectile3) {
+    Editor.innerHTML = "";
+    Editor.appendChild(new Text({ "innerText": "Add Staff" }, { "color": "#fff", "font-size": "3em" }));
+    Editor.appendChild(new Br);
+    const name = new StringInput("Name", "New Staff's Name", "Name", Name ? Name : "My New Staff");
+    const inventorySprite = new ImageEditor({
+        name: "Staff",
+        rotationCenterX: InventorySprite ? InventorySprite.rotationCenterX : 0,
+        rotationCenterY: InventorySprite ? InventorySprite.rotationCenterY : 16,
+        imageFormat: InventorySprite ? InventorySprite.dataFormat : "svg",
+        image: InventorySprite ? InventorySprite.image : assets.ITEM_DiamondStaff
+    });
+    const useSprite = new ImageEditor({
+        name: "Staff (Use)",
+        rotationCenterX: UseSprite ? UseSprite.rotationCenterX : -10,
+        rotationCenterY: UseSprite ? UseSprite.rotationCenterY : 37,
+        imageFormat: UseSprite ? UseSprite.dataFormat : "png",
+        image: UseSprite ? UseSprite.image : assets.DiamondStaff
+    }, false);
+    const projectile1 = new ImageEditor({
+        name: "Projectile1",
+        rotationCenterX: Projectile1 ? Projectile1.rotationCenterX : 11,
+        rotationCenterY: Projectile1 ? Projectile1.rotationCenterY : 11,
+        imageFormat: Projectile1 ? Projectile1.dataFormat : "png",
+        image: Projectile1 ? Projectile1.image : assets.Projectile1
+    }, false);
+    const projectile2 = new ImageEditor({
+        name: "Projectile2",
+        rotationCenterX: Projectile2 ? Projectile2.rotationCenterX : 11,
+        rotationCenterY: Projectile2 ? Projectile2.rotationCenterY : 11,
+        imageFormat: Projectile2 ? Projectile2.dataFormat : "png",
+        image: Projectile2 ? Projectile2.image : assets.Projectile2
+    }, false);
+    const projectile3 = new ImageEditor({
+        name: "Projectile3",
+        rotationCenterX: Projectile3 ? Projectile3.rotationCenterX : 9,
+        rotationCenterY: Projectile3 ? Projectile3.rotationCenterY : 9,
+        imageFormat: Projectile3 ? Projectile3.dataFormat : "png",
+        image: Projectile3 ? Projectile3.image : assets.Projectile3
+    }, false);
+    const digSpeed = new NumberInput("Dig Speed", "The Staff's Strength", "Dig Speed", DigSpeed ? DigSpeed : 10);
+    const cancel = new Button({ "innerText": "Cancel" });
+    cancel.onclick = async () => {
+        Editor.hidden = true;
+        Mod.hidden = false;
+    };
+    const finish = new Button({ "innerText": "Finish" });
+    finish.onclick = async () => {
+        const Sprite = ProjectData.Sprite;
+        Sprite.name = name.value;
+        var costume = await new Costume(inventorySprite.value.image, inventorySprite.value.imageFormat);
+        costume[1].name = name.value;
+        costume[1].bitmapResolution = inventorySprite.value.bitmapResolution;
+        costume[1].rotationCenterX = inventorySprite.value.rotationCenterX;
+        costume[1].rotationCenterY = inventorySprite.value.rotationCenterY;
+        Sprite.costumes[0] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        costume = await new Costume(useSprite.value.image, useSprite.value.imageFormat);
+        costume[1].name = `Use ${name.value}`;
+        costume[1].bitmapResolution = useSprite.value.bitmapResolution;
+        costume[1].rotationCenterX = useSprite.value.rotationCenterX;
+        costume[1].rotationCenterY = useSprite.value.rotationCenterY;
+        Sprite.costumes[1] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        costume = await new FlippedCostume(
+            useSprite.value.image,
+            useSprite.value.imageFormat,
+            useSprite.value.bitmapResolution,
+            useSprite.value.rotationCenterX,
+            useSprite.value.rotationCenterY
+        );
+        costume[1].name = `Use ${name.value}2`;
+        Sprite.costumes[2] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        costume = await new Costume(projectile1.value.image, projectile1.value.imageFormat);
+        costume[1].name = `Projectile1`;
+        costume[1].bitmapResolution = projectile1.value.bitmapResolution;
+        costume[1].rotationCenterX = projectile1.value.rotationCenterX;
+        costume[1].rotationCenterY = projectile1.value.rotationCenterY;
+        Sprite.costumes[3] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        costume = await new Costume(projectile2.value.image, projectile2.value.imageFormat);
+        costume[1].name = `Projectile2`;
+        costume[1].bitmapResolution = projectile2.value.bitmapResolution;
+        costume[1].rotationCenterX = projectile2.value.rotationCenterX;
+        costume[1].rotationCenterY = projectile2.value.rotationCenterY;
+        Sprite.costumes[4] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        costume = await new Costume(projectile3.value.image, projectile3.value.imageFormat);
+        costume[1].name = `Projectile3`;
+        costume[1].bitmapResolution = projectile3.value.bitmapResolution;
+        costume[1].rotationCenterX = projectile3.value.rotationCenterX;
+        costume[1].rotationCenterY = projectile3.value.rotationCenterY;
+        Sprite.costumes[5] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        Sprite.variables.type = ["Type", "Staff"];
+        Sprite.variables.digSpeed = ["Dig Speed", digSpeed.value];
+        if (ID) ProjectData.json.targets[ID] = Sprite;
+        else ProjectData.json.targets.push(Sprite);
+        Editor.hidden = true;
+        AddItemElements();
+        Mod.hidden = false;
+    };
+    Editor.appendChild(new Text({ "innerText": "Inventory Sprite" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(inventorySprite);
+    Editor.appendChild(new Text({ "innerText": "Use Sprite" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(useSprite);
+    Editor.appendChild(new Text({ "innerText": "Projectiles" }, { "color": "#fff", "font-size": "1.5em" }));
+    Editor.appendChild(projectile1);
+    Editor.appendChild(projectile2);
+    Editor.appendChild(projectile3);
+    Editor.appendChild(name);
+    Editor.appendChild(digSpeed);
+    Editor.appendChild(new Br);
+    Editor.appendChild(cancel);
+    Editor.appendChild(finish);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+}
 
 /*--------------------
 Costume Constructor
 --------------------*/
 function Costume(Link, type = "png") {
     return new Promise(async (resolve, reject) => {
-        let Text = await (await fetch(Link)).text();
         let ArrayBuffer = await (await fetch(Link)).arrayBuffer();
         resolve([{
-            ID: md5(Text),
+            ID: md5(ArrayBuffer),
             type: type,
             data: ArrayBuffer,
             dataURL: Link
         }, {
-            "assetId": md5(Text),
+            "assetId": md5(ArrayBuffer),
             "bitmapResolution": 1,
             "dataFormat": type,
-            "md5ext": `${md5(Text)}.${type}`,
+            "md5ext": `${md5(ArrayBuffer)}.${type}`,
             "name": "",
             "rotationCenterX": 0,
             "rotationCenterY": 0
@@ -1982,21 +2856,25 @@ function ModItem(...args) {
         let type = variable("type");
         console.log([target.name, variable("script")]);
         if (type == "JavaScript") SelectMod(type, args[3], target.name, variable("script"));
-        else if (type == "Block") SelectMod(type, args[3], target.name, variable("material"), variable("digSpeed"), costumeToData(target.costumes[0]), costumeToData(target.costumes[1]));
+        else if (type == "Block" || type == "Beam") SelectMod(type, args[3], target.name, variable("material"), variable("digSpeed"), costumeToData(target.costumes[0]), costumeToData(target.costumes[1]), variable("light"));
         else if (type == "Pickaxe" || type == "Axe" || type == "Sword") SelectMod(type, args[3], target.name, variable("digSpeed"), costumeToData(target.costumes[0]), costumeToData(target.costumes[1]));
         else if (type == "Recipe") SelectMod(type, args[3], variable("item"), variable("amount"), variable("useStation"), variable("station"), list("items"), list("amounts"));
         else if (type == "Other") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]));
-        else if (type == "Object 1x1") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), variable("material"), variable("digSpeed"));
-        else if (type == "Object 2x2") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), variable("material"), variable("digSpeed"), costumeToData(target.costumes[1]), costumeToData(target.costumes[2]), costumeToData(target.costumes[3]), costumeToData(target.costumes[4]));
+        else if (type == "Object 1x1" || type == "Fence" || type == "Platform") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), variable("material"), variable("digSpeed"), variable("light"));
+        else if (type == "Object 2x2") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), variable("material"), variable("digSpeed"), costumeToData(target.costumes[1]), costumeToData(target.costumes[2]), costumeToData(target.costumes[3]), costumeToData(target.costumes[4]), variable("light"));
         else if (type == "NPC Drop") SelectMod(type, args[3], variable("item"), variable("min"), variable("max"), variable("chance"), variable("npc"));
         else if (type == "Mask") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), costumeToData(target.costumes[1]));
         else if (type == "NPC") SelectMod(type, args[3], target.variables.cls[1], target.costumes.slice(1).map(costumeToData), costumeToData(target.costumes[0]), target.name, variable("hp"), variable("agr"), variable("spd"), variable("sizX"), variable("sizY"), variable("rotStyle"), variable("showHealth"), variable("isBoss"));
+        else if (type == "Object 2x1" || type == "Object 1x2" || type == "Torch") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), variable("material"), variable("digSpeed"), costumeToData(target.costumes[1]), costumeToData(target.costumes[2]), variable("light"));
+        else if (type == "Door") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), variable("material"), variable("digSpeed"), costumeToData(target.costumes[1]), costumeToData(target.costumes[2]), costumeToData(target.costumes[3]), variable("light"));
+        else if (type == "Chain") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), variable("material"), variable("digSpeed"), costumeToData(target.costumes[1]), variable("light"));
+        else if (type == "Staff") SelectMod(type, args[3], target.name, variable("digSpeed"), costumeToData(target.costumes[0]), costumeToData(target.costumes[1]), costumeToData(target.costumes[3]), costumeToData(target.costumes[4]), costumeToData(target.costumes[5]));
         Mod.hidden = true;
         Editor.hidden = false;
     }
     trash.onclick = () => {
         if (confirm(`Delete ${args[1]}?`)) {
-            ProjectData.json.targets.splice(args[3]);
+            ProjectData.json.targets.splice(args[3], 1);
             AddItemElements();
         }
     }
@@ -2018,7 +2896,7 @@ function SelectModItemInput(value, ...args) {
         }
     }
     const select = new Select([...ModItems, ...addedItems], ...args);
-    if (value) select.value = isNaN(value) ? [...ModItems, ...addedItems].indexOf(value) : value-1;
+    if (value) select.value = isNaN(value) ? [...ModItems, ...addedItems].indexOf(value) : value - 1;
     Object.defineProperty(selectModItemInput, "name", {
         get: () => { return select.options[select.selectedIndex].innerText },
         set: (x) => select.options[select.selectedIndex].innerText = x
@@ -2044,7 +2922,7 @@ function SelectModNPCInput(value, ...args) {
         }
     }
     const select = new Select([...NPCs, ...addedNPCs], ...args);
-    if (value) select.value = isNaN(value) ? [...NPCs, ...addedNPCs].indexOf(value) : value-1;
+    if (value) select.value = isNaN(value) ? [...NPCs, ...addedNPCs].indexOf(value) : value - 1;
     Object.defineProperty(selectModNPCInput, "name", {
         get: () => select.options[select.selectedIndex].innerText,
         set: (x) => select.options[select.selectedIndex].innerText = x
@@ -2066,7 +2944,7 @@ function RecipeIngredientsList(value) {
     const recipeIngredientsList = document.createElement("RecipeIngredientsList");
     const name = new Text({ "innerText": "Ingredients" }, { "color": "#fff", "font-size": "1.5em" });
     const description = new Text({ "innerText": "What You Need To Craft The Item" }, { "color": "#bfbfbf", "font-size": "0.75em" });
-    const ingredients = new Div({}, {"width": "fit-content", "margin": "0px auto", "max-height" : "125px", "overflow": "auto"});
+    const ingredients = new Div({}, { "width": "fit-content", "margin": "0px auto", "max-height": "125px", "overflow": "auto" });
     const add = new Button();
     add.innerText = "Add Ingredient";
     add.onclick = () => {
@@ -2255,7 +3133,7 @@ async function openZippedHTMLPage(url, parameters = "", autoClose = true, window
         }
         const openedWindow = window.open("", "_blank", parameters);
         openedWindow.document.body.innerText = "Loading...";
-        Object.defineProperty(openedWindow, "windowData", { get: function () { return window.windowData } });
+        Object.defineProperty(openedWindow, "windowData", { get: function() { return window.windowData } });
         Object.assign(openedWindow, windowVariables);
         openedWindow.document.documentElement.innerHTML = windowData[url].innerHTML;
         if (autoClose) window.addEventListener("close", openedWindow.close);

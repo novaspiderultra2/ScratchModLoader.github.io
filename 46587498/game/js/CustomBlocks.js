@@ -234,7 +234,6 @@ async function compareCostumes(Original, New) {
             });
         }
     });
-    console.log(result);
     return result;
 }
 async function GetSpriteCostumesList(A) {
@@ -379,11 +378,20 @@ async function LoadMod(args) {
                 const modItems = {
                     "Other": [],
                     "Block": [],
+                    "Beam": [],
+                    "Fence": [],
+                    "Platform": [],
                     "Object 1x1": [],
+                    "Object 2x1": [],
+                    "Object 1x2": [],
                     "Object 2x2": [],
+                    "Torch": [],
+                    "Chain": [],
+                    "Door": [],
                     "Pickaxe": [],
                     "Axe": [],
                     "Sword": [],
+                    "Staff": [],
                     "Mask": [],
                     "Recipe": [],
                     "NPC": [],
@@ -412,6 +420,9 @@ async function LoadMod(args) {
                         }
                     }
                 }
+                const Stage = vm.runtime.getTargetForStage();
+                const Lighting = vm.runtime.getSpriteTargetByName("Lighting");
+                const Projectile = vm.runtime.getSpriteTargetByName("Projectile");
                 for (targetID in modItems.Other) {
                     if (targetID != "fix") {
                         let target = modItems.Other[targetID];
@@ -430,6 +441,7 @@ async function LoadMod(args) {
                         let Name = target.name;
                         let Material = (target.variables.material) ? target.variables.material[1] : 20;
                         let DigSpeed = (target.variables.digSpeed) ? target.variables.digSpeed[1] : 22;
+                        let Light = (target.variables.light) ? target.variables.light[1] : false;
                         const Tiles = vm.runtime.getSpriteTargetByName("Tiles");
                         let ID = Tiles.sprite.costumes.length;
                         await vm.addCostume(target.costumes[0].md5ext, target.costumes[0], Tiles.id);
@@ -438,6 +450,57 @@ async function LoadMod(args) {
                         AddItemData(ID, Name, 10, Material, DigSpeed, ID + 1, ID + 1);
                         AddItemData(ID + 1, Name, 10, Material, DigSpeed, ID + 1, ID);
                         Data.items[Name] = ID;
+                        if (Light == "true") Lighting.lookupVariableByNameAndType("light tiles", "list").value.push(ID, ID + 1);
+                    }
+                }
+                for (targetID in modItems.Beam) {
+                    if (targetID != "fix") {
+                        let target = modItems.Beam[targetID];
+                        let Name = target.name;
+                        let Material = (target.variables.material) ? target.variables.material[1] : 12;
+                        let DigSpeed = (target.variables.digSpeed) ? target.variables.digSpeed[1] : 22;
+                        let Light = (target.variables.light) ? target.variables.light[1] : false;
+                        const Tiles = vm.runtime.getSpriteTargetByName("Tiles");
+                        let ID = Tiles.sprite.costumes.length;
+                        await vm.addCostume(target.costumes[0].md5ext, target.costumes[0], Tiles.id);
+                        await vm.addCostume(target.costumes[1].md5ext, target.costumes[1], Tiles.id);
+                        Tiles.reorderCostume(Tiles.getCostumeIndexByName("BIG"), Tiles.sprite.costumes.length);
+                        AddItemData(ID, Name, 0.5, Material, DigSpeed, ID + 1, ID + 1);
+                        AddItemData(ID + 1, Name, 0.5, Material, DigSpeed, ID + 1, ID);
+                        Data.items[Name] = ID;
+                        if (Light == "true") Lighting.lookupVariableByNameAndType("light tiles", "list").value.push(ID, ID + 1);
+                    }
+                }
+                for (targetID in modItems.Fence) {
+                    if (targetID != "fix") {
+                        let target = modItems.Fence[targetID];
+                        let Name = target.name;
+                        let Material = (target.variables.material) ? target.variables.material[1] : 12;
+                        let DigSpeed = (target.variables.digSpeed) ? target.variables.digSpeed[1] : 22;
+                        let Light = (target.variables.light) ? target.variables.light[1] : false;
+                        const Tiles = vm.runtime.getSpriteTargetByName("Tiles");
+                        let ID = Tiles.sprite.costumes.length;
+                        await vm.addCostume(target.costumes[0].md5ext, target.costumes[0], Tiles.id);
+                        Tiles.reorderCostume(Tiles.getCostumeIndexByName("BIG"), Tiles.sprite.costumes.length);
+                        AddItemData(ID, Name, 3.5, Material, DigSpeed, ID, 0);
+                        Data.items[Name] = ID;
+                        if (Light == "true") Lighting.lookupVariableByNameAndType("light tiles", "list").value.push(ID);
+                    }
+                }
+                for (targetID in modItems.Platform) {
+                    if (targetID != "fix") {
+                        let target = modItems.Platform[targetID];
+                        let Name = target.name;
+                        let Material = (target.variables.material) ? target.variables.material[1] : 12;
+                        let DigSpeed = (target.variables.digSpeed) ? target.variables.digSpeed[1] : 22;
+                        let Light = (target.variables.light) ? target.variables.light[1] : false;
+                        const Tiles = vm.runtime.getSpriteTargetByName("Tiles");
+                        let ID = Tiles.sprite.costumes.length;
+                        await vm.addCostume(target.costumes[0].md5ext, target.costumes[0], Tiles.id);
+                        Tiles.reorderCostume(Tiles.getCostumeIndexByName("BIG"), Tiles.sprite.costumes.length);
+                        AddItemData(ID, Name, 7, Material, DigSpeed, ID, 0);
+                        Data.items[Name] = ID;
+                        if (Light == "true") Lighting.lookupVariableByNameAndType("light tiles", "list").value.push(ID);
                     }
                 }
                 for (targetID in modItems["Object 1x1"]) {
@@ -446,12 +509,14 @@ async function LoadMod(args) {
                         let Name = target.name;
                         let Material = (target.variables.material) ? target.variables.material[1] : 20;
                         let DigSpeed = (target.variables.digSpeed) ? target.variables.digSpeed[1] : 22;
+                        let Light = (target.variables.light) ? target.variables.light[1] : false;
                         const Tiles = vm.runtime.getSpriteTargetByName("Tiles");
                         let ID = Tiles.sprite.costumes.length;
                         await vm.addCostume(target.costumes[0].md5ext, target.costumes[0], Tiles.id);
                         Tiles.reorderCostume(Tiles.getCostumeIndexByName("BIG"), Tiles.sprite.costumes.length);
                         AddItemData(ID, Name, 3, Material, DigSpeed, ID, 0);
                         Data.items[Name] = ID;
+                        if (Light == "true") Lighting.lookupVariableByNameAndType("light tiles", "list").value.push(ID);
                     }
                 }
                 for (targetID in modItems["Object 2x2"]) {
@@ -460,6 +525,7 @@ async function LoadMod(args) {
                         let Name = target.name;
                         let Material = (target.variables.material) ? target.variables.material[1] : 20;
                         let DigSpeed = (target.variables.digSpeed) ? target.variables.digSpeed[1] : 22;
+                        let Light = (target.variables.light) ? target.variables.light[1] : false;
                         const Tiles = vm.runtime.getSpriteTargetByName("Tiles");
                         let ID = Tiles.sprite.costumes.length;
                         await vm.addCostume(target.costumes[0].md5ext, target.costumes[0], Tiles.id);
@@ -474,6 +540,109 @@ async function LoadMod(args) {
                         AddItemData(ID + 3, Name + "_Part", 6.5, Material, DigSpeed, ID, 0);
                         AddItemData(ID + 4, Name + "_Part", 6.5, Material, DigSpeed, ID, 0);
                         Data.items[Name] = ID;
+                        if (Light == "true") Lighting.lookupVariableByNameAndType("light tiles", "list").value.push(ID + 1, ID + 2, ID + 3, ID + 4);
+                    }
+                }
+                for (targetID in modItems["Object 2x1"]) {
+                    if (targetID != "fix") {
+                        let target = modItems["Object 2x1"][targetID];
+                        let Name = target.name;
+                        let Material = (target.variables.material) ? target.variables.material[1] : 20;
+                        let DigSpeed = (target.variables.digSpeed) ? target.variables.digSpeed[1] : 22;
+                        let Light = (target.variables.light) ? target.variables.light[1] : false;
+                        const Tiles = vm.runtime.getSpriteTargetByName("Tiles");
+                        let ID = Tiles.sprite.costumes.length;
+                        await vm.addCostume(target.costumes[0].md5ext, target.costumes[0], Tiles.id);
+                        await vm.addCostume(target.costumes[1].md5ext, target.costumes[1], Tiles.id);
+                        await vm.addCostume(target.costumes[2].md5ext, target.costumes[2], Tiles.id);
+                        Tiles.reorderCostume(Tiles.getCostumeIndexByName("BIG"), Tiles.sprite.costumes.length);
+                        AddItemData(ID, Name, -1, 12, 0, ID + 1, 0);
+                        AddItemData(ID + 1, Name + "_Part", 6, Material, DigSpeed, ID, 0);
+                        AddItemData(ID + 2, Name + "_Part", 6, Material, DigSpeed, ID, 0);
+                        Data.items[Name] = ID;
+                        if (Light == "true") Lighting.lookupVariableByNameAndType("light tiles", "list").value.push(ID + 1, ID + 2);
+                    }
+                }
+                for (targetID in modItems["Object 1x2"]) {
+                    if (targetID != "fix") {
+                        let target = modItems["Object 1x2"][targetID];
+                        let Name = target.name;
+                        let Material = (target.variables.material) ? target.variables.material[1] : 20;
+                        let DigSpeed = (target.variables.digSpeed) ? target.variables.digSpeed[1] : 22;
+                        let Light = (target.variables.light) ? target.variables.light[1] : false;
+                        const Tiles = vm.runtime.getSpriteTargetByName("Tiles");
+                        let ID = Tiles.sprite.costumes.length;
+                        await vm.addCostume(target.costumes[0].md5ext, target.costumes[0], Tiles.id);
+                        await vm.addCostume(target.costumes[1].md5ext, target.costumes[1], Tiles.id);
+                        await vm.addCostume(target.costumes[2].md5ext, target.costumes[2], Tiles.id);
+                        Tiles.reorderCostume(Tiles.getCostumeIndexByName("BIG"), Tiles.sprite.costumes.length);
+                        AddItemData(ID, Name, -1, 12, 0, ID + 2, 0);
+                        AddItemData(ID + 1, Name + "_Part", 3, Material, DigSpeed, ID, 0);
+                        AddItemData(ID + 2, Name + "_Part", 3, Material, DigSpeed, ID, 0);
+                        Data.items[Name] = ID;
+                        Stage.lookupVariableByNameAndType("Object_1x2", "list").value.push(ID + 2);
+                        if (Light == "true") Lighting.lookupVariableByNameAndType("light tiles", "list").value.push(ID + 1, ID + 2);
+                    }
+                }
+                for (targetID in modItems.Torch) {
+                    if (targetID != "fix") {
+                        let target = modItems.Torch[targetID];
+                        let Name = target.name;
+                        let Material = (target.variables.material) ? target.variables.material[1] : 12;
+                        let DigSpeed = (target.variables.digSpeed) ? target.variables.digSpeed[1] : 15;
+                        let Light = (target.variables.light) ? target.variables.light[1] : true;
+                        const Tiles = vm.runtime.getSpriteTargetByName("Tiles");
+                        let ID = Tiles.sprite.costumes.length;
+                        await vm.addCostume(target.costumes[0].md5ext, target.costumes[0], Tiles.id);
+                        await vm.addCostume(target.costumes[1].md5ext, target.costumes[1], Tiles.id);
+                        await vm.addCostume(target.costumes[2].md5ext, target.costumes[2], Tiles.id);
+                        Tiles.reorderCostume(Tiles.getCostumeIndexByName("BIG"), Tiles.sprite.costumes.length);
+                        AddItemData(ID, Name, 5, 12, 0, ID, 0);
+                        AddItemData(ID + 1, Name + "_Part", 5.25, Material, DigSpeed, ID, 0);
+                        AddItemData(ID + 2, Name + "_Part", 5.375, Material, DigSpeed, ID, 0);
+                        Data.items[Name] = ID;
+                        if (Light == "true") Lighting.lookupVariableByNameAndType("light tiles", "list").value.push(ID, ID + 1, ID + 2);
+                    }
+                }
+                for (targetID in modItems.Door) {
+                    if (targetID != "fix") {
+                        let target = modItems.Door[targetID];
+                        let Name = target.name;
+                        let Material = (target.variables.material) ? target.variables.material[1] : 20;
+                        let DigSpeed = (target.variables.digSpeed) ? target.variables.digSpeed[1] : 22;
+                        let Light = (target.variables.light) ? target.variables.light[1] : false;
+                        const Tiles = vm.runtime.getSpriteTargetByName("Tiles");
+                        const Door = vm.runtime.getSpriteTargetByName("Door");
+                        let ID = Tiles.sprite.costumes.length;
+                        await vm.addCostume(target.costumes[0].md5ext, target.costumes[0], Tiles.id);
+                        await vm.addCostume(target.costumes[1].md5ext, target.costumes[1], Tiles.id);
+                        await vm.addCostume(target.costumes[2].md5ext, target.costumes[2], Tiles.id);
+                        await vm.addCostume(target.costumes[3].md5ext, target.costumes[3], Door.id);
+                        Tiles.reorderCostume(Tiles.getCostumeIndexByName("BIG"), Tiles.sprite.costumes.length);
+                        AddItemData(ID, Name, -1, 0, 0, ID + 2, 0);
+                        AddItemData(ID + 1, Name + "_Part", 4.5, Material, DigSpeed, ID, 0);
+                        AddItemData(ID + 2, Name + "_Part", 4, Material, DigSpeed, ID, 0);
+                        Data.items[Name] = ID;
+                        Stage.lookupVariableByNameAndType("Doors", "list").value.push(ID + 2);
+                        if (Light == "true") Lighting.lookupVariableByNameAndType("light tiles", "list").value.push(ID + 1, ID + 2);
+                    }
+                }
+                for (targetID in modItems.Chain) {
+                    if (targetID != "fix") {
+                        let target = modItems.Chain[targetID];
+                        let Name = target.name;
+                        let Material = (target.variables.material) ? target.variables.material[1] : 12;
+                        let DigSpeed = (target.variables.digSpeed) ? target.variables.digSpeed[1] : 15;
+                        let Light = (target.variables.light) ? target.variables.light[1] : false;
+                        const Tiles = vm.runtime.getSpriteTargetByName("Tiles");
+                        let ID = Tiles.sprite.costumes.length;
+                        await vm.addCostume(target.costumes[0].md5ext, target.costumes[0], Tiles.id);
+                        await vm.addCostume(target.costumes[1].md5ext, target.costumes[1], Tiles.id);
+                        Tiles.reorderCostume(Tiles.getCostumeIndexByName("BIG"), Tiles.sprite.costumes.length);
+                        AddItemData(ID, Name, -1, 0, 0, ID + 1, 0);
+                        AddItemData(ID + 1, Name + "_Part", 5.5, Material, DigSpeed, ID, 0);
+                        Data.items[Name] = ID;
+                        if (Light == "true") Lighting.lookupVariableByNameAndType("light tiles", "list").value.push(ID + 1);
                     }
                 }
                 for (targetID in [...modItems.Pickaxe, ...modItems.Axe, ...modItems.Sword]) {
@@ -493,6 +662,26 @@ async function LoadMod(args) {
                         Data.items[Name] = ID;
                     }
                 }
+                for (targetID in modItems.Staff) {
+                    if (targetID != "fix") {
+                        let target = modItems.Staff[targetID];
+                        let Name = target.name;
+                        let DigSpeed = (target.variables.digSpeed) ? target.variables.digSpeed[1] : 5;
+                        const Tiles = vm.runtime.getSpriteTargetByName("Tiles");
+                        let ID = Tiles.sprite.costumes.length;
+                        await vm.addCostume(target.costumes[0].md5ext, target.costumes[0], Tiles.id);
+                        Tiles.reorderCostume(Tiles.getCostumeIndexByName("BIG"), Tiles.sprite.costumes.length);
+                        const ToolSwing = vm.runtime.getSpriteTargetByName("Tool Swing");
+                        await vm.addCostume(target.costumes[1].md5ext, target.costumes[1], ToolSwing.id);
+                        await vm.addCostume(target.costumes[2].md5ext, target.costumes[2], ToolSwing.id);
+                        AddItemData(ID, Name, 0, 1004, DigSpeed, ToolSwing.sprite.costumes.length, 0);
+                        Data.items[Name] = ID;
+                        Stage.lookupVariableByNameAndType("Staffs", "list").value.push(ID);
+                        await vm.addCostume(target.costumes[3].md5ext, target.costumes[3], Projectile.id);
+                        await vm.addCostume(target.costumes[4].md5ext, target.costumes[4], Projectile.id);
+                        await vm.addCostume(target.costumes[5].md5ext, target.costumes[5], Projectile.id);
+                    }
+                }
                 for (targetID in modItems.Mask) {
                     if (targetID != "fix") {
                         let target = modItems.Mask[targetID];
@@ -507,7 +696,6 @@ async function LoadMod(args) {
                         Data.items[Name] = ID;
                     }
                 }
-                const Stage = vm.runtime.getTargetForStage();
                 function NPCData(name) {
                     return Stage.lookupVariableByNameAndType("NPC_" + name, "list");
                 }
