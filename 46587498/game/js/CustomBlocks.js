@@ -339,6 +339,9 @@ ModWindow.vm = {
         },
         get stop() {
             return vm.runtime.stop
+        },
+        get storage() {
+            return vm.runtime.storage
         }
     },
     get addSprite() {
