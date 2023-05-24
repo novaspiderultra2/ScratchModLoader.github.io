@@ -329,29 +329,29 @@ ModWindow.vm = {
             return vm.runtime.targets
         },
         get getSpriteTargetByName() {
-            return vm.runtime.getSpriteTargetByName
+            return (...args) => vm.runtime.getSpriteTargetByName(...args);
         },
         get getTargetForStage() {
-            return vm.runtime.getTargetForStage
+            return (...args) => vm.runtime.getTargetForStage(...args);
         },
         get greenFlag() {
-            return vm.runtime.greenFlag
+            return (...args) => vm.runtime.greenFlag(...args);
         },
         get stop() {
-            return vm.runtime.stop
+            return (...args) => vm.runtime.stop(...args);
         },
         get storage() {
             return vm.runtime.storage
         }
     },
     get addSprite() {
-        return vm.addSprite
+        return (...args) => vm.addSprite(...args);
     },
     get addCostume() {
-        return vm.addCostume
+        return (...args) => vm.addCostume(...args);
     },
     get addSound() {
-        return vm.addSound
+        return (...args) => vm.addSound(...args);
     }
 }
 document.addEventListener("keypress", (e) => {
