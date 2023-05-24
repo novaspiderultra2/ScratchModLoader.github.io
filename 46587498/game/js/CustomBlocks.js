@@ -340,6 +340,15 @@ ModWindow.vm = {
         get stop() {
             return vm.runtime.stop
         }
+    },
+    get addSprite() {
+        return vm.addSprite
+    },
+    get addCostume() {
+        return vm.addCostume
+    },
+    get addSound() {
+        return vm.addSound
     }
 }
 document.addEventListener("keypress", (e) => {

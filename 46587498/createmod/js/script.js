@@ -1035,6 +1035,12 @@ function SelectJavaScriptMod(ID, Name, Contents) {
     Editor.appendChild(new Br);
     Editor.appendChild(new Text({ "innerText": "window.vm.runtime.stop()" }, { "color": "#fff", "font-size": "1em", "font-family": "sans-serif" }));
     Editor.appendChild(new Br);
+    Editor.appendChild(new Text({ "innerText": "window.vm.runtime.addSprite()" }, { "color": "#fff", "font-size": "1em", "font-family": "sans-serif" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Text({ "innerText": "window.vm.runtime.addCostume()" }, { "color": "#fff", "font-size": "1em", "font-family": "sans-serif" }));
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Text({ "innerText": "window.vm.runtime.addSound()" }, { "color": "#fff", "font-size": "1em", "font-family": "sans-serif" }));
+    Editor.appendChild(new Br);
 }
 function SelectBlockMod(ID, Name, Material, DigSpeed, TopBlock, BottomBlock, Light) {
     Editor.innerHTML = "";
