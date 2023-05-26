@@ -216,3 +216,30 @@ a {
     background-color: #444;
     border-radius: 5px;
 }
+#login {
+    width: 100%;
+    height: 100%;
+    background-image: url(https://cdn.assets.scratch.mit.edu/internalapi/asset/3b98990fc6b4850bbde16659c7729479.svg/get/);
+    background-repeat: repeat-x;
+    background-size: auto 100%;
+    background-position: center bottom;
+}
+#login div {
+    width: 100%;
+    height: fit-content;
+    text-align: center;
+    font-family: Scratch;
+    font-size: 3em;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+#login span {
+    font-family: Scratch;
+    font-size: 5em;
+}
+#login button {
+    font-family: Scratch;
+    font-size: 1em;
+    border-radius: 10px;
+}

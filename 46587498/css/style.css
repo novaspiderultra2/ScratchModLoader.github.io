@@ -1,245 +1,79 @@
-body {
+@font-face {
+    font-family: Scratch;
+    src: url("https://cdn.assets.scratch.mit.edu/internalapi/asset/78c17b2d3ef16383295e77f3755356a3.ttf/get/");
+}
+
+* {
+    font-family: Scratch;
+    text-shadow: 2px 2px #000000;
     color: #ffffff;
-    font-family: sans-serif;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-}
-
-    :root, body.is-fullscreen {
-        background-color: #000000;
-    }
-
-[hidden] {
-    display: none !important;
-}
-
-h1 {
-    font-weight: normal;
-}
-
-a {
-    color: inherit;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-#app, #loading, #error, #launch {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.screen {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    cursor: default;
-    user-select: none;
-    -webkit-user-select: none;
-    background-color: #000000;
-}
-
-#launch {
-    background-color: rgba(0, 0, 0, 0.7);
-    cursor: pointer;
-}
-
-.green-flag {
-    width: 80px;
-    height: 80px;
-    padding: 16px;
-    border-radius: 100%;
-    background: rgba(255, 255, 255, 0.75);
-    border: 3px solid hsla(0, 100%, 100%, 1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-}
-
-#loading {
-    background-image: url(https://assets.scratch.mit.edu/a681361bfe524d0f6e4bb7dc6f7e092f.png);
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-}
-
-.progress-bar-outer {
-    border: 1px solid currentColor;
-    height: 10px;
-    width: 200px;
-    max-width: 200px;
-}
-
-.progress-bar-inner {
-    height: 100%;
-    width: 0;
-    background-color: currentColor;
-}
-
-.loading-text {
-    font-weight: normal;
-    font-size: 36px;
-    margin: 0 0 16px;
-}
-
-.loading-image {
-    margin: 0 0 16px;
-}
-
-#error-message, #error-stack {
-    font-family: monospace;
-    max-width: 600px;
-    white-space: pre-wrap;
-    user-select: text;
-    -webkit-user-select: text;
-}
-
-#error-stack {
-    text-align: left;
-    max-height: 200px;
-    overflow: auto;
-}
-
-.control-button {
-    width: 2rem;
-    height: 2rem;
-    padding: 0.375rem;
-    border-radius: 0.25rem;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    user-select: none;
-    -webkit-user-select: none;
-    cursor: pointer;
-    border: 0;
-    border-radius: 4px;
-}
-
-    .control-button:hover {
-        background: #00ff0026;
-    }
-
-    .control-button.active {
-        background: #00ff0059;
-    }
-
-.fullscreen-button {
-    background: white !important;
-}
-
-.standalone-fullscreen-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 0 0 0 4px;
-    padding: 4px;
-    cursor: pointer;
-}
-
-.sc-canvas {
-    cursor: url(https://assets.scratch.mit.edu/c5dbbb8e1a52f35b3a9606c5333a40d5.png), auto;
-}
-
-#LoadOverlay {
-    background-color: rgb(0, 0, 0, 0.5);
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-
-#LoadContainer {
-    width: fit-content;
-    height: fit-content;
-    position: fixed;
-    top: calc(50% - 150px);
-    bottom: calc(50% - 150px);
-    left: calc(50% - 150px);
-    right: calc(50% - 150px);
-    width: 300px;
-    height: 300px;
-    background-color: rgb(0, 0, 0, 0.5);
-    border-width: 10px;
-    border-radius: 5px;
     text-align: center;
 }
 
-#LoadContainer input {
-    width: 100px;
-    position: absolute;
-    bottom: 2em;
-    left: calc(50% - 50px);
-    right: calc(50% - 50px);
-}
-
-#LoadContainer button {
-    width: 40px;
-    position: absolute;
-    bottom: 5.5em;
-    left: 50%;
-    right: 50%;
-}
-#LoadContainer button.load {
-    left: calc(50% - 40px);
-}
-#LoadContainer button.load {
-    right: calc(50% - 40px);
-}
-#LoadSidebar {
-    width: fit-content;
-    max-width: 30%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    overflow-y: auto;
-    z-index: 99999999;
-    background-color: rgb(0, 0, 0, 0.5);
-    text-align: center;
-}
-#LoadSidebar img {
-    display: inline-block;
-}
-#LoadSidebar button {
-    display: block;
-    width: 144;
-    background-color: #444;
-    border-radius: 5px;
-}
-#login {
-    width: 100%;
-    height: 100%;
-    background-image: url(https://cdn.assets.scratch.mit.edu/internalapi/asset/3b98990fc6b4850bbde16659c7729479.svg/get/);
+body {
+    background-image: url("https://cdn.assets.scratch.mit.edu/internalapi/asset/3b98990fc6b4850bbde16659c7729479.svg/get/");
     background-repeat: repeat-x;
     background-size: auto 100%;
     background-position: center bottom;
+    margin: 0px;
+    overflow: hidden;
 }
-#login div {
+
+#Container {
+    width: fit-content;
+    height: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#Background {
+    width: 75%;
+    min-width: fit-content;
+    height: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#Title {
+    height: 15%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#SubTitle {
+    height: 10%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#Scroll {
+    overflow: auto;
     width: 100%;
-    height: fit-content;
-    text-align: center;
-    font-family: Scratch;
-    font-size: 3em;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    height: 100%;
 }
-#login span {
-    font-family: Scratch;
-    font-size: 5em;
+
+button {
+    font-size: 20px;
+    background: none;
+    border: none;
+    text-shadow: none;
+    cursor: pointer;
 }
-#login button {
-    font-family: Scratch;
-    font-size: 1em;
-    border-radius: 10px;
+
+a {
+    text-shadow: none;
+    color: #1aa0d8;
+}
+
+img {
+    image-rendering: pixelated;
+}
+
+#back {
+    width: auto;
 }
