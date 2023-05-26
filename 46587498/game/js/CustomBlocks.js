@@ -13,6 +13,13 @@ vm.addAddonBlock({
     callback: Login
 });
 vm.addAddonBlock({
+    procedureCode: "Logout",
+    arguments: [],
+    color: "#000000",
+    secondaryColor: "#00FF00",
+    callback: Logout
+});
+vm.addAddonBlock({
     procedureCode: "Edit Cursor",
     arguments: [],
     color: "#000000",
@@ -70,6 +77,20 @@ vm.addAddonBlock({
     secondaryColor: "#00FF00",
     callback: JoinServerMenu
 });
+vm.addAddonBlock({
+    procedureCode: "Update HSV Values",
+    arguments: [],
+    color: "#000000",
+    secondaryColor: "#00FF00",
+    callback: UpdateHSV
+});
+vm.addAddonBlock({
+    procedureCode: "Load HSV Values",
+    arguments: [],
+    color: "#000000",
+    secondaryColor: "#00FF00",
+    callback: LoadHSV
+});
 
 window.canLoadMod = true;
 window.hasLoadedMod = false;
@@ -79,50 +100,51 @@ window.hasLoadedTexturePack = false;
 async function Login() {
     return new Promise((resolve, reject) => {
         vm.stop();
-        setTimeout(() => {
-            document.getElementById("app").hidden = true;
-            const digitCode = "######".replace(/#/g, () => Math.floor(Math.random() * 9) + 1);
-            const div = document.createElement("div");
-            div.style["text-align"] = "center";
-            div.style["vertical-align"] = "middle";
-            div.innerHTML = `<br><br><br><br>Your Code is: ` + digitCode + "<br>Enter the code on the project below, then click continue.";
-            div.appendChild(document.createElement("br"));
-            let button = document.createElement("button");
-            button.onclick = () => window.open("https://scratch.mit.edu/projects/613274726/fullscreen/", "_blank", "popup, width=750, height=500");
-            button.innerText = "Project";
-            button.style.display = "inline-block";
-            div.appendChild(button);
-            button = document.createElement("button");
-            button.onclick = async () => {
-                let CloudLog = await fetch("https://api.allorigins.win/raw?url=https%3A%2F%2Fclouddata.scratch.mit.edu%2Flogs%3Fprojectid%3D613274726%26limit%3D40%26offset%3D0%26dummy%3D" + Date.now());
-                CloudLog = await CloudLog.json();
-                var Username;
-                for (let i = 0; i < CloudLog.length && Username == undefined; i++) {
-                    if (CloudLog[i].value == digitCode) {
-                        if (confirm("Sign in as " + CloudLog[i].user + "?")) {
-                            Username = CloudLog[i].user;
-                        }
-                    }
-                }
-                if (Username != undefined) {
-                    vm.runtime.ioDevices.userData._username = Username;
-                    vm.runtime.targets[0].lookupVariableByNameAndType("Logged In?", "").value = true;
-                    fetch(`https://sml-ip.terrariamodsscr.repl.co/login?username=${vm.runtime.ioDevices.userData.getUsername()}`);
-                    alert("Welcome " + Username + "!");
-                } else {
-                    alert("Login Failed...");
-                }
-                div.remove();
-                document.getElementById("app").hidden = false;
-                vm.start();
-                resolve();
-            }
-            button.style.display = "inline-block";
-            button.innerText = "Continue";
-            div.appendChild(button);
-            document.body.appendChild(div);
-        });
+        document.getElementById("app").hidden = true;
+        document.querySelector("#login").hidden = false;
+        const digitCode = "######".replace(/#/g, () => Math.floor(Math.random() * 9) + 1);
+        document.querySelector("#login span").innerText = digitCode;
+        document.querySelector("#login button.code").onclick = () => navigator.clipboard.writeText(digitCode);
+        document.querySelector("#login button.project").onclick = () => window.open("https://scratch.mit.edu/projects/613274726/fullscreen/", "_blank", "popup, width=750, height=500");
+        document.querySelector("#login button.continue").onclick = async () => {
+            var loginResult = await tryLogin(digitCode);
+            if (loginResult) {
+                localStorage.setItem("loginCode", digitCode);
+            } else alert("Login Failed...");
+            document.querySelector("#login").hidden = true;
+            document.getElementById("app").hidden = false;
+            vm.start();
+            resolve(loginResult);
+        }
     }, 100);
+}
+function Logout() {
+    vm.runtime.ioDevices.userData._username = "player####".replace(/#/g, () => Math.floor(Math.random() * 10));
+    vm.runtime.targets[0].lookupVariableByNameAndType("Logged In?", "").value = false;
+    localStorage.removeItem("loginCode");
+    fetch(`https://sml-ip.terrariamodsscr.repl.co/login?username=${vm.runtime.ioDevices.userData.getUsername()}`);
+}
+function tryLogin(code) {
+    return new Promise(async (resolve, reject) => {
+        let CloudLog = await fetch("https://api.allorigins.win/raw?url=https%3A%2F%2Fclouddata.scratch.mit.edu%2Flogs%3Fprojectid%3D613274726%26limit%3D40%26offset%3D0%26time%3D" + Date.now());
+        CloudLog = await CloudLog.json();
+        var Username;
+        for (let i = 0; i < CloudLog.length && Username == undefined; i++) {
+            if (CloudLog[i].value == code) {
+                if (confirm("Sign in as " + CloudLog[i].user + "?")) {
+                    Username = CloudLog[i].user;
+                }
+            }
+        }
+        if (Username != undefined) {
+            vm.runtime.ioDevices.userData._username = Username;
+            vm.runtime.targets[0].lookupVariableByNameAndType("Logged In?", "").value = true;
+            fetch(`https://sml-ip.terrariamodsscr.repl.co/login?username=${vm.runtime.ioDevices.userData.getUsername()}`);
+            alert("Welcome " + Username + "!");
+            vm.runtime.greenFlag();
+        }
+        resolve(Username);
+    })
 }
 
 async function LoadTexturePack(ProjectID) {
@@ -1119,6 +1141,53 @@ function beforeStart() {
 
 function Redirect(args) {
     window.open(args.URL == "disc" ? "https://discord.gg/fKB3TjxQsc" : args.URL);
+}
+
+function UpdateHSV() {
+    const Stage = vm.runtime.getTargetForStage();
+    const Hue = Stage.lookupVariableByNameAndType("Hue", "list").value;
+    const Saturation = Stage.lookupVariableByNameAndType("Saturation", "list").value;
+    const Value = Stage.lookupVariableByNameAndType("Value", "list").value;
+    const Skin = Stage.lookupVariableByNameAndType("Skin").value;
+    localStorage.setItem("Hue", JSON.stringify(Hue));
+    localStorage.setItem("Saturation", JSON.stringify(Saturation));
+    localStorage.setItem("Value", JSON.stringify(Value));
+    localStorage.setItem("Skin", Skin);
+}
+
+async function LoadHSV() {
+    const Stage = vm.runtime.getTargetForStage();
+    const Skin = localStorage.getItem("Skin");
+    var Hue = localStorage.getItem("Hue");
+    var Saturation = localStorage.getItem("Saturation");
+    var Value = localStorage.getItem("Value");
+    var loginCode = localStorage.getItem("loginCode");
+    const i = Stage.lookupVariableByNameAndType("Editing Color of").value;
+    if (Hue) {
+        try {
+            Hue = JSON.parse(Hue);
+            Stage.lookupVariableByNameAndType("Hue", "list").value = Hue;
+            Stage.lookupVariableByNameAndType("Hue").value = Hue[i];
+        } catch (e) {}
+    }
+    if (Saturation) {
+        try {
+            Saturation = JSON.parse(Saturation);
+            Stage.lookupVariableByNameAndType("Saturation", "list").value = Saturation;
+            Stage.lookupVariableByNameAndType("Saturation").value = Saturation[i];
+        } catch (e) {}
+    }
+    if (Value) {
+        try {
+            Value = JSON.parse(Value);
+            Stage.lookupVariableByNameAndType("Value", "list").value = Value;
+            Stage.lookupVariableByNameAndType("Value").value = Value[i];
+        } catch (e) {}
+    }
+    if (Skin) Stage.lookupVariableByNameAndType("Skin").value = Skin;
+    if (loginCode && Stage.lookupVariableByNameAndType("Logged In?", "").value.toString() == "false") {
+        if (!(await tryLogin(loginCode))) localStorage.removeItem("loginCode");
+    }
 }
 
 async function ResourcePackMenu() {
