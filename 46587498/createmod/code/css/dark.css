@@ -1,0 +1,44 @@
+.blocklySvg {
+    background-color: rgb(30, 30, 30);
+}
+.blocklyFlyoutBackground {
+    fill: #111;
+}
+.blocklyFlyoutLabelText {
+    fill: #ccc;
+}
+.blocklyToolboxDiv, .scratchCategoryMenu {
+    background: #111;
+}
+.scratchCategoryMenuItem.categorySelected {
+    background: rgb(30, 30, 30);
+}
+.scratchCategoryMenu {
+    color: #ccc;
+}
+.blocklyFlyoutButton .blocklyText {
+    fill: #ccc;
+}
+.blocklyZoom {
+    filter: invert(100%);
+}
+.blocklyScrollbarHandle {
+    fill: #666;
+}
+.blocklyWidgetDiv .goog-menu {
+    background: rgb(17, 17, 17);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+.blocklyWidgetDiv .goog-menuitem-disabled .goog-menuitem-content {
+    color: #666 !important;
+}
+.blocklyWidgetDiv .goog-menuitem {
+    color: #eee;
+}
+.blocklyFlyoutButton:hover {
+    fill: #111;
+}
+.blocklyWidgetDiv .goog-menuitem.goog-menuitem-highlight {
+    background-color: rgb(46, 46, 46);
+    border-color: transparent;
+}
