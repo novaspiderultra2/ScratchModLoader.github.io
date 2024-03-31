@@ -2,7 +2,7 @@
     const token = (await (await fetch("https://trampoline.turbowarp.org/proxy/projects/759885020")).json()).project_token;
     const Database = (await (await fetch(`https://projects.scratch.mit.edu/759885020?token=${token}`)).json()).targets[0].variables;
     console.log(Database);
-    document.getElementById('game').addEventListener('click', () => window.open("./game/", "_blank", "popup"));//openZippedHTMLPage(Database.game[1], "popup", false));
+    document.getElementById('game').addEventListener('click', () => window.open("./game/", "_blank", "popup"));
     document.getElementById('texture').addEventListener('click', () => {
         document.getElementById('Menu').hidden = true;
         document.getElementById('TexturePack').hidden = false;

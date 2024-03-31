@@ -1,4 +1,4 @@
-window.Project = {
+﻿window.Project = {
     json: {},
     assets: [],
     zip: {}

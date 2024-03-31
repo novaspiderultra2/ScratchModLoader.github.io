@@ -1,4 +1,4 @@
-window.run = async () => {
+﻿window.run = async () => {
     const projectData = await getProjectData();
     await scaffolding.loadProject(projectData);
     setProgress(0);

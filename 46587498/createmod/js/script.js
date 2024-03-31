@@ -1,4 +1,4 @@
-/*--------------------
+﻿/*--------------------
 Global Variables
 --------------------*/
 const Editor = document.getElementById("Editor");
@@ -7,7 +7,7 @@ var UnsavedChanges = false;
 var ModItemsElement;
 const tempCanvas = new Canvas();
 const tempCTX = tempCanvas.getContext("2d");
-const enabledMods = ["Block", "Pickaxe", "Axe", "Sword", "Recipe", "Other", "Object 1x1", "Object 2x2", "JavaScript", "NPC Drop", "Mask", "NPC", "Object 1x2", "Object 2x1", "Door", "Beam", "Fence", "Platform", "Torch", "Chain", "Staff", "Chest Gen", "Table", "Chair"];
+const enabledMods = ["Block", "Pickaxe", "Axe", "Sword", "Recipe", "Other", "Object 1x1", "Object 2x2", "JavaScript", "NPC Drop", "Mask", "NPC", "Object 1x2", "Object 2x1", "Door", "Beam", "Fence", "Platform", "Torch", "Chain", "Staff", "Chest Gen", "Table", "Chair", "World Gen"];
 const ModItems = [];
 for (var i = 0; i < 300; i++) ModItems[i] = ["Grass", "Dirt", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Tree", "Stone", "Stone", "Iron Pickaxe", "Iron Axe", "Wood", "Wood", "Sand", "Sand", "Iron Ore", "Iron Ore", "Bed", "Acorn", "Sapling", "Door Top", "Door Bottom", "Wooden Door", "Platform", "Work Bench", "Furnace", "Iron Bar", "Iron Bar", "Stone Brick", "Stone Brick", "Bed", "Bed", "Chair", "Chair", "Torch", "Torch (left)", "Torch (right)", "Sand Brick", "Sand Brick", "Chandelier", "Bench", "Dresser", "Table", "Barrel", "Chest", "Sign", "Anvil", "Sawmill", "Chain", "Grandfather Clock", "Grandfather Clock", "Grandfather Clock", "Cloud", "Cloud", "Glass", "Glass", "Ice Block", "Ice Block", "Clay", "Clay", "Brick", "Brick", "Gold Ore", "Gold Ore", "Gold Bar", "Gold Brick", "Gold Brick", "Silver Ore", "Silver Ore", "Silver Bar", "Silver Brick", "Silver Brick", "Seed", "Plant", "Plant", "Plant", "Plant", "Plant", "Plant", "Plant", "Plant", "Mushroom", "Plant", "Fence", "Iron Fence", "Gold Chandelier", "Candelabra", "Gold Chest", "Bath Tub", "Trash Can", "Toilet", "Cooking Pot", "Bath Tub", "Bath Tub", "Builder Potion", "Mining Potion", "Swiftness Potion", "Diamond Ore", "Diamond", "Diamond Slab", "Diamond Slab", "Stone Slab", "Sand Slab", "Pot Plant", "Bookcase", "Bookcase", "Bookcase", "Bookcase", "Bookcase", "Sky Chest", "Heavy Work Bench", "Bug Net", "Bunny", "Beam", "Beam", "Sofa", "Sofa", "Sofa", "Piano", "Piano", "Piano", "Chain", "Frog", "Slime", "Wooden Sword", "Iron Sword", "Gel", "Platinum Ore", "Platinum Ore", "Platinum Bar", "Gold Pickaxe", "Gold Axe", "Gold Sword", "Platinum Pickaxe", "Platinum Axe", "Platinum Sword", "Demon Eye", "Lens", "Zombie", "Easter Egg", "Chocolate", "Chocolate", "Land Claim Sign", "Crab", "Molten Pickaxe", "Blue Phaseblade", "Diamond Staff", "Water", "Water 15/16", "Water 14/16", "Water 13/16", "Water 12/16", "Water 11/16", "Water 10/16", "Water 9/16", "Water 8/16", "Water 7/16", "Water 6/16", "Water 5/16", "Water 4/16", "Water 3/16", "Water 2/16", "Water 1/16", "Goldfish", "Jellyfish", "Lava", "Lava 15/16", "Lava 14/16", "Lava 13/16", "Lava 12/16", "Lava 11/16", "Lava 10/16", "Lava 9/16", "Lava 8/16", "Lava 7/16", "Lava 6/16", "Lava 5/16", "Lava 4/16", "Lava 3/16", "Lava 2/16", "Lava 1/16", "Obsidian", "Lesser Healing Potion", "Healing Potion", "Greater Healing Potion", "Featherfall Potion", "Spelunker Potion", "Obsidian Skin Potion", "Gills Potion", "Purple Slime", "Bunny Slime", "Dungeon Slime", "Lava Slime", "Pyranha", "Shark", "Shark Fin", "Hook", "Zombie Arm", "Copper Pickaxe", "Copper Sword", "Copper Axe", "Bucket", "Water Bucket", "Lava Bucket", "Hellstone", "Hellstone", "Hellstone Bar", "Vine", "Hellforge", "Bat", "Lava Bat", "Water Chest", "Obsidian Chest", "Copper Coin", "Silver Coin", "Gold Coin", "Topaz Stone", "Topaz", "Ruby Stone", "Ruby", "Emerald Stone", "Emerald", "Sapphire Stone", "Sapphire", "Amethyst Stone", "Amethyst", "Iron Door", "Glass Door", "Obsidian Door", "Iron Door Top", "Iron Door Bottom", "Glass Door Top", "Glass Door Bottom", "Obsidian Door Top", "Obsidian Door Bottom", "Glass Kiln", "Butterfly", "Glass Table", "Glass Lantern", "Glass Chandelier", "Pot", "Wooden Sink", "Glass Platform", "Squirrel", "Mouse", "Firefly", "Fiery Greatsword", "Glass Bed", "Glass Bed L", "Glass Bed R", "Obsidian Bed", "Obsidian Bed L", "Obsidian Bed R", "Gold Bed", "Gold Bed L", "Gold Bed R", "Mushroom Bed", "Mushroom Bed L", "Mushroom Bed R", "Wooden Crate", "Iron Crate", "Mushroom Block", "Mushroom Block", "Table L", "Table R", "Iron Table", "Iron Table L", "Iron Table R", "Obsidian Table", "Obsidian Table L", "Obsidian Table R", "Mushroom Table", "Mushroom Table L", "Mushroom Table R", "Glass Table L", "Glass Table R", "Blue Dungeon Vase", "Green Dungeon Vase", "Pink Dungeon Vase", "Obsidian Vase", "Suspicious Looking Eye", "Demon Altar", "Demonite Ore", "Demonite Ore", "Demonite Bar", "Light's Bane", "Eye of Cthulhu Mask", "Santa Mask"][i];
 // const TileData = vm.runtime.targets[0].lookupVariableByNameAndType("_TileData", "list").value;
@@ -200,7 +200,8 @@ const assets = {
     "table2": "https://cdn.assets.scratch.mit.edu/internalapi/asset/d6edf356ba9495284820447ccf58981c.png/get/",
     "chair_left": "https://cdn.assets.scratch.mit.edu/internalapi/asset/4eb4a45670bcf59d0b6c79f850082d84.png/get/",
     "chair_right": "https://cdn.assets.scratch.mit.edu/internalapi/asset/f4a5dc82a52116edb343a4f28e14608c.png/get/",
-    "goldChest": "https://cdn.assets.scratch.mit.edu/internalapi/asset/2ff95983ed7dc51bcb4e7d1756a4697f.png/get/"
+    "goldChest": "https://cdn.assets.scratch.mit.edu/internalapi/asset/2ff95983ed7dc51bcb4e7d1756a4697f.png/get/",
+    "worldGen": "https://cdn.assets.scratch.mit.edu/internalapi/asset/fb6d52a94a431b0d3111fa871001e6f1.png/get/"
 };
 var NPCClass;
 (async () => {
@@ -748,6 +749,7 @@ function AddItem() {
     Editor.appendChild(new Br);
     Editor.appendChild(new Text({ "innerText": "Intermediate" }, { "color": "#fff", "font-size": "1.5em" }));
     Editor.appendChild(new Br);
+    Editor.appendChild(new ModSelect("World Gen", assets.worldGen));
     Editor.appendChild(new ModSelect("Potion", assets.potion));
     Editor.appendChild(new ModSelect("NPC Class", assets.npc));
     Editor.appendChild(new Br);
@@ -931,6 +933,13 @@ function AddItemElements() {
                 "Chair",
                 i
             ));
+        } else if (target.variables.type[1] == "World Gen") {
+            ModItemsElement.appendChild(new ModItem(
+                assets.worldGen,
+                target.name,
+                "World Gen",
+                i
+            ));
         }
     }
 }
@@ -987,6 +996,8 @@ function SelectMod(type, ...args) {
         SelectTableMod(...args);
     } else if (type == "Chair") {
         SelectChairMod(...args);
+    } else if (type == "World Gen") {
+        SelectWorldGenMod(...args);
     }
 }
 
@@ -2808,6 +2819,41 @@ function SelectChairMod(ID, Name, Image, Left, Material, DigSpeed, Light) {
     Editor.appendChild(new Br);
     Editor.appendChild(new Br);
 }
+function SelectWorldGenMod(ID, Name, Xml) {
+    Editor.innerHTML = "";
+    Editor.appendChild(new Text({ "innerText": "Add World Gen" }, { "color": "#fff", "font-size": "3em" }));
+    Editor.appendChild(new Br);
+    const name = new StringInput("Name", "World Gen ID", "World Gen ID", Name ? Name : "My New Script");
+    const xml = new CodeEditor("World Generation Code", "Scripts that Execute at the End of World Generation", defaultToolbox["World Gen"], Xml ? Xml : defaultWorkspace["World Gen"]);
+    const cancel = new Button({ "innerText": "Cancel" });
+    cancel.onclick = async () => {
+        Editor.hidden = true;
+        Mod.hidden = false;
+    };
+    const finish = new Button({ "innerText": "Finish" });
+    finish.onclick = async () => {
+        const Sprite = ProjectData.Sprite;
+        Sprite.name = name.value;
+        const costume = await new Costume(assets.worldGen);
+        Sprite.costumes[0] = costume[1];
+        ProjectData.costumes[costume[0].ID] = costume[0];
+        Sprite.variables.type = ["Type", "World Gen"];
+        Sprite.variables.xml = ["Xml", xml.value];
+        if (ID) ProjectData.json.targets[ID] = Sprite;
+        else ProjectData.json.targets.push(Sprite);
+        Editor.hidden = true;
+        AddItemElements();
+        Mod.hidden = false;
+    };
+    Editor.appendChild(name);
+    Editor.appendChild(xml);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+    Editor.appendChild(cancel);
+    Editor.appendChild(finish);
+    Editor.appendChild(new Br);
+    Editor.appendChild(new Br);
+}
 
 /*--------------------
 Costume Constructor
@@ -3126,6 +3172,7 @@ function ModItem(...args) {
         else if (type == "Staff") SelectMod(type, args[3], target.name, variable("digSpeed"), costumeToData(target.costumes[0]), costumeToData(target.costumes[1]), costumeToData(target.costumes[3]), costumeToData(target.costumes[4]), costumeToData(target.costumes[5]));
         else if (type == "Chest") SelectMod(type, args[3], variable("max"), variable("item"), variable("chance"), variable("rarity"));
         else if (type == "Chair") SelectMod(type, args[3], target.name, costumeToData(target.costumes[0]), costumeToData(target.costumes[1]), variable("material"), variable("digSpeed"), variable("light"));
+        else if (type == "World Gen") SelectMod(type, args[3], target.name, variable("xml"));
         Mod.hidden = true;
         Editor.hidden = false;
     }
@@ -3248,6 +3295,42 @@ function RecipeIngredient(item, amount) {
     recipeIngredient.appendChild(count);
     recipeIngredient.appendChild(trash);
     return recipeIngredient;
+}
+function CodeEditor(name, desc, toolbox, workspace) {
+    const editor = document.createElement("codeeditor");
+    const title = new Text({ "innerText": name }, { "color": "#fff", "font-size": "1.5em" });
+    const description = new Text({ "innerText": desc }, { "color": "#bfbfbf", "font-size": "0.75em" });
+    const button = new Button({innerText: "Open Code Editor"});
+    var codeEditor = null;
+    var xml = workspace;
+    button.onclick = () => {
+        if (!codeEditor || codeEditor.closed) {
+            codeEditor = window.open("./code", "popup", "width=1000,height=750");
+            codeEditor.defaultToolbox = toolbox;
+            codeEditor.defaultWorkspace = xml;
+            codeEditor.addEventListener("blocklyLoaded", () => {
+                codeEditor.workspace.addChangeListener(e => xml = codeEditor.toXml());
+            });
+        } else {
+            codeEditor.focus();
+        }
+    }
+    Object.defineProperty(editor, "value", {
+        get: () => {
+            if (codeEditor) return codeEditor.toXml();
+            return xml;
+        },
+        set: e => {
+            xml = e;
+            if (codeEditor) codeEditor.fromXml(xml);
+        }
+    });
+    editor.appendChild(title);
+    editor.appendChild(new Br);
+    editor.appendChild(description);
+    editor.appendChild(new Br);
+    editor.appendChild(button);
+    return editor;
 }
 
 /*--------------------

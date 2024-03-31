@@ -1,4 +1,4 @@
-vm.addAddonBlock({
+﻿vm.addAddonBlock({
     procedureCode: "LoadResourcePack %s",
     arguments: ["ProjectID"],
     color: "#000000",
@@ -122,7 +122,7 @@ function Logout() {
     vm.runtime.ioDevices.userData._username = "player####".replace(/#/g, () => Math.floor(Math.random() * 10));
     vm.runtime.targets[0].lookupVariableByNameAndType("Logged In?", "").value = false;
     localStorage.removeItem("loginCode");
-    fetch(`https://sml-ip.terrariamodsscr.repl.co/login?username=${vm.runtime.ioDevices.userData.getUsername()}`);
+    // fetch(`https://sml-ip.terrariamodsscr.repl.co/login?username=${vm.runtime.ioDevices.userData.getUsername()}`);
 }
 function tryLogin(code) {
     return new Promise(async (resolve, reject) => {
@@ -139,7 +139,7 @@ function tryLogin(code) {
         if (Username != undefined) {
             vm.runtime.ioDevices.userData._username = Username;
             vm.runtime.targets[0].lookupVariableByNameAndType("Logged In?", "").value = true;
-            fetch(`https://sml-ip.terrariamodsscr.repl.co/login?username=${vm.runtime.ioDevices.userData.getUsername()}`);
+            // fetch(`https://sml-ip.terrariamodsscr.repl.co/login?username=${vm.runtime.ioDevices.userData.getUsername()}`);
             alert("Welcome " + Username + "!");
             vm.runtime.greenFlag();
         }
@@ -148,6 +148,7 @@ function tryLogin(code) {
 }
 
 async function LoadTexturePack(ProjectID) {
+    console.log(`Try load texture pack ${ProjectID.ProjectID}`);
     if (canLoadTexturePack) {
         vm.stop();
         if (!isNaN(ProjectID.ProjectID)) {
@@ -232,9 +233,10 @@ async function LoadTexturePack(ProjectID) {
                 alert(`⚠️Error When Loading Texture Pack #${ProjectID.ProjectID}⚠️\n${err}`);
             }
         }
-        fetch(`https://sml-ip.terrariamodsscr.repl.co/load?username=${vm.runtime.ioDevices.userData.getUsername()}&type=texture%20pack&id=${ProjectID.ProjectID}`);
+        // fetch(`https://sml-ip.terrariamodsscr.repl.co/load?username=${vm.runtime.ioDevices.userData.getUsername()}&type=texture%20pack&id=${ProjectID.ProjectID}`);
         vm.start();
     } else alert(`⚠️Error When Loading Texture Pack #${ProjectID.ProjectID}⚠️\nServer does not allow Texture Pack Loading`);
+    return;
 }
 
 async function compareCostumes(Original, New) {
@@ -388,8 +390,123 @@ document.addEventListener("keypress", (e) => {
     });
 });
 
+function blockXmlToData(e) {
+    const data = {
+        variables: [],
+        blocks: []
+    }
+    const xml = (new DOMParser()).parseFromString(e,"text/xml");
+    function handleVariable(e) {
+        const variable = {
+            id: e.getAttribute("id"),
+            name: e.innerText,
+            type: e.getAttribute("type"),
+            // islocal: e.getAttribute("islocal"),
+            isCloud: false,
+            value: 0
+        }
+        data.variables.push(variable);
+    }
+    function handleBlock(e, parent) {
+        const block = {
+            opcode: e.getAttribute("type"),
+            id: e.getAttribute("id"),
+            x: e.getAttribute("x") ? parseInt(e.getAttribute("x")) : null,
+            y: e.getAttribute("y") ? parseInt(e.getAttribute("y")) : null,
+            next: null,
+            fields: {},
+            inputs: {},
+            parent: parent,
+            shadow: e.nodeName == "shadow",
+            topLevel: !parent
+        };
+        function handleInput(e) {
+            var shadow = e.querySelector("shadow") ? e.querySelector("shadow").getAttribute("id") : null;
+            const input = {
+                name: e.getAttribute("name"),
+                block: e.querySelector("block") ? e.querySelector("block").getAttribute("id") : shadow,
+                shadow: shadow
+            };
+            [...e.children].forEach(e => handleBlock(e, block.id));
+            block.inputs[e.getAttribute("name")] = input;
+        }
+        function handleField(e) {
+            const field = {
+                value: e.innerText
+            };
+            [...e.attributes].forEach(e => {
+                if (e.name == "variabletype") field["variableType"] = e.value;
+                else field[e.name] = e.value;
+            });
+            block.fields[e.getAttribute("name")] = field;
+        }
+        function handleBlockData(e) {
+            if (e.nodeName == "next") {
+                block.next = e.children[0].getAttribute("id");
+                handleBlock(e.children[0], block.id);
+            } else if (e.nodeName == "field") {
+                handleField(e);
+            } else if (e.nodeName == "value" || e.nodeName == "statement") {
+                handleInput(e);
+            } else if (e.nodeName == "mutation") {
+                block.mutation = {
+                    argumentdefaults: e.getAttribute("argumentdefaults"),
+                    argumentids: e.getAttribute("argumentids"),
+                    argumentnames: e.getAttribute("argumentnames"),
+                    children: [],
+                    proccode: e.getAttribute("proccode"),
+                    tagName: "mutation",
+                    warp: e.getAttribute("warp")
+                }
+            } else {
+                console.warn("Unhandled block data: " + e.nodeName);
+            }
+        }
+        [...e.children].forEach(handleBlockData);
+        data.blocks.push(block);
+    }
+    function handleElement(e) {
+        if (e.nodeName == "variables") {
+            [...e.children].forEach(handleVariable);
+        } else if (e.nodeName == "block") {
+            handleBlock(e, null);
+        } else {
+            console.warn("Unhandled node: " + e.nodeName);
+        }
+    }
+    [...xml.documentElement.children].forEach(handleElement);
+    return data;
+}
+function sortBlocksIntoScripts(blocks) {
+    const scripts = {};
+    blocks.forEach(e => {
+        var id = e.id;
+        if (!(e.topLevel && !e.shadow)) {
+            var block = e;
+            while(block && !block.topLevel) {
+                block = blocks.find(e => e.id == block.parent);
+            }
+            if (!block) return alert("Error: No topLevel block found for " + e.id);
+            id = block.id;
+        }
+        if (!scripts[id]) scripts[id] = [];
+        scripts[id].push(e);
+    });
+    return scripts;
+}
+function addVariablesFromData(target, variables) {
+    const Stage = vm.runtime.getTargetForStage();
+    variables.forEach(e => {
+        if (e.type == "broadcast_msg") {
+            if (!Stage.lookupBroadcastMsg(e.id, e.name)) Stage.createVariable(e.id, e.name, e.type, e.isCloud);
+        } else if (!Stage.lookupVariableByNameAndType(e.name, e.type) && !target.lookupVariableByNameAndType(e.name, e.type)) {
+            target.createVariable(e.id, e.name, e.type, e.isCloud);
+        }
+    });
+}
 
 async function LoadMod(args) {
+    console.log(`Try load mod ${args.ProjectID}`);
     if (canLoadMod) {
         vm.stop();
         if (!isNaN(args.ProjectID)) {
@@ -433,6 +550,7 @@ async function LoadMod(args) {
                     "Chest Gen": [],
                     "NPC": [],
                     "NPC Drop": [],
+                    "World Gen": [],
                     "JavaScript": []
                 };
                 for (targetID in targets) {
@@ -866,6 +984,34 @@ async function LoadMod(args) {
                         else alert("Invalid Rarity Chest Gen Item: \"" + target.variables.item[1] + "\"");
                     }
                 }
+                for (targetID in modItems["World Gen"]) {
+                    if (targetID != "fix") {
+                        let target = modItems["World Gen"][targetID];
+                        if (!("xml" in target.variables)) {
+                            alert("Error Loading Mod\nDetails: Variable \"Xml\" is not in ${target.name}");
+                            vm.start();
+                            return;
+                        }
+                        const SetupLevel = vm.runtime.getSpriteTargetByName("Setup Level");
+                        const data = blockXmlToData(target.variables.xml[1]);
+                        console.log(data);
+                        const scripts = sortBlocksIntoScripts(data.blocks);
+                        addVariablesFromData(SetupLevel, data.variables);
+                        Object.keys(scripts).forEach(id => {
+                            const topLevel = scripts[id].find(e => e.id == id);
+                            if (topLevel.opcode == "world_worldgen") {
+                                var parent = SetupLevel.blocks.getBlock(SetupLevel.blocks.getProcedureDefinition("Mod World Gen"));
+                                while(parent.next) parent = SetupLevel.blocks.getBlock(parent.next);
+                                parent.next = topLevel.next;
+                                scripts[id].filter(e => e.opcode != "world_worldgen").forEach(e => {
+                                    if (e.parent == id) e.parent = parent.id;
+                                    console.log(e);
+                                    SetupLevel.blocks.createBlock(e);
+                                });
+                            }
+                        });
+                    }
+                }
                 for (targetID in modItems.JavaScript) {
                     if (targetID != "fix") {
                         let target = modItems.JavaScript[targetID];
@@ -884,9 +1030,10 @@ async function LoadMod(args) {
                 alert(`⚠️Error When Loading Mod #${args.ProjectID}⚠️\n${err}`);
             }
         }
-        fetch(`https://sml-ip.terrariamodsscr.repl.co/load?username=${vm.runtime.ioDevices.userData.getUsername()}&type=mod&id=${args.ProjectID}`);
+        // fetch(`https://sml-ip.terrariamodsscr.repl.co/load?username=${vm.runtime.ioDevices.userData.getUsername()}&type=mod&id=${args.ProjectID}`);
         vm.start();
     } else alert(`⚠️Error When Loading Mod #${args.ProjectID}⚠️\nServer does not allow Mod Loading`);
+    return;
 }
 
 function getIDOfItem(name) {
@@ -975,16 +1122,8 @@ async function JoinServer(args) {
             if (Data.variables.height) vm.runtime.targets[0].lookupVariableById("height").value = Data.variables.height[1];
             scaffolding.addCloudProvider(new Scaffolding.Cloud.WebSocketProvider(host, args.ProjectID));
             alert(`Successfully Connected To ${Name}\n${Data.lists.description[1].join("\n")}\n\nTexture Packs: ${Data.lists.texture[1].length}\nMods: ${Data.lists.mod[1].length}`);
-            Data.lists.texture[1].forEach((A) => {
-                LoadTexturePack({
-                    ProjectID: A
-                });
-            });
-            Data.lists.mod[1].forEach((A) => {
-                LoadMod({
-                    ProjectID: A
-                });
-            });
+            for (let ProjectID of Data.lists.texture[1]) await LoadTexturePack({ProjectID});
+            for (let ProjectID of Data.lists.mod[1]) await LoadMod({ProjectID});
             window.canLoadMod = Data.variables.allowMod[1];
             window.canLoadTexturePack = Data.variables.allowTexture[1];
             vm.runtime.getTargetForStage().lookupVariableByNameAndType("server").value = args.ProjectID;
@@ -993,7 +1132,7 @@ async function JoinServer(args) {
             alert(`⚠️Error When Joining Server #${args.ProjectID}⚠️\n${err}`);
         }
     }
-    fetch(`https://sml-ip.terrariamodsscr.repl.co/load?username=${vm.runtime.ioDevices.userData.getUsername()}&type=server&id=${args.ProjectID}`);
+    // fetch(`https://sml-ip.terrariamodsscr.repl.co/load?username=${vm.runtime.ioDevices.userData.getUsername()}&type=server&id=${args.ProjectID}`);
     vm.start();
 }
 
