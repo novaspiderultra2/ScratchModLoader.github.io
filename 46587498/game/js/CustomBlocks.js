@@ -558,12 +558,12 @@ async function LoadMod(args) {
                         let target = targets[targetID];
                         try {
                             if (!target.isStage) {
-                                if (!("type" in target.variables)) {
+                                if (!("type")) {
                                     alert("Error Loading Mod\nDetails: Variable \"Type\" is not in ${target.name}");
                                     vm.start();
                                     return;
                                 } else if (target.variables.type[1] in modItems) modItems[target.variables.type[1]].push(target);
-                                else {
+                                else if (target.variables.type[1] != "info") {
                                     alert("Error Loading Mod\nDetails: Invalid Type");
                                     vm.start();
                                     return;
