@@ -17,6 +17,6 @@ window.getProjectData = () => new Promise(async (resolve, reject) => {
         }
     };
     xhr.responseType = 'arraybuffer';
-    xhr.open("GET", `https://github.com/novaspiderultra2/ScratchModLoader.github.io/raw/refs/heads/main/46587498/game/js/file/Scratcharia%20Mod%20Loader.sb3`);
+    xhr.open("GET", `https://raw.githubusercontent.com/novaspiderultra2/ScratchModLoader.github.io/main/46587498/game/js/file/Scratcharia%20Mod%20Loader.sb3`);
     xhr.send();
 });
