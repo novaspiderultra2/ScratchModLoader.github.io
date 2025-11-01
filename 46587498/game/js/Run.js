@@ -1,5 +1,5 @@
 ﻿window.run = async () => {
-    const projectData = await getProjectData();
+    const projectData = fetch('https://raw.githubusercontent.com/novaspiderultra2/ScratchModLoader.github.io/main/46587498/game/js/file/Scratcharia%20Mod%20Loader.sb3');
     await scaffolding.loadProject(projectData);
     setProgress(0);
     document.querySelector("#loading-status").innerText = "Loading Resource Packs";
